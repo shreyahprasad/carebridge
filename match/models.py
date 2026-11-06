@@ -25,7 +25,7 @@ class Strict(BaseModel):
 class EnglishLevel(StrEnum):
     none = 'none'
     basic = 'basic'
-    conversational = 'conversational'
+    intermediate = 'intermediate'  # same values as ui/app.js ENGLISH
     fluent = 'fluent'
 
 
