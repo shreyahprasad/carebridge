@@ -1,19 +1,19 @@
 {
   "version": "trip-plan-v1",
-  "correlation_id": "994ee988f800",
+  "correlation_id": "1d601116ab70",
   "case_id": "case-001",
   "synthetic": true,
   "date": "2026-11-06",
   "mode": "live",
   "fallback_reason": null,
   "model": "claude-sonnet-5-5",
-  "prompt_version": "trip-plan-v1",
+  "prompt_version": "trip-plan-v2",
   "rule_version": "trip-rules-v1",
   "programs_version": "programs-b93a7754d97d",
   "match_mode": "live",
   "match_result_version": "match-result-v1",
   "thresholds": {
-    "walk_max_mi": 1.0,
+    "walk_under_mi": 0.5,
     "one_bus_max_mi": 4.0,
     "hard_max_mi": 8.0,
     "drive_max_mi": 25.0,
@@ -113,25 +113,29 @@
       "state": "DC",
       "tier": "A",
       "distance_mi": 0.7,
-      "grade": "walk",
-      "grade_basis": "0.7 mi; she walks.",
-      "time_estimate": "15-25 min walk (estimate)",
+      "grade": "one_bus",
+      "grade_basis": "0.7 mi; she uses Metro or Metrobus.",
+      "time_estimate": "20-45 min by bus or Metro (estimate)",
       "benefits": [
         {
           "program_id": "nemt-amerihealth-caritas-dc",
           "use": "likely",
           "question": null
+        },
+        {
+          "program_id": "wmata-metro-lift",
+          "use": "likely",
+          "question": null
         }
       ],
       "steps": [
-        "Book the appointment with Gio Health Services and ask for a Dari interpreter.",
-        "The trip is about 0.7 mi and she walks. Plan the walk, and keep the ride as a backup if she cannot walk it.",
-        "For a ride, call AmeriHealth Caritas DC at 1-800-315-3485 at least 48 hours ahead (not counting weekends and holidays). No rides on Sundays or holidays.",
-        "If she wants a loaded SmarTrip card instead, ask for it 3-5 business days ahead.",
-        "Ask about childcare and whether her child can come to the visit.",
-        "Bring her photo ID, insurance card and phone number."
+        "Book the appointment with the provider first, so you have a date and time for the ride.",
+        "To book a ride, call AmeriHealth Caritas DC at 1-800-315-3485 at least 48 hours ahead (weekends and holidays do not count). No rides on Sundays or holidays.",
+        "If she prefers a loaded SmarTrip card, call the same number 3-5 business days ahead.",
+        "For the Metrobus half-price discount, enroll in WMATA Metro Lift at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "To enroll, bring a SmarTrip card for each person, her active SNAP EBT card, the SNAP benefits summary for the household, government photo ID, and a phone number."
       ],
-      "tell_client": "The clinic is close, about 0.7 miles, and you can walk. If walking is hard, we can call to book a ride at least 2 days before.",
+      "tell_client": "This clinic is about 0.7 miles away, and the trip is an estimate of one bus ride. We can call for a ride at least 48 hours before the visit, not counting weekends and holidays.",
       "questions": [
         {
           "code": "travel_help",
@@ -146,10 +150,7 @@
           "text": "Once the appointment is set, book the ride with AmeriHealth Caritas DC rides (Medicaid managed care) early enough (see booking notes)."
         }
       ],
-      "extra_questions": [
-        "Is she able to walk 0.7 mi while pregnant?",
-        "Does the clinic allow children in the visit?"
-      ]
+      "extra_questions": []
     },
     {
       "order": 2,
@@ -176,14 +177,13 @@
         }
       ],
       "steps": [
-        "Book the appointment with Washington Hospital Center Outpatient Behavioral Health and ask for a Dari interpreter.",
-        "The trip is about 2.3 mi by Metrobus. Any travel time is only an estimate, so check the route with her before the visit.",
-        "For a ride, call AmeriHealth Caritas DC at 1-800-315-3485 at least 48 hours ahead (not counting weekends and holidays). No rides on Sundays or holidays.",
-        "For a loaded SmarTrip card, ask 3-5 business days ahead.",
-        "For 50% off Metrobus, enroll in Metro Lift online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn. Bring a SmarTrip card for each person, her active SNAP EBT card, the SNAP benefits summary, photo ID and phone number.",
-        "Ask about childcare and whether her child can come to the visit."
+        "Book the appointment with the provider first, so you have a date and time for the ride.",
+        "To book a ride, call AmeriHealth Caritas DC at 1-800-315-3485 at least 48 hours ahead (weekends and holidays do not count). No rides on Sundays or holidays.",
+        "If she prefers a loaded SmarTrip card, call the same number 3-5 business days ahead.",
+        "For the Metrobus half-price discount, enroll in WMATA Metro Lift at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "To enroll, bring a SmarTrip card for each person, her active SNAP EBT card, the SNAP benefits summary for the household, government photo ID, and a phone number."
       ],
-      "tell_client": "This clinic is about 2 miles away. You can take the bus, or we can try to book a ride at least 2 days before.",
+      "tell_client": "This clinic is about 2.3 miles away, and the trip is an estimate of one bus ride. We can call for a ride at least 48 hours before the visit, not counting weekends and holidays.",
       "questions": [
         {
           "code": "travel_help",
@@ -198,10 +198,7 @@
           "text": "Once the appointment is set, book the ride with AmeriHealth Caritas DC rides (Medicaid managed care) early enough (see booking notes)."
         }
       ],
-      "extra_questions": [
-        "Does she have an active SNAP EBT card for the Metro Lift discount?",
-        "Can she ride the bus with her child, or does she need help?"
-      ]
+      "extra_questions": []
     },
     {
       "order": 3,
@@ -217,10 +214,10 @@
       "time_estimate": null,
       "benefits": [],
       "steps": [
-        "This trip is not realistic: the clinic is in Virginia, she has no car, and she has a child under 6.",
-        "Do not plan a trip here. Look at the DC options instead."
+        "Do not plan a trip to this provider. It is in Virginia, she has no car, and she has a young child.",
+        "Choose one of the DC options instead."
       ],
-      "tell_client": "This clinic is too far for you to get to with your child. We will look at clinics closer to you in DC.",
+      "tell_client": "This clinic is in Virginia and is too far to reach for you right now. We will look at clinics closer to you.",
       "questions": [],
       "extra_questions": []
     },
@@ -238,10 +235,10 @@
       "time_estimate": null,
       "benefits": [],
       "steps": [
-        "This trip is not realistic: the clinic is in Maryland, she has no car, and she has a child under 6.",
-        "Do not plan a trip here. Look at the DC options instead."
+        "Do not plan a trip to this provider. It is in Maryland, she has no car, and she has a young child.",
+        "Choose one of the DC options instead."
       ],
-      "tell_client": "This clinic is too far for you to get to with your child. We will look at clinics closer to you in DC.",
+      "tell_client": "This clinic is in Maryland and is too far to reach for you right now. We will look at clinics closer to you.",
       "questions": [],
       "extra_questions": []
     }
@@ -255,7 +252,7 @@
     {
       "stage": "provider-match",
       "profile": "provider-match",
-      "run_id": "9bdce42e0e6547fda85c0207e48649c8",
+      "run_id": "5251eb3ae4cb485da6f1915e02ec0777",
       "status": "complete",
       "reason": null,
       "requests": 1,
@@ -264,7 +261,7 @@
     {
       "stage": "trip-plan",
       "profile": "trip-plan",
-      "run_id": "43405799112242449c49a8e353abe99c",
+      "run_id": "fa0c6f5b92f4443bb8f78800f53f7a02",
       "status": "complete",
       "reason": null,
       "requests": 1,

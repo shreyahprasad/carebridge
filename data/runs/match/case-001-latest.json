@@ -1,6 +1,6 @@
 {
   "version": "match-result-v1",
-  "correlation_id": "994ee988f800",
+  "correlation_id": "1d601116ab70",
   "case_id": "case-001",
   "synthetic": true,
   "date": "2026-11-06",
@@ -121,7 +121,7 @@
         "in_dc": true,
         "coverage_match": true
       },
-      "why": "Only tier A option: in DC, takes Medicaid, offers in-person care within 3 miles (0.7 mi), which suits a client who walks or rides Metrobus with help. It has trauma and PTSD programs that fit her nightmares and anxiety.",
+      "why": "Only tier A option: in DC, takes Medicaid, offers in-person care 0.7 miles away (walkable), and lists trauma and PTSD programs that fit her nightmares and anxiety. Its language list includes Farsi, but Dari is not confirmed.",
       "questions": [
         {
           "code": "waitlist",
@@ -145,7 +145,7 @@
         }
       ],
       "extra_questions": [
-        "Can they offer appointment times that work with Metrobus or walking?"
+        "Can an interpreter be arranged if no Dari speaker is available?"
       ],
       "decision": {
         "record_id": "samhsa-gio-health-services-inc-20011",
@@ -261,7 +261,7 @@
         "in_dc": false,
         "coverage_match": true
       },
-      "why": "Lists her language, takes Medicaid, and has in-person trauma and PTSD programs plus sliding fee and payment assistance as backup. It is in Virginia, 9.1 miles away, so travel without a car and DC Medicaid acceptance must be confirmed.",
+      "why": "Lists Farsi and Arabic, has trauma and PTSD programs, and offers in-person care with Medicaid listed. It is 9.1 miles away in Virginia and she has no car, so DC Medicaid acceptance and travel must be checked.",
       "questions": [
         {
           "code": "waitlist",
@@ -289,7 +289,7 @@
         }
       ],
       "extra_questions": [
-        "Is the site reachable by public transit from DC?"
+        "Is there a route she can reach by Metrobus?"
       ],
       "decision": {
         "record_id": "samhsa-northern-virginia-family-services-22042",
@@ -408,7 +408,7 @@
         "in_dc": false,
         "coverage_match": true
       },
-      "why": "Lists her language and has in-person trauma and PTSD programs, and is the closer of the two Maryland Cornerstone sites at 5.7 miles. It is outside DC, so DC Medicaid and travel need checking.",
+      "why": "Lists Farsi, offers in-person care with Medicaid listed, and has trauma and PTSD programs. It is 5.7 miles away in Maryland, so DC Medicaid and travel need confirming.",
       "questions": [
         {
           "code": "waitlist",
@@ -538,7 +538,7 @@
         "in_dc": true,
         "coverage_match": true
       },
-      "why": "In DC, takes Medicaid, and is 2.3 miles away with in-person trauma and PTSD programs. It lists English only, and she speaks no English, so an interpreter must be arranged.",
+      "why": "In DC, 2.3 miles away, takes Medicaid, and offers in-person care with trauma and PTSD programs. Its listed language is English only, so an interpreter would be needed.",
       "questions": [
         {
           "code": "waitlist",
@@ -562,7 +562,7 @@
         }
       ],
       "extra_questions": [
-        "Can they provide a Dari interpreter in person?"
+        "Is a Dari interpreter provided at no cost for visits?"
       ],
       "decision": {
         "record_id": "samhsa-washington-hospital-center-20017",
@@ -615,7 +615,7 @@
       }
     }
   ],
-  "not_chosen_note": "The second Cornerstone Montgomery site (6.7 mi) is farther than the first with the same listed features. The other tier C providers are English-only or English plus Spanish or French, and are farther or have no clear advantage over the DC option chosen.",
+  "not_chosen_note": "The second Cornerstone Montgomery site is farther (6.7 miles, Maryland) and has the same listed features as the closer one. The other tier C providers are English-only or farther away, with no stronger fit for her needs than the one chosen.",
   "unchecked_fields": [
     "picks[].why",
     "picks[].extra_questions",
@@ -625,7 +625,7 @@
     {
       "stage": "provider-match",
       "profile": "provider-match",
-      "run_id": "9bdce42e0e6547fda85c0207e48649c8",
+      "run_id": "5251eb3ae4cb485da6f1915e02ec0777",
       "status": "complete",
       "reason": null,
       "requests": 1,
