@@ -1,6 +1,6 @@
 # Local harness commands
 
-Harness installation: `/Users/lebotomy/projects/personal/shreyah-harness`.
+Product runtime: vendored in `shreyah_harness/` (no install needed). The harness CLI commands below are optional build tooling from the separate shreyah-harness repo.
 
 ```sh
 python3 '/Users/lebotomy/projects/personal/shreyah-harness/harness.py' plan harness/plan.json
