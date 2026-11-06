@@ -1,6 +1,6 @@
 {
   "version": "match-result-v1",
-  "correlation_id": "418517bfaca4",
+  "correlation_id": "e96e741f8698",
   "case_id": "case-002",
   "synthetic": true,
   "date": "2026-11-06",
@@ -47,249 +47,6 @@
   "picks": [
     {
       "rank": 1,
-      "provider_id": "samhsa-childrens-national-hospital-20010",
-      "name": "Childrens National Hospital — Department of Psychiatry",
-      "tier": "A",
-      "address": "111 Michigan Avenue NW, Washington, DC 20010",
-      "state": "DC",
-      "lat": 38.9271809,
-      "lng": -77.0146728,
-      "distance_mi": 1.0,
-      "phone": "202-476-5000",
-      "intake_phone": "202-729-3300",
-      "website": "https://childrensnational.org",
-      "languages": [
-        "English",
-        "Spanish"
-      ],
-      "telehealth": true,
-      "facts": [
-        {
-          "code": "speaks_client_language",
-          "text": "Lists her language"
-        },
-        {
-          "code": "in_dc",
-          "text": "Located in DC"
-        },
-        {
-          "code": "in_person",
-          "text": "In-person outpatient care"
-        },
-        {
-          "code": "trauma_program",
-          "text": "Trauma program"
-        },
-        {
-          "code": "ptsd_program",
-          "text": "PTSD program"
-        },
-        {
-          "code": "serves_age_group",
-          "text": "Serves her age group"
-        },
-        {
-          "code": "within_3_miles",
-          "text": "Within 3 miles of her"
-        }
-      ],
-      "tier_basis": {
-        "language_match": true,
-        "in_dc": true,
-        "coverage_match": true
-      },
-      "why": "This is the closest option at 1.0 mile, which matters because she has no car. It lists Spanish, a trauma program, a PTSD program, and services for her age group.",
-      "questions": [
-        {
-          "code": "waitlist",
-          "text": "How long is the wait for a first appointment?"
-        },
-        {
-          "code": "confirm_cost",
-          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
-        },
-        {
-          "code": "minor_consent",
-          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
-        }
-      ],
-      "extra_questions": [
-        "Is the listing an inpatient unit only, or can she start outpatient counseling?",
-        "Is a Spanish-speaking clinician available for her first visit?"
-      ],
-      "decision": {
-        "record_id": "samhsa-childrens-national-hospital-20010",
-        "eligible": true,
-        "rule_version": "match-rules-v1",
-        "data_version": "samhsa-9bdc06a4b071",
-        "predicates": [
-          {
-            "name": "in_area",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-childrens-national-hospital-20010#out_of_area"
-            ]
-          },
-          {
-            "name": "serves_age_group",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-childrens-national-hospital-20010#ages"
-            ]
-          },
-          {
-            "name": "in_person",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-childrens-national-hospital-20010#in_person_outpatient"
-            ]
-          },
-          {
-            "name": "location_known",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-childrens-national-hospital-20010#location_unknown"
-            ]
-          },
-          {
-            "name": "trauma_program",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-childrens-national-hospital-20010#programs.trauma"
-            ]
-          }
-        ],
-        "tier": "A"
-      },
-      "source": {
-        "name": "SAMHSA FindTreatment.gov locator export",
-        "url": "https://findtreatment.gov/",
-        "retrieved": "2026-11-06"
-      }
-    },
-    {
-      "rank": 2,
-      "provider_id": "samhsa-whitman-walker-health-20005",
-      "name": "Whitman Walker Health — Addiction Treatment Services",
-      "tier": "A",
-      "address": "1525 14th Street NW, 5th Floor R, Washington, DC 20005",
-      "state": "DC",
-      "lat": 38.9104721,
-      "lng": -77.0315736,
-      "distance_mi": 1.4,
-      "phone": "202-797-4453",
-      "intake_phone": null,
-      "website": "https://www.whitman-walker.org",
-      "languages": [
-        "English",
-        "Spanish"
-      ],
-      "telehealth": true,
-      "facts": [
-        {
-          "code": "speaks_client_language",
-          "text": "Lists her language"
-        },
-        {
-          "code": "in_dc",
-          "text": "Located in DC"
-        },
-        {
-          "code": "in_person",
-          "text": "In-person outpatient care"
-        },
-        {
-          "code": "trauma_program",
-          "text": "Trauma program"
-        },
-        {
-          "code": "ptsd_program",
-          "text": "PTSD program"
-        },
-        {
-          "code": "serves_age_group",
-          "text": "Serves her age group"
-        },
-        {
-          "code": "within_3_miles",
-          "text": "Within 3 miles of her"
-        }
-      ],
-      "tier_basis": {
-        "language_match": true,
-        "in_dc": true,
-        "coverage_match": true
-      },
-      "why": "It is 1.4 miles away, speaks Spanish, and lists trauma and PTSD programs for her age group. That fits her depression and panic after migrating alone.",
-      "questions": [
-        {
-          "code": "waitlist",
-          "text": "How long is the wait for a first appointment?"
-        },
-        {
-          "code": "confirm_cost",
-          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
-        },
-        {
-          "code": "minor_consent",
-          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
-        }
-      ],
-      "extra_questions": [
-        "Does this site offer general counseling for teens with depression and panic?"
-      ],
-      "decision": {
-        "record_id": "samhsa-whitman-walker-health-20005",
-        "eligible": true,
-        "rule_version": "match-rules-v1",
-        "data_version": "samhsa-9bdc06a4b071",
-        "predicates": [
-          {
-            "name": "in_area",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-whitman-walker-health-20005#out_of_area"
-            ]
-          },
-          {
-            "name": "serves_age_group",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-whitman-walker-health-20005#ages"
-            ]
-          },
-          {
-            "name": "in_person",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-whitman-walker-health-20005#in_person_outpatient"
-            ]
-          },
-          {
-            "name": "location_known",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-whitman-walker-health-20005#location_unknown"
-            ]
-          },
-          {
-            "name": "trauma_program",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-whitman-walker-health-20005#programs.trauma"
-            ]
-          }
-        ],
-        "tier": "A"
-      },
-      "source": {
-        "name": "SAMHSA FindTreatment.gov locator export",
-        "url": "https://findtreatment.gov/",
-        "retrieved": "2026-11-06"
-      }
-    },
-    {
-      "rank": 3,
       "provider_id": "samhsa-gio-health-services-inc-20011",
       "name": "Gio Health Services Inc",
       "tier": "A",
@@ -354,6 +111,10 @@
         {
           "code": "within_3_miles",
           "text": "Within 3 miles of her"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
         }
       ],
       "tier_basis": {
@@ -361,7 +122,7 @@
         "in_dc": true,
         "coverage_match": true
       },
-      "why": "It is 2.5 miles away, speaks Spanish, and lists trauma and PTSD programs for her age group. It is within 3 miles, so it should be reachable by Metro or bus.",
+      "why": "Lists Spanish, is in DC and within 3 miles for a client who walks and uses Metro. It has trauma and PTSD programs and serves adolescents.",
       "questions": [
         {
           "code": "waitlist",
@@ -377,7 +138,8 @@
         }
       ],
       "extra_questions": [
-        "Is a Spanish-speaking clinician available for teens?"
+        "Is a Spanish-speaking clinician available for sessions?",
+        "Can she be seen in person?"
       ],
       "decision": {
         "record_id": "samhsa-gio-health-services-inc-20011",
@@ -430,6 +192,257 @@
       }
     },
     {
+      "rank": 2,
+      "provider_id": "samhsa-whitman-walker-health-20005",
+      "name": "Whitman Walker Health — Addiction Treatment Services",
+      "tier": "A",
+      "address": "1525 14th Street NW, 5th Floor R, Washington, DC 20005",
+      "state": "DC",
+      "lat": 38.9104721,
+      "lng": -77.0315736,
+      "distance_mi": 1.4,
+      "phone": "202-797-4453",
+      "intake_phone": null,
+      "website": "https://www.whitman-walker.org",
+      "languages": [
+        "English",
+        "Spanish"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists her language"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "serves_age_group",
+          "text": "Serves her age group"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "Lists Spanish, is in DC at 1.4 miles, and has trauma and PTSD programs for adolescents, which fits her depression and panic after migrating alone.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "confirm_cost",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        }
+      ],
+      "extra_questions": [
+        "Is a Spanish-speaking clinician available for general mental health care, not only addiction services?"
+      ],
+      "decision": {
+        "record_id": "samhsa-whitman-walker-health-20005",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 3,
+      "provider_id": "samhsa-childrens-national-hospital-20010",
+      "name": "Childrens National Hospital — Department of Psychiatry",
+      "tier": "A",
+      "address": "111 Michigan Avenue NW, Washington, DC 20010",
+      "state": "DC",
+      "lat": 38.9271809,
+      "lng": -77.0146728,
+      "distance_mi": 1.0,
+      "phone": "202-476-5000",
+      "intake_phone": "202-729-3300",
+      "website": "https://childrensnational.org",
+      "languages": [
+        "English",
+        "Spanish"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists her language"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "serves_age_group",
+          "text": "Serves her age group"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "Lists Spanish, is the closest at 1.0 mile, and has trauma and PTSD programs for her age group. The card lists it as a separate inpatient psychiatric unit of a general hospital.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "confirm_cost",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        }
+      ],
+      "extra_questions": [
+        "Do they offer outpatient visits for a 17-year-old with depression and panic?",
+        "Is a Spanish-speaking clinician available?"
+      ],
+      "decision": {
+        "record_id": "samhsa-childrens-national-hospital-20010",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
       "rank": 4,
       "provider_id": "samhsa-new-hope-health-services-20032",
       "name": "New Hope Health Services",
@@ -458,16 +471,16 @@
           "text": "Located in DC"
         },
         {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
           "code": "sliding_fee",
           "text": "Sliding fee scale"
         },
         {
           "code": "payment_assistance",
           "text": "Payment assistance"
-        },
-        {
-          "code": "in_person",
-          "text": "In-person outpatient care"
         },
         {
           "code": "trauma_program",
@@ -480,6 +493,10 @@
         {
           "code": "serves_age_group",
           "text": "Serves her age group"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
         }
       ],
       "tier_basis": {
@@ -487,7 +504,7 @@
         "in_dc": true,
         "coverage_match": true
       },
-      "why": "It lists a sliding fee and payment assistance, which could help since she is uninsured. It is farther at 6.1 miles, but it speaks Spanish and lists trauma and PTSD programs for her age group.",
+      "why": "Lists Spanish and is in DC, with a sliding fee and payment assistance, which matters since she is uninsured. It is 6.1 miles away, so the trip needs planning.",
       "questions": [
         {
           "code": "waitlist",
@@ -503,7 +520,7 @@
         }
       ],
       "extra_questions": [
-        "Which Metro or bus route gets her there?"
+        "What is the best Metro or bus route from her address?"
       ],
       "decision": {
         "record_id": "samhsa-new-hope-health-services-20032",
@@ -597,6 +614,10 @@
         {
           "code": "serves_age_group",
           "text": "Serves her age group"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
         }
       ],
       "tier_basis": {
@@ -604,7 +625,7 @@
         "in_dc": true,
         "coverage_match": true
       },
-      "why": "It speaks Spanish and lists trauma and PTSD programs for her age group. It is the farthest of the DC options at 6.4 miles, so it is a backup.",
+      "why": "Lists Spanish, is in DC, and has trauma and PTSD programs for adolescents. It is 6.4 miles away, farther than the closer options.",
       "questions": [
         {
           "code": "waitlist",
@@ -620,7 +641,7 @@
         }
       ],
       "extra_questions": [
-        "Is there a Spanish-speaking clinician for teens at this site?"
+        "Is a Spanish-speaking clinician available?"
       ],
       "decision": {
         "record_id": "samhsa-whitman-walker-health-20032",
@@ -673,7 +694,7 @@
       }
     }
   ],
-  "not_chosen_note": "All five tier A providers are included. The tier B providers are outside DC or need cost confirmed, and the DC options already cover her needs without a longer trip.",
+  "not_chosen_note": "All five tier A candidates are included, which fills the shortlist. Tier B providers are outside DC and farther from a client without a car, so they were left out.",
   "unchecked_fields": [
     "picks[].why",
     "picks[].extra_questions",
@@ -683,7 +704,7 @@
     {
       "stage": "provider-match",
       "profile": "provider-match",
-      "run_id": "886c7b283ea04a8496b1daaa7e8eb1b3",
+      "run_id": "bd76b056dd2a48d8a5cebbfb2af7eeef",
       "status": "complete",
       "reason": null,
       "requests": 1,

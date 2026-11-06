@@ -1,6 +1,6 @@
 {
   "version": "match-result-v1",
-  "correlation_id": "1d601116ab70",
+  "correlation_id": "ac5734523e51",
   "case_id": "case-001",
   "synthetic": true,
   "date": "2026-11-06",
@@ -121,7 +121,7 @@
         "in_dc": true,
         "coverage_match": true
       },
-      "why": "Only tier A option: in DC, takes Medicaid, offers in-person care 0.7 miles away (walkable), and lists trauma and PTSD programs that fit her nightmares and anxiety. Its language list includes Farsi, but Dari is not confirmed.",
+      "why": "Only tier A option: it is in DC, accepts Medicaid, offers in-person care and has trauma and PTSD programs, and it is 0.7 miles away, which suits a client who walks and uses Metrobus with help. Its listing shows it speaks her language, but Dari itself is not confirmed.",
       "questions": [
         {
           "code": "waitlist",
@@ -145,7 +145,7 @@
         }
       ],
       "extra_questions": [
-        "Can an interpreter be arranged if no Dari speaker is available?"
+        "Can they see her in person for nightmares and sleep problems?"
       ],
       "decision": {
         "record_id": "samhsa-gio-health-services-inc-20011",
@@ -199,6 +199,258 @@
     },
     {
       "rank": 2,
+      "provider_id": "samhsa-washington-hospital-center-20017",
+      "name": "Washington Hospital Center — Outpatient Behavioral Health Services",
+      "tier": "C",
+      "address": "216 Michigan Avenue NE, 2nd Floor, Washington, DC 20017",
+      "state": "DC",
+      "lat": 38.9296601,
+      "lng": -77.0042453,
+      "distance_mi": 2.3,
+      "phone": "202-877-6333",
+      "intake_phone": null,
+      "website": "https://www.medstarhealth.org",
+      "languages": [
+        "English"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "accepts_medicaid",
+          "text": "Accepts Medicaid (the facility's state plan)"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "domestic_violence_program",
+          "text": "Domestic violence program"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        }
+      ],
+      "tier_basis": {
+        "language_match": false,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "In DC, 2.3 miles away, takes Medicaid, offers in-person care and has trauma and PTSD programs. An interpreter would be needed, and she is open to that.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "woman_clinician",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "interpreter",
+          "text": "Do you provide a Dari interpreter at no cost to her?"
+        },
+        {
+          "code": "perinatal",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        }
+      ],
+      "extra_questions": [],
+      "decision": {
+        "record_id": "samhsa-washington-hospital-center-20017",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "C"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 3,
+      "provider_id": "samhsa-circles-of-hope-psychotherapy-and-20008",
+      "name": "Circles of Hope Psychotherapy and — Addictions Services",
+      "tier": "C",
+      "address": "3000 Connecticut Avenue NW, Suite 321, Washington, DC 20008",
+      "state": "DC",
+      "lat": 38.9298333,
+      "lng": -77.0560416,
+      "distance_mi": 2.3,
+      "phone": "202-997-1448",
+      "intake_phone": "202-265-2343",
+      "website": "https://circlesofhopellc.com",
+      "languages": [
+        "English"
+      ],
+      "telehealth": false,
+      "facts": [
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "accepts_medicaid",
+          "text": "Accepts Medicaid (the facility's state plan)"
+        },
+        {
+          "code": "sliding_fee",
+          "text": "Sliding fee scale"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        }
+      ],
+      "tier_basis": {
+        "language_match": false,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "In DC, 2.3 miles away, takes Medicaid, offers in-person care and has trauma and PTSD programs. An interpreter would be needed, and she is open to that.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "woman_clinician",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "interpreter",
+          "text": "Do you provide a Dari interpreter at no cost to her?"
+        },
+        {
+          "code": "perinatal",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        }
+      ],
+      "extra_questions": [],
+      "decision": {
+        "record_id": "samhsa-circles-of-hope-psychotherapy-and-20008",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "C"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 4,
       "provider_id": "samhsa-northern-virginia-family-services-22042",
       "name": "Northern Virginia Family Services — Multicultural Center",
       "tier": "B",
@@ -261,7 +513,7 @@
         "in_dc": false,
         "coverage_match": true
       },
-      "why": "Lists Farsi and Arabic, has trauma and PTSD programs, and offers in-person care with Medicaid listed. It is 9.1 miles away in Virginia and she has no car, so DC Medicaid acceptance and travel must be checked.",
+      "why": "Its listing shows it speaks her language, and it takes Medicaid and offers in-person trauma and PTSD programs. It is in Virginia, 9.1 miles away, which is hard without a car, and DC Medicaid acceptance needs confirming.",
       "questions": [
         {
           "code": "waitlist",
@@ -289,7 +541,7 @@
         }
       ],
       "extra_questions": [
-        "Is there a route she can reach by Metrobus?"
+        "Is the site reachable by Metrobus from her address?"
       ],
       "decision": {
         "record_id": "samhsa-northern-virginia-family-services-22042",
@@ -342,7 +594,7 @@
       }
     },
     {
-      "rank": 3,
+      "rank": 5,
       "provider_id": "samhsa-cornerstone-montgomery-20902",
       "name": "Cornerstone Montgomery",
       "tier": "B",
@@ -408,7 +660,7 @@
         "in_dc": false,
         "coverage_match": true
       },
-      "why": "Lists Farsi, offers in-person care with Medicaid listed, and has trauma and PTSD programs. It is 5.7 miles away in Maryland, so DC Medicaid and travel need confirming.",
+      "why": "Its listing shows it speaks her language, and it takes Medicaid and offers in-person trauma and PTSD programs. It is in Maryland, 5.7 miles away, the closest of the out-of-DC options, and DC Medicaid acceptance needs confirming.",
       "questions": [
         {
           "code": "waitlist",
@@ -435,7 +687,9 @@
           "text": "Can she bring her young child, or is childcare available during sessions?"
         }
       ],
-      "extra_questions": [],
+      "extra_questions": [
+        "Is the site reachable by Metrobus from her address?"
+      ],
       "decision": {
         "record_id": "samhsa-cornerstone-montgomery-20902",
         "eligible": true,
@@ -485,137 +739,9 @@
         "url": "https://findtreatment.gov/",
         "retrieved": "2026-11-06"
       }
-    },
-    {
-      "rank": 4,
-      "provider_id": "samhsa-washington-hospital-center-20017",
-      "name": "Washington Hospital Center — Outpatient Behavioral Health Services",
-      "tier": "C",
-      "address": "216 Michigan Avenue NE, 2nd Floor, Washington, DC 20017",
-      "state": "DC",
-      "lat": 38.9296601,
-      "lng": -77.0042453,
-      "distance_mi": 2.3,
-      "phone": "202-877-6333",
-      "intake_phone": null,
-      "website": "https://www.medstarhealth.org",
-      "languages": [
-        "English"
-      ],
-      "telehealth": true,
-      "facts": [
-        {
-          "code": "in_dc",
-          "text": "Located in DC"
-        },
-        {
-          "code": "accepts_medicaid",
-          "text": "Accepts Medicaid (the facility's state plan)"
-        },
-        {
-          "code": "in_person",
-          "text": "In-person outpatient care"
-        },
-        {
-          "code": "trauma_program",
-          "text": "Trauma program"
-        },
-        {
-          "code": "ptsd_program",
-          "text": "PTSD program"
-        },
-        {
-          "code": "domestic_violence_program",
-          "text": "Domestic violence program"
-        },
-        {
-          "code": "within_3_miles",
-          "text": "Within 3 miles of her"
-        }
-      ],
-      "tier_basis": {
-        "language_match": false,
-        "in_dc": true,
-        "coverage_match": true
-      },
-      "why": "In DC, 2.3 miles away, takes Medicaid, and offers in-person care with trauma and PTSD programs. Its listed language is English only, so an interpreter would be needed.",
-      "questions": [
-        {
-          "code": "waitlist",
-          "text": "How long is the wait for a first appointment?"
-        },
-        {
-          "code": "woman_clinician",
-          "text": "Is a woman clinician available for her?"
-        },
-        {
-          "code": "interpreter",
-          "text": "Do you provide a Dari interpreter at no cost to her?"
-        },
-        {
-          "code": "perinatal",
-          "text": "Do you see clients who are pregnant?"
-        },
-        {
-          "code": "childcare",
-          "text": "Can she bring her young child, or is childcare available during sessions?"
-        }
-      ],
-      "extra_questions": [
-        "Is a Dari interpreter provided at no cost for visits?"
-      ],
-      "decision": {
-        "record_id": "samhsa-washington-hospital-center-20017",
-        "eligible": true,
-        "rule_version": "match-rules-v1",
-        "data_version": "samhsa-9bdc06a4b071",
-        "predicates": [
-          {
-            "name": "in_area",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-washington-hospital-center-20017#out_of_area"
-            ]
-          },
-          {
-            "name": "serves_age_group",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-washington-hospital-center-20017#ages"
-            ]
-          },
-          {
-            "name": "in_person",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-washington-hospital-center-20017#in_person_outpatient"
-            ]
-          },
-          {
-            "name": "location_known",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-washington-hospital-center-20017#location_unknown"
-            ]
-          },
-          {
-            "name": "trauma_program",
-            "passed": true,
-            "evidence_ids": [
-              "samhsa-washington-hospital-center-20017#programs.trauma"
-            ]
-          }
-        ],
-        "tier": "C"
-      },
-      "source": {
-        "name": "SAMHSA FindTreatment.gov locator export",
-        "url": "https://findtreatment.gov/",
-        "retrieved": "2026-11-06"
-      }
     }
   ],
-  "not_chosen_note": "The second Cornerstone Montgomery site is farther (6.7 miles, Maryland) and has the same listed features as the closer one. The other tier C providers are English-only or farther away, with no stronger fit for her needs than the one chosen.",
+  "not_chosen_note": "The other tier C DC providers are farther away and English-only or offer fewer listed features than the DC picks. The second Cornerstone Montgomery site is farther away than the first and otherwise the same, so it was left out.",
   "unchecked_fields": [
     "picks[].why",
     "picks[].extra_questions",
@@ -625,7 +751,7 @@
     {
       "stage": "provider-match",
       "profile": "provider-match",
-      "run_id": "5251eb3ae4cb485da6f1915e02ec0777",
+      "run_id": "d9857948f29b4bd3ab53bb0c512951ec",
       "status": "complete",
       "reason": null,
       "requests": 1,

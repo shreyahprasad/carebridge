@@ -1,6 +1,6 @@
 {
   "version": "trip-plan-v1",
-  "correlation_id": "418517bfaca4",
+  "correlation_id": "e96e741f8698",
   "case_id": "case-002",
   "synthetic": true,
   "date": "2026-11-06",
@@ -109,14 +109,14 @@
     {
       "order": 1,
       "match_rank": 1,
-      "provider_id": "samhsa-childrens-national-hospital-20010",
-      "name": "Childrens National Hospital — Department of Psychiatry",
-      "address": "111 Michigan Avenue NW, Washington, DC 20010",
+      "provider_id": "samhsa-gio-health-services-inc-20011",
+      "name": "Gio Health Services Inc",
+      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
       "state": "DC",
       "tier": "A",
-      "distance_mi": 1.0,
+      "distance_mi": 2.5,
       "grade": "one_bus",
-      "grade_basis": "1 mi; she uses Metro or Metrobus.",
+      "grade_basis": "2.5 mi; she uses Metro or Metrobus.",
       "time_estimate": "20-45 min by bus or Metro (estimate)",
       "benefits": [
         {
@@ -131,13 +131,13 @@
         }
       ],
       "steps": [
-        "Ask the caseworker to confirm the Kids Ride Free question first: can the card be used for medical trips, not only school travel?",
-        "If she has an active SNAP EBT card, enroll in Metro Lift online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
-        "For Metro Lift, bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
-        "To request a Kids Ride Free SmarTrip card, contact the school (school ID administrator).",
-        "Call the provider to book the appointment. The trip is about 1 mile, so the travel time is only an estimate."
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "Book the appointment. The trip is about 2.5 miles by Metro or Metrobus; any travel time is only an estimate."
       ],
-      "tell_client": "This clinic is about 1 mile away, and one bus or Metro ride should get you there. Metro Lift can take 50% off the fare. The free kids card may not cover doctor visits, so we are checking.",
+      "tell_client": "This clinic is about 2.5 miles away, and you can use Metro or a bus. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
       "questions": [
         {
           "code": "kids_ride_free_medical",
@@ -171,13 +171,13 @@
         }
       ],
       "steps": [
-        "Ask the caseworker to confirm the Kids Ride Free question first: can the card be used for medical trips, not only school travel?",
-        "If she has an active SNAP EBT card, enroll in Metro Lift online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
-        "For Metro Lift, bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
-        "To request a Kids Ride Free SmarTrip card, contact the school (school ID administrator).",
-        "Call the provider to book the appointment. The trip is about 1.4 miles, so the travel time is only an estimate."
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "Book the appointment. The trip is about 1.4 miles by Metro or Metrobus; any travel time is only an estimate."
       ],
-      "tell_client": "This clinic is about 1.4 miles away, and one bus or Metro ride should get you there. Metro Lift can take 50% off the fare. The free kids card may not cover doctor visits, so we are checking.",
+      "tell_client": "This clinic is about 1.4 miles away, and you can use Metro or a bus. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
       "questions": [
         {
           "code": "kids_ride_free_medical",
@@ -189,14 +189,14 @@
     {
       "order": 3,
       "match_rank": 3,
-      "provider_id": "samhsa-gio-health-services-inc-20011",
-      "name": "Gio Health Services Inc",
-      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
+      "provider_id": "samhsa-childrens-national-hospital-20010",
+      "name": "Childrens National Hospital — Department of Psychiatry",
+      "address": "111 Michigan Avenue NW, Washington, DC 20010",
       "state": "DC",
       "tier": "A",
-      "distance_mi": 2.5,
+      "distance_mi": 1.0,
       "grade": "one_bus",
-      "grade_basis": "2.5 mi; she uses Metro or Metrobus.",
+      "grade_basis": "1 mi; she uses Metro or Metrobus.",
       "time_estimate": "20-45 min by bus or Metro (estimate)",
       "benefits": [
         {
@@ -211,13 +211,13 @@
         }
       ],
       "steps": [
-        "Ask the caseworker to confirm the Kids Ride Free question first: can the card be used for medical trips, not only school travel?",
-        "If she has an active SNAP EBT card, enroll in Metro Lift online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
-        "For Metro Lift, bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
-        "To request a Kids Ride Free SmarTrip card, contact the school (school ID administrator).",
-        "Call the provider to book the appointment. The trip is about 2.5 miles, so the travel time is only an estimate."
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "Book the appointment. The trip is about 1 mile by Metro or Metrobus; any travel time is only an estimate."
       ],
-      "tell_client": "This clinic is about 2.5 miles away, and one bus or Metro ride should get you there. Metro Lift can take 50% off the fare. The free kids card may not cover doctor visits, so we are checking.",
+      "tell_client": "This hospital is about 1 mile away, and you can use Metro or a bus. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
       "questions": [
         {
           "code": "kids_ride_free_medical",
@@ -251,14 +251,13 @@
         }
       ],
       "steps": [
-        "Ask the caseworker to confirm the Kids Ride Free question first: can the card be used for medical trips, not only school travel?",
-        "If she has an active SNAP EBT card, enroll in Metro Lift online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
-        "For Metro Lift, bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
-        "To request a Kids Ride Free SmarTrip card, contact the school (school ID administrator).",
-        "The trip is about 6.1 miles by transit and likely needs a transfer. Any travel time is only an estimate, so plan extra time.",
-        "Call the provider to book the appointment."
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "This trip is about 6.1 miles by transit, likely with a transfer. Any travel time is only an estimate, so plan extra time."
       ],
-      "tell_client": "This clinic is about 6.1 miles away and the trip will likely need a transfer, so it is a harder trip. Metro Lift can take 50% off the fare. The free kids card may not cover doctor visits, so we are checking.",
+      "tell_client": "This clinic is far, about 6.1 miles, and you may need to change buses or trains. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
       "questions": [
         {
           "code": "kids_ride_free_medical",
@@ -292,14 +291,13 @@
         }
       ],
       "steps": [
-        "Ask the caseworker to confirm the Kids Ride Free question first: can the card be used for medical trips, not only school travel?",
-        "If she has an active SNAP EBT card, enroll in Metro Lift online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
-        "For Metro Lift, bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
-        "To request a Kids Ride Free SmarTrip card, contact the school (school ID administrator).",
-        "The trip is about 6.4 miles by transit and likely needs a transfer. Any travel time is only an estimate, so plan extra time.",
-        "Call the provider to book the appointment."
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "This trip is about 6.4 miles by transit, likely with a transfer. Any travel time is only an estimate, so plan extra time."
       ],
-      "tell_client": "This clinic is about 6.4 miles away and the trip will likely need a transfer, so it is a harder trip. Metro Lift can take 50% off the fare. The free kids card may not cover doctor visits, so we are checking.",
+      "tell_client": "This clinic is far, about 6.4 miles, and you may need to change buses or trains. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
       "questions": [
         {
           "code": "kids_ride_free_medical",
@@ -318,7 +316,7 @@
     {
       "stage": "provider-match",
       "profile": "provider-match",
-      "run_id": "886c7b283ea04a8496b1daaa7e8eb1b3",
+      "run_id": "bd76b056dd2a48d8a5cebbfb2af7eeef",
       "status": "complete",
       "reason": null,
       "requests": 1,
@@ -327,7 +325,7 @@
     {
       "stage": "trip-plan",
       "profile": "trip-plan",
-      "run_id": "9ea5eae503974b13a165117aa014a7ea",
+      "run_id": "8c66d18917e544da80cc2130a050b43c",
       "status": "complete",
       "reason": null,
       "requests": 1,

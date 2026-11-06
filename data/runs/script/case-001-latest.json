@@ -1,6 +1,6 @@
 {
   "version": "call-script-v1",
-  "correlation_id": "1d601116ab70",
+  "correlation_id": "ac5734523e51",
   "case_id": "case-001",
   "synthetic": true,
   "date": "2026-11-06",
@@ -274,20 +274,119 @@
           "note": null
         }
       ]
+    },
+    {
+      "order": 3,
+      "trip_order": 3,
+      "provider_id": "samhsa-circles-of-hope-psychotherapy-and-20008",
+      "name": "Circles of Hope Psychotherapy and — Addictions Services",
+      "phone": "202-997-1448",
+      "intake_phone": "202-265-2343",
+      "address": "3000 Connecticut Avenue NW, Suite 321, Washington, DC 20008",
+      "state": "DC",
+      "grade": "one_bus",
+      "questions": [
+        {
+          "code": "new_patients",
+          "source": "call",
+          "text": "Are you taking new clients for therapy or counseling?"
+        },
+        {
+          "code": "woman_clinician",
+          "source": "match",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "interpreter",
+          "source": "match",
+          "text": "Do you provide a Dari interpreter at no cost to her?"
+        },
+        {
+          "code": "perinatal",
+          "source": "match",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "source": "match",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        },
+        {
+          "code": "waitlist",
+          "source": "match",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "intake_steps",
+          "source": "call",
+          "text": "How does she book an intake, and what should she bring?"
+        }
+      ],
+      "after_call": [
+        {
+          "code": "travel_help",
+          "text": "She uses the bus with help. Who can ride with her, or can the ride service help her board?"
+        },
+        {
+          "code": "child_on_trip",
+          "text": "Can her young child ride along, and is there a car seat or childcare at the visit?"
+        },
+        {
+          "code": "book_ride_ahead",
+          "text": "Once the appointment is set, book the ride with AmeriHealth Caritas DC rides (Medicaid managed care) early enough (see booking notes)."
+        }
+      ],
+      "answers": [
+        {
+          "code": "new_patients",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "woman_clinician",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "interpreter",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "perinatal",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "childcare",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "waitlist",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "intake_steps",
+          "answer": null,
+          "note": null
+        }
+      ]
     }
   ],
   "skipped": [
     {
       "provider_id": "samhsa-northern-virginia-family-services-22042",
       "name": "Northern Virginia Family Services — Multicultural Center",
-      "trip_order": 3,
+      "trip_order": 4,
       "grade": "not_realistic",
       "reason": "Out of DC (VA), no car, and a child under 6. No call."
     },
     {
       "provider_id": "samhsa-cornerstone-montgomery-20902",
       "name": "Cornerstone Montgomery",
-      "trip_order": 4,
+      "trip_order": 5,
       "grade": "not_realistic",
       "reason": "Out of DC (MD), no car, and a child under 6. No call."
     }

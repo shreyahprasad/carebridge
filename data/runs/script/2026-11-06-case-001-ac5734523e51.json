@@ -1,0 +1,394 @@
+{
+  "version": "call-script-v1",
+  "correlation_id": "ac5734523e51",
+  "case_id": "case-001",
+  "synthetic": true,
+  "date": "2026-11-06",
+  "rule_version": "call-script-rules-v1",
+  "match_mode": "live",
+  "trip_mode": "live",
+  "trip_plan_version": "trip-plan-v1",
+  "client_placeholder": "[client]",
+  "guidelines": [
+    {
+      "code": "identify",
+      "text": "Say who is calling: a caseworker from [organization], calling for a client."
+    },
+    {
+      "code": "consent",
+      "text": "Say the call is made with her consent."
+    },
+    {
+      "code": "disclose_only_listed",
+      "text": "Share only the facts in the client summary. Give her name only to book an intake. Never give her phone number or home address."
+    },
+    {
+      "code": "never_status",
+      "text": "Never give or confirm her immigration status, even if asked."
+    },
+    {
+      "code": "follow_up_unlisted",
+      "text": "If asked for anything not listed, say the caseworker will follow up."
+    },
+    {
+      "code": "hand_back",
+      "text": "Stop and hand the call to a human caseworker for anything clinical, legal, a crisis or a request for payment. Do not answer it on her behalf."
+    },
+    {
+      "code": "record_answers",
+      "text": "Record each answer as yes, no or unknown, with a short note."
+    }
+  ],
+  "opening": "Hi, my name is [caseworker]. I'm calling from [organization], a nonprofit that helps refugees and immigrants in DC find health care. I'm calling for a client, with her consent. She is looking for a therapist or counselor for mental health care.",
+  "disclosures": [
+    {
+      "code": "age",
+      "text": "She is 29."
+    },
+    {
+      "code": "language",
+      "text": "She speaks Dari."
+    },
+    {
+      "code": "english_level",
+      "text": "She speaks no English."
+    },
+    {
+      "code": "coverage",
+      "text": "She has DC Medicaid."
+    },
+    {
+      "code": "in_person",
+      "text": "She needs in-person appointments."
+    },
+    {
+      "code": "pregnancy",
+      "text": "She is pregnant."
+    },
+    {
+      "code": "young_child",
+      "text": "She has a young child who may need to come with her."
+    },
+    {
+      "code": "clinician_gender",
+      "text": "She would prefer a woman clinician."
+    }
+  ],
+  "client_summary": "She is 29. She speaks Dari. She speaks no English. She has DC Medicaid. She needs in-person appointments. She is pregnant. She has a young child who may need to come with her. She would prefer a woman clinician.",
+  "closing": "If she can be seen: book the intake, give her name as [client], and note the date, time and what to bring. If there is a waitlist: ask to add her, and note how long it is and when to call back. Thank them.",
+  "calls": [
+    {
+      "order": 1,
+      "trip_order": 1,
+      "provider_id": "samhsa-gio-health-services-inc-20011",
+      "name": "Gio Health Services Inc",
+      "phone": "202-621-8494",
+      "intake_phone": null,
+      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
+      "state": "DC",
+      "grade": "one_bus",
+      "questions": [
+        {
+          "code": "new_patients",
+          "source": "call",
+          "text": "Are you taking new clients for therapy or counseling?"
+        },
+        {
+          "code": "woman_clinician",
+          "source": "match",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "dari_speaker",
+          "source": "match",
+          "text": "Your listing says Farsi. Does the clinician speak Dari?"
+        },
+        {
+          "code": "perinatal",
+          "source": "match",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "source": "match",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        },
+        {
+          "code": "waitlist",
+          "source": "match",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "intake_steps",
+          "source": "call",
+          "text": "How does she book an intake, and what should she bring?"
+        }
+      ],
+      "after_call": [
+        {
+          "code": "travel_help",
+          "text": "She uses the bus with help. Who can ride with her, or can the ride service help her board?"
+        },
+        {
+          "code": "child_on_trip",
+          "text": "Can her young child ride along, and is there a car seat or childcare at the visit?"
+        },
+        {
+          "code": "book_ride_ahead",
+          "text": "Once the appointment is set, book the ride with AmeriHealth Caritas DC rides (Medicaid managed care) early enough (see booking notes)."
+        }
+      ],
+      "answers": [
+        {
+          "code": "new_patients",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "woman_clinician",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "dari_speaker",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "perinatal",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "childcare",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "waitlist",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "intake_steps",
+          "answer": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "trip_order": 2,
+      "provider_id": "samhsa-washington-hospital-center-20017",
+      "name": "Washington Hospital Center — Outpatient Behavioral Health Services",
+      "phone": "202-877-6333",
+      "intake_phone": null,
+      "address": "216 Michigan Avenue NE, 2nd Floor, Washington, DC 20017",
+      "state": "DC",
+      "grade": "one_bus",
+      "questions": [
+        {
+          "code": "new_patients",
+          "source": "call",
+          "text": "Are you taking new clients for therapy or counseling?"
+        },
+        {
+          "code": "woman_clinician",
+          "source": "match",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "interpreter",
+          "source": "match",
+          "text": "Do you provide a Dari interpreter at no cost to her?"
+        },
+        {
+          "code": "perinatal",
+          "source": "match",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "source": "match",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        },
+        {
+          "code": "waitlist",
+          "source": "match",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "intake_steps",
+          "source": "call",
+          "text": "How does she book an intake, and what should she bring?"
+        }
+      ],
+      "after_call": [
+        {
+          "code": "travel_help",
+          "text": "She uses the bus with help. Who can ride with her, or can the ride service help her board?"
+        },
+        {
+          "code": "child_on_trip",
+          "text": "Can her young child ride along, and is there a car seat or childcare at the visit?"
+        },
+        {
+          "code": "book_ride_ahead",
+          "text": "Once the appointment is set, book the ride with AmeriHealth Caritas DC rides (Medicaid managed care) early enough (see booking notes)."
+        }
+      ],
+      "answers": [
+        {
+          "code": "new_patients",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "woman_clinician",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "interpreter",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "perinatal",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "childcare",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "waitlist",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "intake_steps",
+          "answer": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "trip_order": 3,
+      "provider_id": "samhsa-circles-of-hope-psychotherapy-and-20008",
+      "name": "Circles of Hope Psychotherapy and — Addictions Services",
+      "phone": "202-997-1448",
+      "intake_phone": "202-265-2343",
+      "address": "3000 Connecticut Avenue NW, Suite 321, Washington, DC 20008",
+      "state": "DC",
+      "grade": "one_bus",
+      "questions": [
+        {
+          "code": "new_patients",
+          "source": "call",
+          "text": "Are you taking new clients for therapy or counseling?"
+        },
+        {
+          "code": "woman_clinician",
+          "source": "match",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "interpreter",
+          "source": "match",
+          "text": "Do you provide a Dari interpreter at no cost to her?"
+        },
+        {
+          "code": "perinatal",
+          "source": "match",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "source": "match",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        },
+        {
+          "code": "waitlist",
+          "source": "match",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "intake_steps",
+          "source": "call",
+          "text": "How does she book an intake, and what should she bring?"
+        }
+      ],
+      "after_call": [
+        {
+          "code": "travel_help",
+          "text": "She uses the bus with help. Who can ride with her, or can the ride service help her board?"
+        },
+        {
+          "code": "child_on_trip",
+          "text": "Can her young child ride along, and is there a car seat or childcare at the visit?"
+        },
+        {
+          "code": "book_ride_ahead",
+          "text": "Once the appointment is set, book the ride with AmeriHealth Caritas DC rides (Medicaid managed care) early enough (see booking notes)."
+        }
+      ],
+      "answers": [
+        {
+          "code": "new_patients",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "woman_clinician",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "interpreter",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "perinatal",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "childcare",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "waitlist",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "intake_steps",
+          "answer": null,
+          "note": null
+        }
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "provider_id": "samhsa-northern-virginia-family-services-22042",
+      "name": "Northern Virginia Family Services — Multicultural Center",
+      "trip_order": 4,
+      "grade": "not_realistic",
+      "reason": "Out of DC (VA), no car, and a child under 6. No call."
+    },
+    {
+      "provider_id": "samhsa-cornerstone-montgomery-20902",
+      "name": "Cornerstone Montgomery",
+      "trip_order": 5,
+      "grade": "not_realistic",
+      "reason": "Out of DC (MD), no car, and a child under 6. No call."
+    }
+  ]
+}

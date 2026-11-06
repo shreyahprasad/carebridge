@@ -1,0 +1,339 @@
+{
+  "version": "trip-plan-v1",
+  "correlation_id": "e96e741f8698",
+  "case_id": "case-002",
+  "synthetic": true,
+  "date": "2026-11-06",
+  "mode": "live",
+  "fallback_reason": null,
+  "model": "claude-sonnet-5-5",
+  "prompt_version": "trip-plan-v2",
+  "rule_version": "trip-rules-v1",
+  "programs_version": "programs-b93a7754d97d",
+  "match_mode": "live",
+  "match_result_version": "match-result-v1",
+  "thresholds": {
+    "walk_under_mi": 0.5,
+    "one_bus_max_mi": 4.0,
+    "hard_max_mi": 8.0,
+    "drive_max_mi": 25.0,
+    "young_child_under": 6
+  },
+  "benefits": [
+    {
+      "program_id": "wmata-metro-lift",
+      "name": "WMATA Metro Lift (50% off for SNAP recipients)",
+      "how_to_access": "Enroll online at wmata.com/metrolift or in person (L'Enfant Metro Transit Accessibility Center, Silver Spring TRiPs, Rosslyn Commuter Store). Bring SmarTrip card for each person, active SNAP EBT card, SNAP benefits summary (for household), government photo ID, phone number.",
+      "phone": "888-762-7874",
+      "notes": [
+        "50% off Metrobus and Metrorail; not valid on passes.",
+        "Enroll online or at L'Enfant, Silver Spring or Rosslyn with SmarTrip, EBT card and photo ID."
+      ],
+      "sources": [
+        {
+          "url": "https://www.wmata.com/pay/fare-programs/metrolift.html",
+          "title": "WMATA Metro Lift"
+        }
+      ],
+      "confidence": "high",
+      "verify": "Research data, not independently verified. Confirm before relying on it.",
+      "decision": {
+        "record_id": "wmata-metro-lift",
+        "eligible": true,
+        "rule_version": "trip-rules-v1",
+        "data_version": "programs-b93a7754d97d",
+        "predicates": [
+          {
+            "name": "snap",
+            "passed": true,
+            "evidence_ids": [
+              "case-002#snap"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "program_id": "dc-kids-ride-free",
+      "name": "DC Kids Ride Free",
+      "how_to_access": "Request the Kids Ride Free SmarTrip card through the school (school ID administrator). Purpose stated is school travel; use for medical trips not addressed.",
+      "phone": null,
+      "notes": [
+        "Free Metrobus and Metrorail within DC only.",
+        "Stated purpose is school travel; medical trips are not addressed."
+      ],
+      "sources": [
+        {
+          "url": "https://ddot.dc.gov/page/kids-ride-free-program",
+          "title": "DDOT Kids Ride Free Program"
+        },
+        {
+          "url": "https://ddot.dc.gov/page/kids-ride-free-program",
+          "title": "DDOT Kids Ride Free Program"
+        }
+      ],
+      "confidence": "high",
+      "verify": "Research data, not independently verified. Confirm before relying on it.",
+      "decision": {
+        "record_id": "dc-kids-ride-free",
+        "eligible": true,
+        "rule_version": "trip-rules-v1",
+        "data_version": "programs-b93a7754d97d",
+        "predicates": [
+          {
+            "name": "age_5_to_21",
+            "passed": true,
+            "evidence_ids": [
+              "case-002#age"
+            ]
+          },
+          {
+            "name": "dc_resident",
+            "passed": true,
+            "evidence_ids": [
+              "case-002#address"
+            ]
+          },
+          {
+            "name": "dc_school",
+            "passed": true,
+            "evidence_ids": [
+              "case-002#school"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "plans": [
+    {
+      "order": 1,
+      "match_rank": 1,
+      "provider_id": "samhsa-gio-health-services-inc-20011",
+      "name": "Gio Health Services Inc",
+      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
+      "state": "DC",
+      "tier": "A",
+      "distance_mi": 2.5,
+      "grade": "one_bus",
+      "grade_basis": "2.5 mi; she uses Metro or Metrobus.",
+      "time_estimate": "20-45 min by bus or Metro (estimate)",
+      "benefits": [
+        {
+          "program_id": "wmata-metro-lift",
+          "use": "likely",
+          "question": null
+        },
+        {
+          "program_id": "dc-kids-ride-free",
+          "use": "if_confirmed",
+          "question": "kids_ride_free_medical"
+        }
+      ],
+      "steps": [
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "Book the appointment. The trip is about 2.5 miles by Metro or Metrobus; any travel time is only an estimate."
+      ],
+      "tell_client": "This clinic is about 2.5 miles away, and you can use Metro or a bus. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
+      "questions": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "extra_questions": []
+    },
+    {
+      "order": 2,
+      "match_rank": 2,
+      "provider_id": "samhsa-whitman-walker-health-20005",
+      "name": "Whitman Walker Health — Addiction Treatment Services",
+      "address": "1525 14th Street NW, 5th Floor R, Washington, DC 20005",
+      "state": "DC",
+      "tier": "A",
+      "distance_mi": 1.4,
+      "grade": "one_bus",
+      "grade_basis": "1.4 mi; she uses Metro or Metrobus.",
+      "time_estimate": "20-45 min by bus or Metro (estimate)",
+      "benefits": [
+        {
+          "program_id": "wmata-metro-lift",
+          "use": "likely",
+          "question": null
+        },
+        {
+          "program_id": "dc-kids-ride-free",
+          "use": "if_confirmed",
+          "question": "kids_ride_free_medical"
+        }
+      ],
+      "steps": [
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "Book the appointment. The trip is about 1.4 miles by Metro or Metrobus; any travel time is only an estimate."
+      ],
+      "tell_client": "This clinic is about 1.4 miles away, and you can use Metro or a bus. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
+      "questions": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "extra_questions": []
+    },
+    {
+      "order": 3,
+      "match_rank": 3,
+      "provider_id": "samhsa-childrens-national-hospital-20010",
+      "name": "Childrens National Hospital — Department of Psychiatry",
+      "address": "111 Michigan Avenue NW, Washington, DC 20010",
+      "state": "DC",
+      "tier": "A",
+      "distance_mi": 1.0,
+      "grade": "one_bus",
+      "grade_basis": "1 mi; she uses Metro or Metrobus.",
+      "time_estimate": "20-45 min by bus or Metro (estimate)",
+      "benefits": [
+        {
+          "program_id": "wmata-metro-lift",
+          "use": "likely",
+          "question": null
+        },
+        {
+          "program_id": "dc-kids-ride-free",
+          "use": "if_confirmed",
+          "question": "kids_ride_free_medical"
+        }
+      ],
+      "steps": [
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "Book the appointment. The trip is about 1 mile by Metro or Metrobus; any travel time is only an estimate."
+      ],
+      "tell_client": "This hospital is about 1 mile away, and you can use Metro or a bus. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
+      "questions": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "extra_questions": []
+    },
+    {
+      "order": 4,
+      "match_rank": 4,
+      "provider_id": "samhsa-new-hope-health-services-20032",
+      "name": "New Hope Health Services",
+      "address": "2759 Martin Luther King Avenue SE, Washington, DC 20032",
+      "state": "DC",
+      "tier": "A",
+      "distance_mi": 6.1,
+      "grade": "hard",
+      "grade_basis": "6.1 mi by transit, likely with a transfer.",
+      "time_estimate": "45-90 min, likely a transfer (estimate)",
+      "benefits": [
+        {
+          "program_id": "wmata-metro-lift",
+          "use": "likely",
+          "question": null
+        },
+        {
+          "program_id": "dc-kids-ride-free",
+          "use": "if_confirmed",
+          "question": "kids_ride_free_medical"
+        }
+      ],
+      "steps": [
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "This trip is about 6.1 miles by transit, likely with a transfer. Any travel time is only an estimate, so plan extra time."
+      ],
+      "tell_client": "This clinic is far, about 6.1 miles, and you may need to change buses or trains. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
+      "questions": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "extra_questions": []
+    },
+    {
+      "order": 5,
+      "match_rank": 5,
+      "provider_id": "samhsa-whitman-walker-health-20032",
+      "name": "Whitman Walker Health — Max Robinson Center",
+      "address": "1201 Sycamore Drive SE, 5th Floor, Washington, DC 20032",
+      "state": "DC",
+      "tier": "A",
+      "distance_mi": 6.4,
+      "grade": "hard",
+      "grade_basis": "6.4 mi by transit, likely with a transfer.",
+      "time_estimate": "45-90 min, likely a transfer (estimate)",
+      "benefits": [
+        {
+          "program_id": "wmata-metro-lift",
+          "use": "likely",
+          "question": null
+        },
+        {
+          "program_id": "dc-kids-ride-free",
+          "use": "if_confirmed",
+          "question": "kids_ride_free_medical"
+        }
+      ],
+      "steps": [
+        "Ask the provider the Kids Ride Free question first: can the Kids Ride Free SmarTrip card be used for a medical trip? Do not promise this ride until confirmed.",
+        "To enroll in Metro Lift (50% off Metrobus and Metrorail), go online at wmata.com/metrolift or in person at L'Enfant, Silver Spring or Rosslyn.",
+        "Bring a SmarTrip card for each person, the active SNAP EBT card, the SNAP benefits summary, a government photo ID and a phone number.",
+        "If Kids Ride Free is confirmed, request the card through the school (school ID administrator).",
+        "This trip is about 6.4 miles by transit, likely with a transfer. Any travel time is only an estimate, so plan extra time."
+      ],
+      "tell_client": "This clinic is far, about 6.4 miles, and you may need to change buses or trains. Metro Lift can give you half-price rides, and the free ride card for children depends on an answer we are still checking.",
+      "questions": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "extra_questions": []
+    }
+  ],
+  "unchecked_fields": [
+    "plans[].steps",
+    "plans[].tell_client",
+    "plans[].extra_questions"
+  ],
+  "stages": [
+    {
+      "stage": "provider-match",
+      "profile": "provider-match",
+      "run_id": "bd76b056dd2a48d8a5cebbfb2af7eeef",
+      "status": "complete",
+      "reason": null,
+      "requests": 1,
+      "tools": 0
+    },
+    {
+      "stage": "trip-plan",
+      "profile": "trip-plan",
+      "run_id": "8c66d18917e544da80cc2130a050b43c",
+      "status": "complete",
+      "reason": null,
+      "requests": 1,
+      "tools": 0
+    }
+  ],
+  "budget_used": {
+    "requests": 2,
+    "tools": 0
+  }
+}

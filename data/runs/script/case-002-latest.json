@@ -1,6 +1,6 @@
 {
   "version": "call-script-v1",
-  "correlation_id": "418517bfaca4",
+  "correlation_id": "e96e741f8698",
   "case_id": "case-002",
   "synthetic": true,
   "date": "2026-11-06",
@@ -68,11 +68,11 @@
     {
       "order": 1,
       "trip_order": 1,
-      "provider_id": "samhsa-childrens-national-hospital-20010",
-      "name": "Childrens National Hospital — Department of Psychiatry",
-      "phone": "202-476-5000",
-      "intake_phone": "202-729-3300",
-      "address": "111 Michigan Avenue NW, Washington, DC 20010",
+      "provider_id": "samhsa-gio-health-services-inc-20011",
+      "name": "Gio Health Services Inc",
+      "phone": "202-621-8494",
+      "intake_phone": null,
+      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
       "state": "DC",
       "grade": "one_bus",
       "questions": [
@@ -210,11 +210,11 @@
     {
       "order": 3,
       "trip_order": 3,
-      "provider_id": "samhsa-gio-health-services-inc-20011",
-      "name": "Gio Health Services Inc",
-      "phone": "202-621-8494",
-      "intake_phone": null,
-      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
+      "provider_id": "samhsa-childrens-national-hospital-20010",
+      "name": "Childrens National Hospital — Department of Psychiatry",
+      "phone": "202-476-5000",
+      "intake_phone": "202-729-3300",
+      "address": "111 Michigan Avenue NW, Washington, DC 20010",
       "state": "DC",
       "grade": "one_bus",
       "questions": [
