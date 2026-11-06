@@ -47,7 +47,9 @@ def main(argv=None):
         report = pipeline.run(args.topic, scripted_model(), fixture_fetch, model='scripted-demo', types=types,
                               out_dir=out, log=lambda m: print(m, file=sys.stderr))
     print(json.dumps({'counts': report['counts'], 'stages': report['stages']}, indent=2))
-    return 0 if all(s['status'] == 'complete' for s in report['stages']) else 1
+    # Success = plan ran and every stage either completed or was recovered by its fallback.
+    done = {s['stage'].removesuffix(':search-only') for s in report['stages'] if s['status'] == 'complete'}
+    return 0 if all(s['stage'].removesuffix(':search-only') in done for s in report['stages']) else 1
 
 
 if __name__ == '__main__':

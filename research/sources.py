@@ -108,12 +108,17 @@ def scan_injection(text):
     return sorted(label for label, pattern in INJECTION_PATTERNS.items() if re.search(pattern, text, re.I))
 
 
+def _server_copy(server_pages, url):
+    want = canonical_url(url)
+    return next((t for u, t in server_pages.items() if canonical_url(u) == want), None)
+
+
 def trust_tier(url):
     host = (urlsplit(url).hostname or '').lower()
     return 'institutional' if host.endswith(INSTITUTIONAL_SUFFIXES) else 'needs_review'
 
 
-def check_sources(urls, fetch, evidence):
+def check_sources(urls, fetch, evidence, server_pages=None):
     """Fetch each unique URL once. Returns {url: {status, source_id?, text?, error?}}.
 
     `fetch(url) -> {url, content, media_type}` is trusted host code (the harness
@@ -130,6 +135,15 @@ def check_sources(urls, fetch, evidence):
             stored = evidence.source(source_id)['content']
             results[url] = {'status': 'fetched', 'source_id': source_id, 'text': stored,
                             'injection': scan_injection(stored)}
-        except Exception as exc:  # recorded, never fatal: claim becomes needs_review
-            results[url] = {'status': 'unreachable', 'error': type(exc).__name__ + ': ' + str(exc)[:120]}
+        except Exception as exc:  # recorded, never fatal
+            error = type(exc).__name__ + ': ' + str(exc)[:120]
+            server_text = _server_copy(server_pages or {}, url)
+            if server_text:
+                # Fallback: text Anthropic's web_fetch retrieved (not model-written).
+                source_id = evidence.snapshot('server-fetch:' + url, normalize(server_text))
+                stored = evidence.source(source_id)['content']
+                results[url] = {'status': 'fetched', 'via': 'server_fetch', 'host_error': error,
+                                'source_id': source_id, 'text': stored, 'injection': scan_injection(stored)}
+            else:
+                results[url] = {'status': 'unreachable', 'error': error}
     return results

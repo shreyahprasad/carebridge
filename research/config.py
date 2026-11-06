@@ -31,7 +31,7 @@ CLAIM_FIELDS = (
 INSTITUTIONAL_SUFFIXES = ('.gov', '.edu', '.mil')
 
 # Shared workflow budget (one correlation id across every stage).
-BUDGET = dict(max_requests=40, max_tools=60, max_retries=2, seconds=900)
+BUDGET = dict(max_requests=60, max_tools=80, max_retries=2, seconds=1200)
 SEARCH_USES = 5     # web_search per specialist request
 FETCH_USES = 5      # web_fetch per specialist request
 MAX_RESOURCES_PER_TYPE = 4

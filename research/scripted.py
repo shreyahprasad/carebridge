@@ -19,6 +19,9 @@ FIXTURE_PAGES = {
         '<p>Referrals must come from an attorney.</p></body></html>'),
 }
 UNREACHABLE = 'https://blocked.example.com/page'
+# Blocks the host fetcher, but Anthropic's web_fetch retrieved it.
+SERVER_ONLY = 'https://cloudflared.example.edu/clinic'
+SERVER_ONLY_TEXT = 'Our psychology training clinic accepts DC Medicaid and offers sessions in Farsi and Dari.'
 
 
 def fixture_fetch(url):
@@ -34,6 +37,8 @@ FINDINGS = {
             {'field': 'cost', 'value': 'Sliding fee scale from $5 per session',
              'source_url': 'https://clinic.example.edu/community-clinic',
              'excerpt': 'offers individual therapy on a sliding fee scale starting at $5 per session'},
+            {'field': 'serves_immigrants', 'value': 'Accepts DC Medicaid; Farsi and Dari sessions',
+             'source_url': SERVER_ONLY, 'excerpt': 'accepts DC Medicaid and offers sessions in Farsi and Dari'},
             {'field': 'languages', 'value': 'English, Spanish',
              'source_url': 'https://clinic.example.edu/community-clinic',
              'excerpt': 'Sessions are available in English and Spanish.'},
@@ -86,13 +91,20 @@ def scripted_model():
                                     for t in task['allowed_types'] if t in FINDINGS]})
             return {**_response(plan), 'content': [{'type': 'thinking', 'thinking': '', 'signature': 'sig'}, plan]}
         if system.startswith('You are a CareBridge research specialist'):
-            # Like a live turn: server search results, then the final JSON.
+            # Like a live turn: server search (and fetch, if offered) results, then the final JSON.
+            can_fetch = any(t.get('name') == 'web_fetch' for t in kwargs.get('tools', []))
+            fetch_blocks = [
+                {'type': 'server_tool_use', 'id': 'srvtoolu_2', 'name': 'web_fetch', 'input': {'url': SERVER_ONLY}},
+                {'type': 'web_fetch_tool_result', 'tool_use_id': 'srvtoolu_2',
+                 'content': {'type': 'web_fetch_result', 'url': SERVER_ONLY,
+                             'content': {'type': 'document', 'source': {'type': 'text', 'media_type': 'text/plain', 'data': SERVER_ONLY_TEXT}}}}]
             seen = list(FIXTURE_PAGES) + [UNREACHABLE, 'http://asylum-network.example.org/evaluations', 'https://bit.ly/3xYzAbc']
             return {'id': 'scripted', 'stop_reason': 'end_turn', 'usage': {'input_tokens': 0, 'output_tokens': 0},
                     'content': [
                         {'type': 'server_tool_use', 'id': 'srvtoolu_1', 'name': 'web_search', 'input': {'query': task['focus']}},
                         {'type': 'web_search_tool_result', 'tool_use_id': 'srvtoolu_1',
                          'content': [{'type': 'web_search_result', 'url': u, 'title': 'fixture'} for u in seen]},
+                        *(fetch_blocks if can_fetch else []),
                         _text({'resources': FINDINGS.get(task['resource_type'], [])})]}
         if system.startswith('You are the CareBridge source verifier'):
             last = messages[-1]['content']

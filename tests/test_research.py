@@ -30,12 +30,17 @@ class ResearchWorkflow(unittest.TestCase):
 
     def test_supported_quote_found_claims_are_accepted_with_source(self):
         # cost + languages; the asylum 'services' claim is supported but its page is injection-flagged.
-        self.assertEqual(self.report['counts']['accepted'], 2)
+        self.assertEqual(self.report['counts']['accepted'], 3)
         cost = self.by_field[('Example University', 'cost')][0]
         self.assertEqual(cost['source_url'], 'https://clinic.example.edu/community-clinic')
         self.assertIn('sliding fee scale', cost['excerpt'])
         self.assertEqual(cost['trust'], 'institutional')
         self.assertTrue(cost['acceptance_id'])
+
+    def test_server_fetched_copy_used_when_host_fetch_blocked(self):
+        item = self.by_field[('Example University', 'serves_immigrants')][0]
+        self.assertEqual(item['fetched_via'], 'server_fetch')
+        self.assertIn('Farsi and Dari', item['excerpt'])
 
     def test_fabricated_excerpt_is_rejected_by_host_quote_check(self):
         item = self.by_field[('Example University', 'review:women_focus')]
@@ -130,6 +135,20 @@ class Guardrails(unittest.TestCase):
         report = pipeline.run(TOPIC, scripted_model(), fixture_fetch, model='scripted-demo', out_dir=out, log=lambda m: None)
         asylum = next(r for r in report['resources'] if r['organization'] == 'Example Asylum Network')
         self.assertEqual(asylum['status'], 'needs_review')
+
+    def test_search_only_fallback_when_fetch_tool_fails(self):
+        inner = scripted_model()
+        def create(**kw):
+            if kw['system'].startswith('You are a CareBridge research specialist') and any(
+                    t.get('name') == 'web_fetch' for t in kw.get('tools', [])):
+                return {'id': 'x', 'stop_reason': 'end_turn', 'usage': {'input_tokens': 0, 'output_tokens': 0},
+                        'content': [{'type': 'mystery_block'}]}
+            return inner(**kw)
+        report = pipeline.run(TOPIC, create, fixture_fetch, model='scripted-demo', out_dir=Path(tempfile.mkdtemp()),
+                              log=lambda m: None)
+        stages = [s['stage'] for s in report['stages'] if s['status'] == 'complete']
+        self.assertIn('specialist:training_clinic:search-only', stages)
+        self.assertGreater(report['counts']['accepted'], 0)
 
 
 if __name__ == '__main__':

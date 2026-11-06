@@ -91,14 +91,22 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
 
         # 2. Specialists search the web, one type at a time (shared budget).
         found = []
+        server_pages = {}
         for task in plan['output']['tasks']:
             kind = task['resource_type']
             log(f'[{correlation_id}] specialist {kind}: {task["focus"][:80]}')
+            spec_task = {'resource_type': kind, 'type_description': RESOURCE_TYPES[kind], 'focus': task['focus']}
             seen = set()
-            result = agents.specialist(model, seen).run(
-                runtime, create, task={'resource_type': kind, 'type_description': RESOURCE_TYPES[kind], 'focus': task['focus']},
-                budget=budget, max_tokens=16000, output_retries=1)
-            if _stage(trace, f'specialist:{kind}', result):
+            result = agents.specialist(model, seen, server_pages).run(
+                runtime, create, task=spec_task, budget=budget, max_tokens=16000, output_retries=2)
+            ok = _stage(trace, f'specialist:{kind}', result)
+            if not ok and result['run']['reason'] in {'execution_error', 'unsupported_content', 'invalid_response'}:
+                # Fallback: the fetch tool may be unavailable for this model/account.
+                log(f'[{correlation_id}] specialist {kind}: retrying search-only ({result["run"]["reason"]})')
+                result = agents.specialist(model, seen, server_pages, fetch=False).run(
+                    runtime, create, task=spec_task, budget=budget, max_tokens=16000, output_retries=2)
+                ok = _stage(trace, f'specialist:{kind}:search-only', result)
+            if ok:
                 seen_canon = {canonical_url(u) for u in seen}
                 for res in result['output']['resources']:
                     found.append({**res, 'resource_type': kind, 'seen': seen_canon})
@@ -120,7 +128,7 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
                     claim['check'] = link_policy(c['source_url'])
                 claims.append(claim)
         log(f'[{correlation_id}] source check: {len(claims)} claims, {len({c["source_url"] for c in claims})} pages')
-        pages = check_sources([c['source_url'] for c in claims if c['check'] is None], fetch, evidence)
+        pages = check_sources([c['source_url'] for c in claims if c['check'] is None], fetch, evidence, server_pages)
         for c in claims:
             if c['check'] is not None:
                 continue
@@ -133,6 +141,7 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
                 c['check'] = 'quote_found' if span else 'quote_not_found'
                 c['span'], c['source_id'] = span, page['source_id']
                 c['source_flags'] = page['injection']
+                c['via'] = page.get('via', 'host_fetch')
 
         # 4. Verifier judges quote-found claims against stored snapshots only.
         to_verify = [c for c in claims if c['check'] == 'quote_found']
@@ -199,7 +208,8 @@ def _finish(out_dir, topic, correlation_id, model, trace, claims, resources, bud
         for c in accepted:
             fields.setdefault(c['field'], []).append({
                 'value': c['value'], 'source_url': c['source_url'], 'excerpt': c['span'],
-                'trust': trust_tier(c['source_url']), 'acceptance_id': c['acceptance_id'], 'checked': today})
+                'trust': trust_tier(c['source_url']), 'acceptance_id': c['acceptance_id'], 'checked': today,
+                'fetched_via': c.get('via', 'host_fetch')})
         review = [{'field': c['field'], 'value': c['value'], 'source_url': c['source_url'], 'excerpt': c['excerpt'],
                    'reason': _reason(c),
                    'detail': c.get('check_detail') or c.get('verdict_reason'),
