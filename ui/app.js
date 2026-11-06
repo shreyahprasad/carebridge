@@ -182,7 +182,8 @@ function header(c, tab) {
     ),
     h('div', { class: 'needs' },
       full && h('div', { class: 'label' }, 'Needs from care'),
-      h('div', { class: 'chips' }, needs(c).map(chip)),
+      h('div', { class: 'chips' }, (full ? needs(c) : needs(c).slice(0, 4)).map(chip),
+        !full && needs(c).length > 4 && h('a', { class: 'chip chip-more', href: caseHref(c, 'case') }, `+${needs(c).length - 4} more`)),
     ),
     full && h('div', { class: 'actions' },
       h('a', { class: 'btn btn-primary', href: caseHref(c, 'providers') }, 'Find providers'),
@@ -289,23 +290,33 @@ const tickKey = (caseId, providerId, q) => `carebridge.ask.${caseId}.${providerI
 function getTick(key) { try { return localStorage.getItem(key) === '1'; } catch { return false; } }
 function setTick(key, on) { try { on ? localStorage.setItem(key, '1') : localStorage.removeItem(key); } catch { /* not saved */ } }
 
-function checklist(caseId, providerId, items) {
+// items: [{ key, text, ai }]. onChange runs after a tick so a summary count can update.
+function checklist(caseId, providerId, items, onChange) {
   if (!items.length) return null;
   return h('ul', { class: 'asks' }, items.map(({ key, text, ai }) => {
     const k = tickKey(caseId, providerId, key);
     const id = `ask-${providerId}-${key}`.replace(/[^\w-]/g, '_');
     return h('li', {},
-      h('input', { type: 'checkbox', id, checked: getTick(k), onchange: e => setTick(k, e.target.checked) }),
+      h('input', { type: 'checkbox', id, checked: getTick(k), onchange: e => { setTick(k, e.target.checked); if (onChange) onChange(); } }),
       h('label', { for: id }, text, ai && h('span', { class: 'ai-tag' }, 'AI-suggested')),
     );
   }));
 }
+const askedCount = (caseId, providerId, items) => items.filter(i => getTick(tickKey(caseId, providerId, i.key))).length;
 
 function aiNote(text, title = 'AI note') {
   return text && h('div', { class: 'ai-note' },
     h('div', { class: 'label' }, `${title} · not checked`),
     h('p', {}, text),
   );
+}
+
+// Folded sections remember being open across re-renders (sort, reload of runs).
+const openFolds = new Set();
+function fold(key, cls, summary, ...body) {
+  const el = h('details', { class: `fold ${cls}`, open: openFolds.has(key) }, h('summary', {}, summary), ...body);
+  el.addEventListener('toggle', () => { el.open ? openFolds.add(key) : openFolds.delete(key); });
+  return el;
 }
 
 // ---------- providers view ----------
@@ -318,35 +329,43 @@ function gradeBadge(grade) {
 function benefitStrip(c, trip) {
   if (!trip || trip instanceof Error) {
     return h('section', { class: 'strip strip-empty' },
-      h('div', { class: 'label' }, 'Ride and fare help'),
+      h('span', { class: 'label' }, 'Ride and fare help'),
       trip instanceof Error
-        ? h('p', { class: 'error-text' }, `Could not read the trip plan: ${trip.message}`)
-        : h('p', {}, 'Not planned yet. Run ', h('code', {}, `python -m trip ${c.id}`), ' to add ride and fare help.'),
+        ? h('span', { class: 'error-text' }, `Could not read the trip plan: ${trip.message}`)
+        : h('span', {}, 'Not planned yet. Run ', h('code', {}, `python -m trip ${c.id}`), '.'),
     );
   }
   const benefits = trip.benefits || [];
-  return h('section', { class: 'strip' },
-    h('div', { class: 'label' }, 'Her ride and fare help'),
-    benefits.length
-      ? h('div', { class: 'benefits' }, benefits.map(b => h('div', { class: 'benefit' },
-        h('div', { class: 'benefit-name' }, b.name, h('span', { class: `conf conf-${b.confidence}` }, `${cap(b.confidence)} confidence`)),
-        b.how_to_access && h('p', {}, b.how_to_access),
-        (b.notes || []).length > 0 && h('ul', { class: 'benefit-notes' }, b.notes.map(n => h('li', {}, n))),
-        h('div', { class: 'benefit-meta' },
-          b.phone && h('a', { href: telHref(b.phone) }, `☎ ${b.phone}`),
-          (b.sources || []).map(s => safeUrl(s.url) && h('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer' }, s.title || 'Source')),
-        ),
-      )))
-      : h('p', {}, 'No ride or fare programs found for her.'),
+  if (!benefits.length) {
+    return h('section', { class: 'strip strip-empty' }, h('span', { class: 'label' }, 'Ride and fare help'), h('span', {}, 'No ride or fare program found for her.'));
+  }
+  return fold(`${c.id}|benefits`, 'strip',
+    [h('span', { class: 'label' }, 'Ride and fare help'), h('span', { class: 'strip-names' }, benefits.map(b => b.name).join(' · '))],
+    h('div', { class: 'benefits' }, benefits.map(b => h('div', { class: 'benefit' },
+      h('div', { class: 'benefit-name' }, b.name, h('span', { class: `conf conf-${b.confidence}` }, `${cap(b.confidence)} confidence`)),
+      b.how_to_access && h('p', {}, b.how_to_access),
+      (b.notes || []).length > 0 && h('ul', { class: 'benefit-notes' }, b.notes.map(n => h('li', {}, n))),
+      h('div', { class: 'benefit-meta' },
+        b.phone && h('a', { href: telHref(b.phone) }, `☎ ${b.phone}`),
+        (b.sources || []).map(s => safeUrl(s.url) && h('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer' }, s.title || 'Source')),
+      ),
+    ))),
     h('p', { class: 'verify' }, 'Research data, not independently verified. Confirm before relying on it.'),
   );
 }
 
+function rideSummary(stop) {
+  const uses = stop.benefits || [];
+  if (uses.some(u => u.use === 'likely')) return 'rides or fares likely covered';
+  if (uses.length) return 'ride help only if confirmed';
+  return null;
+}
+
 function tripSection(c, pick, stop, benefitsById) {
   if (!stop) {
-    return h('div', { class: 'trip trip-empty' },
+    return h('div', { class: 'trip-empty' },
       h('span', { class: 'label' }, 'Getting there'),
-      h('span', {}, pick.distance_mi != null ? `${pick.distance_mi} mi away · not planned yet` : 'Not planned yet'),
+      h('span', {}, 'Not planned yet'),
     );
   }
   const questionText = Object.fromEntries((stop.questions || []).map(q => [q.code, q.text]));
@@ -361,22 +380,24 @@ function tripSection(c, pick, stop, benefitsById) {
     ...(stop.questions || []).map(q => ({ key: `trip.${q.code}`, text: q.text })),
     ...(stop.extra_questions || []).map((t, i) => ({ key: `trip.x${i}.${t.slice(0, 40)}`, text: t, ai: true })),
   ]);
-  return h('details', { class: 'trip', open: stop.grade !== 'not_realistic' },
-    h('summary', {},
-      h('span', { class: 'label' }, 'Getting there'),
-      gradeBadge(stop.grade),
-      stop.time_estimate && h('span', { class: 'muted' }, /estimate/i.test(stop.time_estimate) ? stop.time_estimate : `${stop.time_estimate} (estimate)`),
-    ),
+  const time = stop.time_estimate && (/estimate/i.test(stop.time_estimate) ? stop.time_estimate : `${stop.time_estimate} (estimate)`);
+  const steps = stop.steps || [];
+  return fold(`${c.id}|${pick.provider_id}|trip`, 'trip',
+    [h('span', { class: 'label' }, 'Getting there'), h('span', { class: 'fold-sum' }, [time, rideSummary(stop)].filter(Boolean).join(' · ') || stop.grade_basis || '')],
     stop.grade_basis && h('p', { class: 'muted' }, stop.grade_basis),
     uses.length ? h('ul', { class: 'uses' }, uses) : h('p', { class: 'muted' }, 'No ride or fare program applies to this trip.'),
-    asks && h('div', {}, h('div', { class: 'label' }, 'Check for this trip'), asks),
-    (stop.steps || []).length > 0 && h('div', { class: 'ai-note' },
-      h('div', { class: 'label' }, 'Booking steps · AI-written, not checked'),
-      h('ol', {}, stop.steps.map(s => h('li', {}, s))),
+    asks && h('div', { class: 'sub' }, h('div', { class: 'label' }, 'Check for this trip'), asks),
+    (steps.length > 0 || stop.tell_client) && fold(`${c.id}|${pick.provider_id}|steps`, 'inner',
+      h('span', {}, 'Booking steps and what to tell her', h('span', { class: 'ai-tag' }, 'AI-written, not checked')),
+      steps.length > 0 && h('ol', { class: 'steps' }, steps.map(s => h('li', {}, s))),
+      stop.tell_client && h('p', { class: 'tell' }, h('strong', {}, 'Tell her: '), stop.tell_client),
     ),
-    aiNote(stop.tell_client, 'What to tell her'),
   );
 }
+
+// Facts the ✓ row already covers, or that every pick has by rule.
+const FACTS_IN_CHECKS = new Set(['speaks_client_language', 'in_dc', 'accepts_medicaid', 'within_3_miles', 'in_person']);
+const GLANCE_FACTS = 3;
 
 function providerCard(c, pick, stop, benefitsById) {
   const tier = TIER[pick.tier] || { label: `Tier ${pick.tier}`, hint: '' };
@@ -384,37 +405,47 @@ function providerCard(c, pick, stop, benefitsById) {
   const check = (ok, yes, no) => h('span', { class: `check ${ok ? 'ok' : 'no'}` }, h('span', { 'aria-hidden': 'true' }, ok ? '✓' : '✗'), ` ${ok ? yes : no}`);
   const site = safeUrl(pick.website);
   const grade = stop && stop.grade;
-  const asks = checklist(c.id, pick.provider_id, [
+  const extra = (pick.facts || []).filter(f => !FACTS_IN_CHECKS.has(f.code));
+  const items = [
     ...(pick.questions || []).map(q => ({ key: q.code, text: q.text })),
     ...(pick.extra_questions || []).map((t, i) => ({ key: `x${i}.${t.slice(0, 40)}`, text: t, ai: true })),
-  ]);
+  ];
+  const countText = () => `${askedCount(c.id, pick.provider_id, items)} of ${items.length} asked`;
+  const counter = h('span', { class: 'fold-sum' }, countText());
+  const asks = checklist(c.id, pick.provider_id, items, () => { counter.textContent = countText(); });
   return h('li', { class: `provider${grade === 'not_realistic' ? ' dim' : ''}` },
     h('div', { class: 'provider-head' },
-      h('span', { class: 'rank', title: 'Match rank' }, `#${pick.rank}`),
+      h('span', { class: 'rank', title: `Match rank ${pick.rank}` }, `#${pick.rank}`),
       h('div', { class: 'provider-title' },
         h('h3', {}, pick.name),
-        h('div', { class: 'case-sub' }, [pick.address, pick.distance_mi != null && `${pick.distance_mi} mi from her`].filter(Boolean).join(' · ')),
+        h('div', { class: 'case-sub' }, [pick.distance_mi != null && `${pick.distance_mi} mi`, pick.state !== 'DC' && pick.state, pick.telehealth && 'also telehealth'].filter(Boolean).join(' · ')),
       ),
       h('div', { class: 'provider-badges' },
         h('span', { class: `tier tier-${pick.tier}`, title: tier.hint }, tier.label),
         gradeBadge(grade),
       ),
     ),
-    h('div', { class: 'basis' },
+    h('div', { class: 'glance' },
       check(basis.language_match, 'Her language', 'Interpreter needed'),
-      check(basis.in_dc, 'In DC', `Outside DC (${pick.state})`),
+      check(basis.in_dc, 'In DC', `Outside DC`),
       check(basis.coverage_match, 'Coverage fits', 'Coverage to confirm'),
+      extra.slice(0, GLANCE_FACTS).map(f => h('span', { class: 'chip chip-fact' }, f.text)),
+      extra.length > GLANCE_FACTS && h('span', { class: 'chip' }, `+${extra.length - GLANCE_FACTS}`),
     ),
-    (pick.facts || []).length > 0 && h('div', { class: 'chips' }, pick.facts.map(f => h('span', { class: 'chip chip-fact' }, f.text))),
     h('div', { class: 'contact' },
       pick.phone && h('a', { href: telHref(pick.phone) }, `☎ ${pick.phone}`),
       pick.intake_phone && pick.intake_phone !== pick.phone && h('a', { href: telHref(pick.intake_phone) }, `Intake ${pick.intake_phone}`),
       site && h('a', { href: site, target: '_blank', rel: 'noopener noreferrer' }, 'Website'),
-      pick.telehealth && h('span', {}, 'Also offers telehealth'),
     ),
-    asks && h('div', { class: 'ask-block' }, h('div', { class: 'label' }, 'Ask when calling'), asks),
+    fold(`${c.id}|${pick.provider_id}|ask`, 'ask',
+      [h('span', { class: 'label' }, 'Call checklist'), counter],
+      asks,
+      pick.address && h('p', { class: 'muted' }, pick.address),
+      (pick.facts || []).length > 0 && h('div', { class: 'sub' }, h('div', { class: 'label' }, 'From the listing'),
+        h('div', { class: 'chips' }, pick.facts.map(f => h('span', { class: 'chip chip-fact' }, f.text)))),
+      aiNote(pick.why, 'Why this pick'),
+    ),
     tripSection(c, pick, stop, benefitsById),
-    aiNote(pick.why, 'Why this pick'),
   );
 }
 
@@ -460,6 +491,10 @@ function providersBody(c, entry) {
   } else {
     picks.sort((a, b) => a.rank - b.rank);
   }
+  // Sorted by reach, picks she can't realistically get to fold into one group at the end.
+  const far = order === 'reach' ? picks.filter(p => (stops.get(p.provider_id) || {}).grade === 'not_realistic') : [];
+  const near = picks.filter(p => !far.includes(p));
+  const cards = list => h('ol', { class: 'providers' }, list.map(p => providerCard(c, p, stops.get(p.provider_id), benefitsById)));
 
   const k = match.counts || {};
   const changed = changedSinceMatch(c, match.needs);
@@ -481,10 +516,13 @@ function providersBody(c, entry) {
       h('h3', {}, plural(picks.length, 'provider to call', 'providers to call')),
       hasTrip && sortToggle(c, order),
     ),
-    picks.length
-      ? h('ol', { class: 'providers' }, picks.map(p => providerCard(c, p, stops.get(p.provider_id), benefitsById)))
-      : h('p', { class: 'empty' }, 'No provider met the matching rules for this case.'),
-    aiNote(match.not_chosen_note, 'Others considered'),
+    picks.length ? (near.length ? cards(near) : null) : h('p', { class: 'empty' }, 'No provider met the matching rules for this case.'),
+    far.length > 0 && fold(`${c.id}|far`, 'group',
+      [h('span', { class: 'label' }, `Not realistic to reach (${far.length})`), h('span', { class: 'fold-sum' }, far.map(p => p.name.split(' — ')[0]).join(' · '))],
+      cards(far)),
+    match.not_chosen_note && fold(`${c.id}|others`, 'group',
+      [h('span', { class: 'label' }, 'Others considered'), h('span', { class: 'ai-tag' }, 'AI note, not checked')],
+      h('p', { class: 'muted' }, match.not_chosen_note)),
     h('p', { class: 'run-meta' }, [
       `Rules ${match.rule_version}`, `data ${match.data_version}`,
       match.prompt_version && `prompt ${match.prompt_version}`, `run ${match.correlation_id}`,
@@ -552,7 +590,30 @@ function route(event) {
   else if (event && fromHash && c && isPhone()) document.getElementById('case-title').focus();
 }
 
+// ---------- theme: auto (system), light or dark; remembered in this browser ----------
+const THEMES = ['auto', 'light', 'dark'];
+function applyTheme(t) {
+  const root = document.documentElement;
+  if (t === 'auto') delete root.dataset.theme; else root.dataset.theme = t;
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    btn.textContent = `Theme: ${cap(t)}`;
+    btn.setAttribute('aria-label', `Color theme: ${t}. Change theme`);
+  }
+}
+function setupTheme() {
+  let t = 'auto';
+  try { t = THEMES.includes(localStorage.getItem('carebridge.theme')) ? localStorage.getItem('carebridge.theme') : 'auto'; } catch { /* default */ }
+  applyTheme(t);
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    t = THEMES[(THEMES.indexOf(t) + 1) % THEMES.length];
+    try { t === 'auto' ? localStorage.removeItem('carebridge.theme') : localStorage.setItem('carebridge.theme', t); } catch { /* not saved */ }
+    applyTheme(t);
+  });
+}
+
 async function init() {
+  setupTheme();
   try {
     const res = await fetch(DATA_URL, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
