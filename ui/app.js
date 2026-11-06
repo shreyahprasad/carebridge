@@ -365,7 +365,7 @@ function tripSection(c, pick, stop, benefitsById) {
     h('summary', {},
       h('span', { class: 'label' }, 'Getting there'),
       gradeBadge(stop.grade),
-      stop.time_estimate && h('span', { class: 'muted' }, `${stop.time_estimate} (estimate)`),
+      stop.time_estimate && h('span', { class: 'muted' }, /estimate/i.test(stop.time_estimate) ? stop.time_estimate : `${stop.time_estimate} (estimate)`),
     ),
     stop.grade_basis && h('p', { class: 'muted' }, stop.grade_basis),
     uses.length ? h('ul', { class: 'uses' }, uses) : h('p', { class: 'muted' }, 'No ride or fare program applies to this trip.'),
