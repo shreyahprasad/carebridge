@@ -1,0 +1,13 @@
+{
+  "revision": "REPLACE_WITH_ACTUAL_HEAD_SHA",
+  "checks": [
+    {"id": "build", "status": "untested", "command": "Record the actual project build command", "artifact": "artifacts/build.log"},
+    {"id": "tests", "status": "untested", "command": "Record the actual relevant tests", "artifact": "artifacts/tests.log"}
+  ],
+  "review": {
+    "reviewer": "sh-code-reviewer",
+    "status": "untested",
+    "artifact": "artifacts/code-review.md",
+    "findings": []
+  }
+}

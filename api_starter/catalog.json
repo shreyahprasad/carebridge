@@ -1,0 +1,5 @@
+{
+  "lamp": {"available": true},
+  "desk": {"available": false},
+  "chair": {"available": null}
+}

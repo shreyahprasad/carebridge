@@ -1,0 +1,9 @@
+{
+  "name": "synthetic-catalog-development-v1",
+  "cases": [
+    {"id": "available", "input": {"item_id": "lamp"}, "checks": {"equals": {"item_id": "lamp", "available": true, "source": "synthetic-catalog-v1"}, "required_tools": ["lookup_catalog"], "run_status": "complete"}, "synthetic": true, "scenario": "Known available item", "basis": ["catalog.json: lamp.available is true"]},
+    {"id": "unavailable", "input": {"item_id": "desk"}, "checks": {"equals": {"item_id": "desk", "available": false, "source": "synthetic-catalog-v1"}, "required_tools": ["lookup_catalog"], "run_status": "complete"}, "synthetic": true, "scenario": "Known unavailable item", "basis": ["catalog.json: desk.available is false"]},
+    {"id": "unknown", "input": {"item_id": "chair"}, "checks": {"equals": {"item_id": "chair", "available": null, "source": "synthetic-catalog-v1"}, "required_tools": ["lookup_catalog"], "run_status": "complete"}, "synthetic": true, "scenario": "Unknown availability stays unknown", "basis": ["catalog.json: chair.available is null"]},
+    {"id": "absent", "input": {"item_id": "sofa"}, "checks": {"equals": {"item_id": "sofa", "available": null, "source": "synthetic-catalog-v1"}, "required_tools": ["lookup_catalog"], "run_status": "complete"}, "synthetic": true, "scenario": "Absent record is unresolved", "basis": ["catalog.json has no sofa; adapter maps absent availability to null"]}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "contract_version": "v1",
+  "tasks": [
+    {
+      "id": "slice-1",
+      "owner": "coordinator",
+      "outcome": "Replace with the first runnable end-to-end workflow",
+      "depends_on": [],
+      "writes": ["src"],
+      "acceptance": ["Replace with an observable outcome and executable check"],
+      "status": "ready",
+      "evidence": []
+    }
+  ]
+}
