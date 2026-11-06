@@ -1,0 +1,298 @@
+{
+  "version": "call-script-v1",
+  "correlation_id": "418517bfaca4",
+  "case_id": "case-002",
+  "synthetic": true,
+  "date": "2026-11-06",
+  "rule_version": "call-script-rules-v1",
+  "match_mode": "live",
+  "trip_mode": "live",
+  "trip_plan_version": "trip-plan-v1",
+  "client_placeholder": "[client]",
+  "guidelines": [
+    {
+      "code": "identify",
+      "text": "Say who is calling: a caseworker from [organization], calling for a client."
+    },
+    {
+      "code": "consent",
+      "text": "Say the call is made with her consent."
+    },
+    {
+      "code": "disclose_only_listed",
+      "text": "Share only the facts in the client summary. Give her name only to book an intake. Never give her phone number or home address."
+    },
+    {
+      "code": "never_status",
+      "text": "Never give or confirm her immigration status, even if asked."
+    },
+    {
+      "code": "follow_up_unlisted",
+      "text": "If asked for anything not listed, say the caseworker will follow up."
+    },
+    {
+      "code": "hand_back",
+      "text": "Stop and hand the call to a human caseworker for anything clinical, legal, a crisis or a request for payment. Do not answer it on her behalf."
+    },
+    {
+      "code": "record_answers",
+      "text": "Record each answer as yes, no or unknown, with a short note."
+    }
+  ],
+  "opening": "Hi, my name is [caseworker]. I'm calling from [organization], a nonprofit that helps refugees and immigrants in DC find health care. I'm calling for a client, with her consent. She is looking for a therapist or counselor for mental health care.",
+  "disclosures": [
+    {
+      "code": "age",
+      "text": "She is 17. She is a minor."
+    },
+    {
+      "code": "language",
+      "text": "She speaks Spanish."
+    },
+    {
+      "code": "english_level",
+      "text": "She speaks no English."
+    },
+    {
+      "code": "coverage",
+      "text": "She does not have health insurance."
+    },
+    {
+      "code": "in_person",
+      "text": "She prefers in-person appointments."
+    }
+  ],
+  "client_summary": "She is 17. She is a minor. She speaks Spanish. She speaks no English. She does not have health insurance. She prefers in-person appointments.",
+  "closing": "If she can be seen: book the intake, give her name as [client], and note the date, time and what to bring. If there is a waitlist: ask to add her, and note how long it is and when to call back. Thank them.",
+  "calls": [
+    {
+      "order": 1,
+      "trip_order": 1,
+      "provider_id": "samhsa-childrens-national-hospital-20010",
+      "name": "Childrens National Hospital — Department of Psychiatry",
+      "phone": "202-476-5000",
+      "intake_phone": "202-729-3300",
+      "address": "111 Michigan Avenue NW, Washington, DC 20010",
+      "state": "DC",
+      "grade": "one_bus",
+      "questions": [
+        {
+          "code": "new_patients",
+          "source": "call",
+          "text": "Are you taking new clients for therapy or counseling?"
+        },
+        {
+          "code": "confirm_cost",
+          "source": "match",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "source": "match",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        },
+        {
+          "code": "waitlist",
+          "source": "match",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "intake_steps",
+          "source": "call",
+          "text": "How does she book an intake, and what should she bring?"
+        }
+      ],
+      "after_call": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "answers": [
+        {
+          "code": "new_patients",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "confirm_cost",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "minor_consent",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "waitlist",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "intake_steps",
+          "answer": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "trip_order": 2,
+      "provider_id": "samhsa-whitman-walker-health-20005",
+      "name": "Whitman Walker Health — Addiction Treatment Services",
+      "phone": "202-797-4453",
+      "intake_phone": null,
+      "address": "1525 14th Street NW, 5th Floor R, Washington, DC 20005",
+      "state": "DC",
+      "grade": "one_bus",
+      "questions": [
+        {
+          "code": "new_patients",
+          "source": "call",
+          "text": "Are you taking new clients for therapy or counseling?"
+        },
+        {
+          "code": "confirm_cost",
+          "source": "match",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "source": "match",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        },
+        {
+          "code": "waitlist",
+          "source": "match",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "intake_steps",
+          "source": "call",
+          "text": "How does she book an intake, and what should she bring?"
+        }
+      ],
+      "after_call": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "answers": [
+        {
+          "code": "new_patients",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "confirm_cost",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "minor_consent",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "waitlist",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "intake_steps",
+          "answer": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "trip_order": 3,
+      "provider_id": "samhsa-gio-health-services-inc-20011",
+      "name": "Gio Health Services Inc",
+      "phone": "202-621-8494",
+      "intake_phone": null,
+      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
+      "state": "DC",
+      "grade": "one_bus",
+      "questions": [
+        {
+          "code": "new_patients",
+          "source": "call",
+          "text": "Are you taking new clients for therapy or counseling?"
+        },
+        {
+          "code": "confirm_cost",
+          "source": "match",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "source": "match",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        },
+        {
+          "code": "waitlist",
+          "source": "match",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "intake_steps",
+          "source": "call",
+          "text": "How does she book an intake, and what should she bring?"
+        }
+      ],
+      "after_call": [
+        {
+          "code": "kids_ride_free_medical",
+          "text": "Ask DDOT or her school: can her Kids Ride Free card be used for a medical appointment, not only school travel?"
+        }
+      ],
+      "answers": [
+        {
+          "code": "new_patients",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "confirm_cost",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "minor_consent",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "waitlist",
+          "answer": null,
+          "note": null
+        },
+        {
+          "code": "intake_steps",
+          "answer": null,
+          "note": null
+        }
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "provider_id": "samhsa-new-hope-health-services-20032",
+      "name": "New Hope Health Services",
+      "trip_order": 4,
+      "grade": "hard",
+      "reason": "Beyond the top 3; call if those fall through."
+    },
+    {
+      "provider_id": "samhsa-whitman-walker-health-20032",
+      "name": "Whitman Walker Health — Max Robinson Center",
+      "trip_order": 5,
+      "grade": "hard",
+      "reason": "Beyond the top 3; call if those fall through."
+    }
+  ]
+}

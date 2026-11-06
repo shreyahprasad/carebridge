@@ -6,9 +6,7 @@ Modes: live (real Claude), scripted (offline demo agent), rules_only (no agent,
 or the agent's output was rejected/failed).
 """
 from datetime import date
-import json
 import os
-from pathlib import Path
 from uuid import uuid4
 
 from shreyah_harness.guardrails import Policy, SensitiveData
@@ -16,6 +14,7 @@ from shreyah_harness.runtime import Budget, Runtime
 
 from . import agent, rules
 from .models import MatchResult
+from .output import write_run
 
 STAGE_BUDGET = dict(max_requests=3, max_tools=0, max_retries=1, seconds=240)
 RESULT_VERSION = 'match-result-v1'
@@ -113,9 +112,8 @@ def run_match(case, create=None, *, model, live=False, runtime=None, budget=None
     report = MatchResult.model_validate(report).model_dump(mode='json')
     if out_dir is not None:
         # The mode is in the name, so a live run that fell back is visible at a glance.
-        path = Path(out_dir) / f'{report["date"]}-{case.id}-{report["mode"]}-{correlation_id}.json'
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
+        path = write_run(report, out_dir, f'{report["date"]}-{case.id}-{report["mode"]}-{correlation_id}.json',
+                         MatchResult)
         report['path'] = str(path)
         log(f'[{correlation_id}] wrote {path}')
     return report

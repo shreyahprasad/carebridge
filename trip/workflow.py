@@ -6,9 +6,7 @@ model call (check_handoff). A broken handoff raises HandoffError; nothing downst
 run_workflow runs both stages with one Runtime, one Budget and one correlation id.
 """
 from datetime import date
-import json
 import os
-from pathlib import Path
 from uuid import uuid4
 
 from shreyah_harness.guardrails import Policy, SensitiveData
@@ -16,6 +14,7 @@ from shreyah_harness.runtime import Budget, Runtime
 
 from match import rules as match_rules
 from match.models import MatchResult
+from match.output import write_run
 from match.workflow import run_match
 
 from . import agent, benefits as ben, reach
@@ -173,9 +172,9 @@ def run_trip(case, match_result, create=None, *, model, live=False, runtime=None
     }
     report = TripPlan.model_validate(report).model_dump(mode='json')
     if out_dir is not None:
-        path = Path(out_dir) / f'{report["date"]}-{case.id}-{report["match_mode"]}-{report["mode"]}-{correlation_id}.json'
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
+        path = write_run(report, out_dir,
+                         f'{report["date"]}-{case.id}-{report["match_mode"]}-{report["mode"]}-{correlation_id}.json',
+                         TripPlan)
         report['path'] = str(path)
         log(f'[{correlation_id}] wrote {path}')
     return report
