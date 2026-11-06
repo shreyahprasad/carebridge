@@ -46,7 +46,7 @@
     "lng": -77.0327,
     "phone": "202-555-0172",
     "languages": ["Spanish"],
-    "english_level": "basic",
+    "english_level": "none",
     "has_phone": true,
     "phone_type": "smartphone, shared data plan",
     "has_computer": false,
