@@ -29,7 +29,8 @@ class ResearchWorkflow(unittest.TestCase):
         self.assertEqual(self.report['budget_used']['requests'], sum(s['requests'] for s in self.report['stages']))
 
     def test_supported_quote_found_claims_are_accepted_with_source(self):
-        self.assertEqual(self.report['counts']['accepted'], 3)
+        # cost + languages; the asylum 'services' claim is supported but its page is injection-flagged.
+        self.assertEqual(self.report['counts']['accepted'], 2)
         cost = self.by_field[('Example University', 'cost')][0]
         self.assertEqual(cost['source_url'], 'https://clinic.example.edu/community-clinic')
         self.assertIn('sliding fee scale', cost['excerpt'])
@@ -49,6 +50,28 @@ class ResearchWorkflow(unittest.TestCase):
         item = self.by_field[('Example Asylum Network', 'review:phone')]
         self.assertEqual(item['reason'], 'source_unreachable')
         self.assertNotIn(('Example Asylum Network', 'phone'), self.by_field)
+
+    def test_injection_flagged_page_is_never_auto_accepted(self):
+        item = self.by_field[('Example Asylum Network', 'review:services')]
+        self.assertTrue(item['reason'].startswith('injection_suspected'))
+        self.assertIn('override_instructions', item['reason'])
+        self.assertIn('verdict_manipulation', item['reason'])
+        self.assertEqual(self.report['counts']['injection_flagged'], 2)
+
+    def test_link_policy_blocks_http_and_shorteners_before_fetch(self):
+        self.assertEqual(self.by_field[('Example Asylum Network', 'review:website')]['reason'], 'link_not_https')
+        self.assertEqual(self.by_field[('Example Asylum Network', 'review:cost')]['reason'], 'link_blocked_host')
+
+    def test_url_the_specialist_never_saw_is_rejected(self):
+        self.assertEqual(self.by_field[('Example Asylum Network', 'review:eligibility')]['reason'],
+                         'url_not_seen_by_specialist')
+
+    def test_audit_log_written_without_page_content(self):
+        lines = (self.out / 'audit.jsonl').read_text().splitlines()
+        self.assertTrue(lines)
+        self.assertTrue(all(json.loads(l)['correlation_id'] == self.report['correlation_id'] for l in lines))
+        self.assertNotIn('IGNORE ALL PREVIOUS', '\n'.join(lines))
+        self.assertNotIn('sliding fee scale', '\n'.join(lines))
 
     def test_injected_page_text_does_not_enter_dataset(self):
         text = json.dumps(self.report['resources'])

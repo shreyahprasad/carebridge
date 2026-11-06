@@ -53,6 +53,14 @@ FINDINGS = {
              'excerpt': 'Referrals must come from an attorney.'},
             {'field': 'phone', 'value': '202-555-0199', 'source_url': UNREACHABLE,
              'excerpt': 'Call us at 202-555-0199 to schedule.'},
+            # Link guardrails: plain http, a URL shortener, and a URL never searched/fetched.
+            {'field': 'website', 'value': 'http://asylum-network.example.org',
+             'source_url': 'http://asylum-network.example.org/evaluations',
+             'excerpt': 'provide pro bono forensic psychological evaluations'},
+            {'field': 'cost', 'value': 'Free', 'source_url': 'https://bit.ly/3xYzAbc',
+             'excerpt': 'All evaluations are free of charge.'},
+            {'field': 'eligibility', 'value': 'Any asylum seeker', 'source_url': 'https://invented.example.org/about',
+             'excerpt': 'We serve any asylum seeker in the region.'},
         ]}],
 }
 
@@ -76,7 +84,14 @@ def scripted_model():
             return _response(_text({'tasks': [{'resource_type': t, 'focus': f'{t} serving immigrant women in DC'}
                                               for t in task['allowed_types'] if t in FINDINGS]}))
         if system.startswith('You are a CareBridge research specialist'):
-            return _response(_text({'resources': FINDINGS.get(task['resource_type'], [])}))
+            # Like a live turn: server search results, then the final JSON.
+            seen = list(FIXTURE_PAGES) + [UNREACHABLE, 'http://asylum-network.example.org/evaluations', 'https://bit.ly/3xYzAbc']
+            return {'id': 'scripted', 'stop_reason': 'end_turn', 'usage': {'input_tokens': 0, 'output_tokens': 0},
+                    'content': [
+                        {'type': 'server_tool_use', 'id': 'srvtoolu_1', 'name': 'web_search', 'input': {'query': task['focus']}},
+                        {'type': 'web_search_tool_result', 'tool_use_id': 'srvtoolu_1',
+                         'content': [{'type': 'web_search_result', 'url': u, 'title': 'fixture'} for u in seen]},
+                        _text({'resources': FINDINGS.get(task['resource_type'], [])})]}
         if system.startswith('You are the CareBridge source verifier'):
             last = messages[-1]['content']
             reads = [m for m in messages if m['role'] == 'user' and isinstance(m['content'], list)]

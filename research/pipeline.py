@@ -18,7 +18,7 @@ from shreyah_harness.storage import Storage, UsageLedger
 
 from . import agents
 from .config import BUDGET, DATA, RESOURCE_TYPES, SCOPE
-from .sources import check_sources, find_excerpt, trust_tier
+from .sources import canonical_url, check_sources, find_excerpt, link_policy, trust_tier
 
 ACCEPT_POLICY = 'quote-found+verifier-supported-v1'
 VERIFY_BATCH = 20
@@ -65,10 +65,16 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
     privacy = SensitiveData(secrets=secrets)
     budget = Budget(**BUDGET)
     trace = []
+    audit_path = out_dir / 'audit.jsonl'
+
+    def audit(entry):
+        # Runtime audit entries are already redacted and hold no raw content.
+        with audit_path.open('a') as fh:
+            fh.write(json.dumps({'correlation_id': correlation_id, **entry}, default=str) + '\n')
 
     with Storage(str(db_path), scope=SCOPE, privacy=privacy) as storage:
         runtime = Runtime(actor='carebridge-research', policy=Policy(privacy=privacy),
-                          server_tools=agents.SERVER_TOOLS, ledger=UsageLedger(storage))
+                          server_tools=agents.SERVER_TOOLS, ledger=UsageLedger(storage), audit=audit)
         evidence = Evidence(storage)
 
         # 1. Coordinator plans (no tools).
@@ -87,12 +93,14 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
         for task in plan['output']['tasks']:
             kind = task['resource_type']
             log(f'[{correlation_id}] specialist {kind}: {task["focus"][:80]}')
-            result = agents.specialist(model).run(
+            seen = set()
+            result = agents.specialist(model, seen).run(
                 runtime, create, task={'resource_type': kind, 'type_description': RESOURCE_TYPES[kind], 'focus': task['focus']},
                 budget=budget, max_tokens=8000, output_retries=1)
             if _stage(trace, f'specialist:{kind}', result):
+                seen_canon = {canonical_url(u) for u in seen}
                 for res in result['output']['resources']:
-                    found.append({**res, 'resource_type': kind})
+                    found.append({**res, 'resource_type': kind, 'seen': seen_canon})
 
         # 3. Host re-fetches every cited page and checks each excerpt.
         claims = []
@@ -102,11 +110,19 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
             resources.setdefault(rid, {'id': rid, 'name': res['name'], 'organization': res['organization'],
                                        'resource_type': res['resource_type']})
             for c in res['claims']:
-                claims.append({**c, 'claim_id': f'c{len(claims) + 1}', 'resource_id': rid,
-                               'organization': res['organization']})
+                claim = {**c, 'claim_id': f'c{len(claims) + 1}', 'resource_id': rid,
+                         'organization': res['organization'], 'check': None}
+                # Link guardrails before any host fetch.
+                if canonical_url(c['source_url']) not in res['seen']:
+                    claim['check'] = 'url_not_seen_by_specialist'
+                elif link_policy(c['source_url']):
+                    claim['check'] = link_policy(c['source_url'])
+                claims.append(claim)
         log(f'[{correlation_id}] source check: {len(claims)} claims, {len({c["source_url"] for c in claims})} pages')
-        pages = check_sources([c['source_url'] for c in claims], fetch, evidence)
+        pages = check_sources([c['source_url'] for c in claims if c['check'] is None], fetch, evidence)
         for c in claims:
+            if c['check'] is not None:
+                continue
             page = pages[c['source_url']]
             if page['status'] != 'fetched':
                 c['check'] = 'source_unreachable'
@@ -115,6 +131,7 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
                 span = find_excerpt(page['text'], c['excerpt'])
                 c['check'] = 'quote_found' if span else 'quote_not_found'
                 c['span'], c['source_id'] = span, page['source_id']
+                c['source_flags'] = page['injection']
 
         # 4. Verifier judges quote-found claims against stored snapshots only.
         to_verify = [c for c in claims if c['check'] == 'quote_found']
@@ -130,7 +147,8 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
             log(f'[{correlation_id}] verifier: {len(batch)} claims')
             result = agents.verifier(model, snapshots).run(
                 runtime, create, budget=budget, max_tokens=4000, output_retries=1, validate_output=valid_verdicts,
-                task={'claims': [{k: c[k] for k in ('claim_id', 'organization', 'field', 'value', 'excerpt', 'source_id')}
+                task={'claims': [{**{k: c[k] for k in ('claim_id', 'organization', 'field', 'value', 'excerpt', 'source_id')},
+                                  **({'source_flags': c['source_flags']} if c['source_flags'] else {})}
                                  for c in batch]})
             if _stage(trace, f'verifier:{i // VERIFY_BATCH + 1}', result):
                 verdicts.update({v['claim_id']: v for v in result['output']['verdicts']})
@@ -144,6 +162,8 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
             c['verdict_reason'] = v['reason'] if v else None
             if c['check'] == 'quote_found':
                 status = {'supported': 'supported', 'unsupported': 'conflicting'}.get(c['verdict'], 'needs_review')
+                if c['source_flags'] and status == 'supported':
+                    status = 'needs_review'  # injection-flagged pages are never auto-accepted
                 obs = evidence.observe(record_id=c['resource_id'], record_version=correlation_id, field=c['field'],
                                        value=c['value'], source_id=c['source_id'], excerpt=c['span'],
                                        extractor='specialist-v1', validator='verifier-v1', status=status)
@@ -155,6 +175,15 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
                 evidence.observe(record_id=c['resource_id'], record_version=correlation_id, field=c['field'],
                                  value=None, extractor='specialist-v1', validator='host-source-check-v1', status='unknown')
         return _finish(out_dir, topic, correlation_id, model, trace, claims, resources, budget, storage, log)
+
+
+def _reason(c):
+    """Strongest rejection first: host check, then verifier, then injection flag."""
+    if c['check'] != 'quote_found':
+        return c['check']
+    if c['verdict'] != 'supported':
+        return f"verifier: {c['verdict'] or 'no verdict'}"
+    return 'injection_suspected: ' + ', '.join(c['source_flags'])
 
 
 def _finish(out_dir, topic, correlation_id, model, trace, claims, resources, budget, storage, log):
@@ -169,8 +198,9 @@ def _finish(out_dir, topic, correlation_id, model, trace, claims, resources, bud
                 'value': c['value'], 'source_url': c['source_url'], 'excerpt': c['span'],
                 'trust': trust_tier(c['source_url']), 'acceptance_id': c['acceptance_id'], 'checked': today})
         review = [{'field': c['field'], 'value': c['value'], 'source_url': c['source_url'], 'excerpt': c['excerpt'],
-                   'reason': c['check'] if c['check'] != 'quote_found' else f"verifier: {c['verdict'] or 'no verdict'}",
-                   'detail': c.get('check_detail') or c.get('verdict_reason')} for c in mine if not c.get('acceptance_id')]
+                   'reason': _reason(c),
+                   'detail': c.get('check_detail') or c.get('verdict_reason'),
+                   'source_flags': c.get('source_flags') or []} for c in mine if not c.get('acceptance_id')]
         trust = {trust_tier(c['source_url']) for c in accepted}
         dataset.append({**res, 'status': 'verified' if accepted and trust == {'institutional'} else 'needs_review',
                         'fields': fields, 'review': review,
@@ -182,7 +212,10 @@ def _finish(out_dir, topic, correlation_id, model, trace, claims, resources, bud
               'counts': {'resources': len(dataset), 'claims': len(claims),
                          'accepted': sum(1 for c in claims if c.get('acceptance_id')),
                          'quote_not_found': sum(1 for c in claims if c.get('check') == 'quote_not_found'),
-                         'source_unreachable': sum(1 for c in claims if c.get('check') == 'source_unreachable')},
+                         'source_unreachable': sum(1 for c in claims if c.get('check') == 'source_unreachable'),
+                         'link_policy': sum(1 for c in claims if (c.get('check') or '').startswith('link_')),
+                         'url_not_seen': sum(1 for c in claims if c.get('check') == 'url_not_seen_by_specialist'),
+                         'injection_flagged': sum(1 for c in claims if c.get('source_flags'))},
               'resources': dataset}
     run_path = out_dir / 'runs' / f'{today}-{correlation_id}.json'
     run_path.parent.mkdir(parents=True, exist_ok=True)

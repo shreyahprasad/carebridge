@@ -55,6 +55,53 @@ def find_excerpt(text, excerpt):
     return text[i:i + len(needle)] if i >= 0 else None
 
 
+# ---------- link policy (checked before any host fetch) ----------
+BLOCKED_HOSTS = {
+    # URL shorteners / redirectors hide the real destination.
+    'bit.ly', 'tinyurl.com', 't.co', 'goo.gl', 'ow.ly', 'is.gd', 'buff.ly', 'rebrand.ly', 'cutt.ly', 'lnkd.in',
+    # Paste and file hosts: anyone can publish anything.
+    'pastebin.com', 'paste.ee', 'ghostbin.com', 'hastebin.com', 'justpaste.it', 'rentry.co',
+    'drive.google.com', 'docs.google.com', 'dropbox.com', 'mega.nz', 'wetransfer.com', 'mediafire.com',
+}
+
+
+def canonical_url(url):
+    parts = urlsplit(url.strip())
+    host = (parts.hostname or '').lower().removeprefix('www.')
+    return f"{parts.scheme.lower()}://{host}{parts.path.rstrip('/') or ''}{'?' + parts.query if parts.query else ''}"
+
+
+def link_policy(url):
+    """Return None if the cited URL may be fetched, else a reason code."""
+    parts = urlsplit(url)
+    host = (parts.hostname or '').lower().removeprefix('www.')
+    if parts.scheme != 'https':
+        return 'link_not_https'
+    if not host or parts.username or parts.password or (parts.port not in (None, 443)):
+        return 'link_malformed'
+    if any(host == b or host.endswith('.' + b) for b in BLOCKED_HOSTS):
+        return 'link_blocked_host'
+    if re.fullmatch(r'[\d.]+|\[[0-9a-f:]+\]', host):
+        return 'link_raw_ip'
+    return None
+
+
+# ---------- injection scan (deterministic, on every stored snapshot) ----------
+INJECTION_PATTERNS = {
+    'override_instructions': r'\b(ignore|disregard|forget|override)\b.{0,40}\b(previous|prior|above|earlier|all|system)\b.{0,20}\b(instructions?|prompts?)',
+    'addresses_ai': r'\b(you are (now )?(an?|the) (ai|assistant|model|llm|chatbot)|as an ai\b|(ai|llm|language model|assistant)s?,? (must|should|please))',
+    'verdict_manipulation': r'\b(mark|label|rate|treat|consider)\b.{0,40}\b(as )?(supported|verified|true|approved|accepted)\b',
+    'role_markers': r'(<\s*/?\s*(system|assistant|instructions?)\s*>|\[\s*(system|inst)\s*\]|\bsystem prompt\b)',
+    'hidden_task': r'\b(new|updated|additional) (task|instructions?|directive)s?\s*:',
+}
+
+
+def scan_injection(text):
+    """Labels of injection-like patterns found. Detection is heuristic: it flags
+    pages for human review; it never makes a page trusted."""
+    return sorted(label for label, pattern in INJECTION_PATTERNS.items() if re.search(pattern, text, re.I))
+
+
 def trust_tier(url):
     host = (urlsplit(url).hostname or '').lower()
     return 'institutional' if host.endswith(INSTITUTIONAL_SUFFIXES) else 'needs_review'
@@ -74,8 +121,9 @@ def check_sources(urls, fetch, evidence):
             if not text:
                 raise ValueError('empty page')
             source_id = evidence.snapshot(url, text)
-            results[url] = {'status': 'fetched', 'source_id': source_id,
-                            'text': evidence.source(source_id)['content']}
+            stored = evidence.source(source_id)['content']
+            results[url] = {'status': 'fetched', 'source_id': source_id, 'text': stored,
+                            'injection': scan_injection(stored)}
         except Exception as exc:  # recorded, never fatal: claim becomes needs_review
             results[url] = {'status': 'unreachable', 'error': type(exc).__name__ + ': ' + str(exc)[:120]}
     return results
