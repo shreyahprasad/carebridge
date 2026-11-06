@@ -1,0 +1,630 @@
+{
+  "version": "match-result-v1",
+  "correlation_id": "866d1e5d6fcd",
+  "case_id": "case-001",
+  "synthetic": true,
+  "date": "2026-11-06",
+  "mode": "live",
+  "fallback_reason": null,
+  "model": "claude-sonnet-5-5",
+  "prompt_version": "provider-match-v1",
+  "rule_version": "match-rules-v1",
+  "data_version": "samhsa-9bdc06a4b071",
+  "needs": {
+    "case_id": "case-001",
+    "languages": [
+      "Dari"
+    ],
+    "english_level": "none",
+    "age": 29,
+    "age_groups": [
+      "adults"
+    ],
+    "minor": false,
+    "coverage": "medicaid",
+    "care_mode": "in_person",
+    "needs_in_person": true,
+    "trauma_informed": true,
+    "provider_gender": "woman",
+    "interpreter_ok": true,
+    "pregnant": true,
+    "childcare_needed": true,
+    "has_car": false,
+    "transportation": [
+      "walks",
+      "Metrobus with help"
+    ],
+    "concerns": "Anxiety, trouble sleeping and nightmares since leaving Afghanistan; low mood during pregnancy.",
+    "urgency": "routine"
+  },
+  "counts": {
+    "A": 1,
+    "B": 3,
+    "C": 13,
+    "excluded": 55
+  },
+  "picks": [
+    {
+      "rank": 1,
+      "provider_id": "samhsa-gio-health-services-inc-20011",
+      "name": "Gio Health Services Inc",
+      "tier": "A",
+      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
+      "state": "DC",
+      "lat": 38.9669177,
+      "lng": -77.0270752,
+      "distance_mi": 0.7,
+      "phone": "202-621-8494",
+      "intake_phone": null,
+      "website": "https://giohealthservices.com/",
+      "languages": [
+        "English",
+        "Spanish",
+        "Chinese",
+        "Arabic",
+        "Haitian Creole",
+        "Farsi",
+        "French",
+        "German",
+        "Greek",
+        "Hebrew",
+        "Hindi",
+        "Hmong",
+        "Italian",
+        "Japanese",
+        "Korean",
+        "Ojibwa",
+        "Polish",
+        "Portuguese",
+        "Russian",
+        "Tagalog",
+        "Vietnamese",
+        "Yupik"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists Farsi (closest listed language to Dari)"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "accepts_medicaid",
+          "text": "Accepts Medicaid (the facility's state plan)"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "domestic_violence_program",
+          "text": "Domestic violence program"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "The only tier A match: it is in DC, only 0.7 miles away so she can walk, takes Medicaid, and has trauma and PTSD programs for her nightmares and anxiety. It is the strongest first call.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "woman_clinician",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "dari_speaker",
+          "text": "Your listing says Farsi. Does the clinician speak Dari?"
+        },
+        {
+          "code": "perinatal",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        }
+      ],
+      "extra_questions": [
+        "Which of the listed languages is available for Dari-speaking clients, or is an interpreter needed?"
+      ],
+      "decision": {
+        "record_id": "samhsa-gio-health-services-inc-20011",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 2,
+      "provider_id": "samhsa-washington-hospital-center-20017",
+      "name": "Washington Hospital Center — Outpatient Behavioral Health Services",
+      "tier": "C",
+      "address": "216 Michigan Avenue NE, 2nd Floor, Washington, DC 20017",
+      "state": "DC",
+      "lat": 38.9296601,
+      "lng": -77.0042453,
+      "distance_mi": 2.3,
+      "phone": "202-877-6333",
+      "intake_phone": null,
+      "website": "https://www.medstarhealth.org",
+      "languages": [
+        "English"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "accepts_medicaid",
+          "text": "Accepts Medicaid (the facility's state plan)"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "telehealth",
+          "text": "Offers telehealth"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "domestic_violence_program",
+          "text": "Domestic violence program"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        }
+      ],
+      "tier_basis": {
+        "language_match": false,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "In DC, 2.3 miles away, takes Medicaid, and has trauma and PTSD programs. A hospital-based setting may suit perinatal needs, but an interpreter would be needed.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "woman_clinician",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "interpreter",
+          "text": "Do you provide an interpreter for her language at no cost?"
+        },
+        {
+          "code": "perinatal",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        }
+      ],
+      "extra_questions": [
+        "Can they book a Dari interpreter for every visit?"
+      ],
+      "decision": {
+        "record_id": "samhsa-washington-hospital-center-20017",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-washington-hospital-center-20017#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "C"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 3,
+      "provider_id": "samhsa-circles-of-hope-psychotherapy-and-20008",
+      "name": "Circles of Hope Psychotherapy and — Addictions Services",
+      "tier": "C",
+      "address": "3000 Connecticut Avenue NW, Suite 321, Washington, DC 20008",
+      "state": "DC",
+      "lat": 38.9298333,
+      "lng": -77.0560416,
+      "distance_mi": 2.3,
+      "phone": "202-997-1448",
+      "intake_phone": "202-265-2343",
+      "website": "https://circlesofhopellc.com",
+      "languages": [
+        "English"
+      ],
+      "telehealth": false,
+      "facts": [
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "accepts_medicaid",
+          "text": "Accepts Medicaid (the facility's state plan)"
+        },
+        {
+          "code": "sliding_fee",
+          "text": "Sliding fee scale"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        }
+      ],
+      "tier_basis": {
+        "language_match": false,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "In DC, 2.3 miles away, with in-person care, Medicaid and trauma and PTSD programs. An interpreter would be needed.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "woman_clinician",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "interpreter",
+          "text": "Do you provide an interpreter for her language at no cost?"
+        },
+        {
+          "code": "perinatal",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        }
+      ],
+      "extra_questions": [
+        "Can they arrange a Dari interpreter for in-person sessions?"
+      ],
+      "decision": {
+        "record_id": "samhsa-circles-of-hope-psychotherapy-and-20008",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-circles-of-hope-psychotherapy-and-20008#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "C"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 4,
+      "provider_id": "samhsa-northern-virginia-family-services-22042",
+      "name": "Northern Virginia Family Services — Multicultural Center",
+      "tier": "B",
+      "address": "6400 Arlington Boulevard, Suite 110, Falls Church, VA 22042",
+      "state": "VA",
+      "lat": 38.8728073,
+      "lng": -77.1601999,
+      "distance_mi": 9.1,
+      "phone": "571-748-2800",
+      "intake_phone": "571-748-2818",
+      "website": "https://www.nvfs.org/multicultural",
+      "languages": [
+        "English",
+        "Spanish",
+        "Arabic",
+        "Farsi",
+        "French"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists Farsi (closest listed language to Dari)"
+        },
+        {
+          "code": "accepts_medicaid",
+          "text": "Accepts Medicaid (the facility's state plan)"
+        },
+        {
+          "code": "sliding_fee",
+          "text": "Sliding fee scale"
+        },
+        {
+          "code": "payment_assistance",
+          "text": "Payment assistance"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "telehealth",
+          "text": "Offers telehealth"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "domestic_violence_program",
+          "text": "Domestic violence program"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": false,
+        "coverage_match": true
+      },
+      "why": "Lists her language and has trauma and PTSD programs, but it is in Virginia, 9.1 miles away, which is hard without a car. Telehealth could help if DC Medicaid is accepted.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "woman_clinician",
+          "text": "Is a woman clinician available for her?"
+        },
+        {
+          "code": "dari_speaker",
+          "text": "Your listing says Farsi. Does the clinician speak Dari?"
+        },
+        {
+          "code": "confirm_dc_medicaid",
+          "text": "Do you accept DC Medicaid (her plan), not only your own state's Medicaid?"
+        },
+        {
+          "code": "perinatal",
+          "text": "Do you see clients who are pregnant?"
+        },
+        {
+          "code": "childcare",
+          "text": "Can she bring her young child, or is childcare available during sessions?"
+        }
+      ],
+      "extra_questions": [
+        "Would telehealth visits be available to avoid the trip?"
+      ],
+      "decision": {
+        "record_id": "samhsa-northern-virginia-family-services-22042",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-northern-virginia-family-services-22042#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-northern-virginia-family-services-22042#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-northern-virginia-family-services-22042#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-northern-virginia-family-services-22042#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-northern-virginia-family-services-22042#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "B"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    }
+  ],
+  "not_chosen_note": "The two Cornerstone Montgomery sites are in Maryland, 5.7 and 6.7 miles away, and need DC Medicaid confirmed, so they rank below the other options. The remaining tier C providers are farther than those chosen, and none is stronger on fit.",
+  "unchecked_fields": [
+    "picks[].why",
+    "picks[].extra_questions",
+    "not_chosen_note"
+  ],
+  "stages": [
+    {
+      "stage": "provider-match",
+      "profile": "provider-match",
+      "run_id": "38fcae4ddb5c4459875d734f2c1bf084",
+      "status": "complete",
+      "reason": null,
+      "requests": 1,
+      "tools": 0
+    }
+  ],
+  "budget_used": {
+    "requests": 1,
+    "tools": 0
+  }
+}
