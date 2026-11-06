@@ -63,16 +63,18 @@ function needs(c) {
   if (pref.trauma_informed) out.push({ kind: 'key', text: 'Trauma-informed' });
   if (c.pregnant) out.push({ kind: 'attn', text: `Pregnant${c.pregnancy_weeks ? ` · ${c.pregnancy_weeks} wks` : ''}` });
   if (typeof c.age === 'number' && c.age < 18) out.push({ kind: 'attn', text: 'Minor' });
-  if (c.guardian && /not (her|his|their)? ?legal guardian/i.test(c.guardian)) out.push({ kind: 'attn', text: 'No legal guardian with her' });
+  if (c.guardian && /not (her|his|their)? ?legal guardian/i.test(c.guardian)) out.push({ kind: 'attn', text: 'No legal guardian present' });
   if (c.has_car === false) out.push({ kind: 'attn', text: 'No car' });
   if (c.childcare_during_appointments === 'needed') out.push({ kind: 'attn', text: 'Needs childcare' });
-  if (c.has_computer === false && c.phone_type && /no data|basic/i.test(c.phone_type)) out.push({ kind: 'attn', text: 'No internet device' });
+  if (c.has_phone === false) out.push({ kind: 'attn', text: 'No phone' });
+  const noDataPhone = c.has_phone === false || /no data|basic/i.test(c.phone_type || '');
+  if (c.has_computer === false && noDataPhone) out.push({ kind: 'attn', text: 'No internet device' });
   return out;
 }
 
 const chip = n => h('span', { class: `chip chip-${n.kind}` }, n.text);
 
-function renderList(selectedId) {
+function buildList() {
   const list = document.getElementById('cases');
   list.replaceChildren(...cases.map(c => {
     const flags = needs(c);
@@ -80,7 +82,7 @@ function renderList(selectedId) {
       h('button', {
         class: 'case-item',
         type: 'button',
-        'aria-current': c.id === selectedId ? 'true' : 'false',
+        'data-id': c.id,
         onclick: () => { location.hash = `#/case/${encodeURIComponent(c.id)}`; },
       },
         h('div', { class: 'case-top' },
@@ -100,6 +102,12 @@ function renderList(selectedId) {
   document.getElementById('case-count').textContent = `${cases.length} ${cases.length === 1 ? 'case' : 'cases'}`;
 }
 
+function markSelected(selectedId) {
+  for (const btn of document.querySelectorAll('.case-item')) {
+    btn.setAttribute('aria-current', btn.dataset.id === selectedId ? 'true' : 'false');
+  }
+}
+
 // A fact row is skipped when its value is missing, so new or partial cases still render.
 function facts(rows) {
   const items = rows.filter(([, v]) => v !== null && v !== undefined && v !== '');
@@ -115,21 +123,24 @@ function card(title, rows) {
 function renderDetail(c, missingId) {
   const detail = document.getElementById('detail');
   if (!c) {
-    detail.replaceChildren(h('p', { class: 'empty' }, missingId ? `No case with id “${missingId}”.` : 'Select a case to see her details.'));
+    detail.replaceChildren(h('p', { class: 'empty' }, missingId ? `No case with id “${missingId}”.` : 'Select a case to see details.'));
     return;
   }
   const pref = c.preferences || {};
   const hh = c.household || {};
-  const kids = (c.children || []).map(k => `${k.age} yrs`).join(', ');
+  const kids = Array.isArray(c.children)
+    ? (c.children.length ? c.children.map(k => (k && k.age != null ? `${k.age} yrs` : 'age unknown')).join(', ') : 'None')
+    : null;
   const cw = c.caseworker || {};
 
-  detail.replaceChildren(
+  // Optional parts may be null/false; replaceChildren would print them, so drop them.
+  detail.replaceChildren(...[
     h('button', { class: 'back', type: 'button', onclick: () => { location.hash = ''; } }, '← All cases'),
     h('div', { class: 'detail-head' },
       h('div', { class: 'detail-title' },
         h('span', { class: 'avatar', 'aria-hidden': 'true' }, initials(c)),
         h('div', {},
-          h('h2', {}, fullName(c)),
+          h('h2', { tabindex: '-1', id: 'case-title' }, fullName(c)),
           h('div', { class: 'case-sub' }, [c.age && `${c.age} years old`, c.id, c.synthetic && 'synthetic'].filter(Boolean).join(' · ')),
         ),
         urgencyPill(c),
@@ -140,7 +151,7 @@ function renderDetail(c, missingId) {
         c.address && h('span', {}, c.address),
       ),
       h('div', { class: 'needs' },
-        h('div', { class: 'label' }, 'What she needs from care'),
+        h('div', { class: 'label' }, 'Needs from care'),
         h('div', { class: 'chips' }, needs(c).map(chip)),
       ),
       h('div', { class: 'actions' },
@@ -167,12 +178,12 @@ function renderDetail(c, missingId) {
         ['Immigration', c.immigration_status && cap(c.immigration_status)],
         ['Insurance', insuranceLabel(c)],
         ['SNAP', yesNo(c.snap)],
-        ['Household', hh.size && `${hh.size} people`],
-        ['Monthly income', hh.monthly_income_usd != null && `$${hh.monthly_income_usd.toLocaleString()}`],
+        ['Household', hh.size != null ? `${hh.size} people` : null],
+        ['Monthly income', typeof hh.monthly_income_usd === 'number' ? `$${hh.monthly_income_usd.toLocaleString()}` : null],
       ]),
       card('Family and school', [
         ['Pregnant', c.pregnant ? `Yes${c.pregnancy_weeks ? `, ${c.pregnancy_weeks} weeks` : ''}` : yesNo(c.pregnant)],
-        ['Children', kids || ((c.children || []).length === 0 ? 'None' : null)],
+        ['Children', kids],
         ['Guardian', c.guardian && cap(c.guardian)],
         ['School', c.school],
       ]),
@@ -186,21 +197,28 @@ function renderDetail(c, missingId) {
       h('p', {}, cw.notes),
       cw.name && h('div', { class: 'who' }, `— ${cw.name}`),
     ),
-  );
+  ].filter(Boolean));
 }
 
 function selectedFromHash() {
   const m = location.hash.match(/^#\/case\/(.+)$/);
-  return m ? decodeURIComponent(m[1]) : null;
+  if (!m) return null;
+  try { return decodeURIComponent(m[1]); } catch { return m[1]; }
 }
 
-function route() {
+const isPhone = () => window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+
+function route(event) {
   const fromHash = selectedFromHash();
   const c = cases.find(x => x.id === fromHash) || (fromHash ? null : cases[0]);
-  document.getElementById('layout').classList.toggle('has-selection', Boolean(fromHash && c));
-  renderList(c && c.id);
+  // On phones the detail pane shows whenever a case was asked for, found or not.
+  document.getElementById('layout').classList.toggle('has-selection', Boolean(fromHash));
+  markSelected(c && c.id);
   renderDetail(c, fromHash);
-  if (c) document.title = `CareBridge · ${fullName(c)}`;
+  document.title = fromHash ? `CareBridge · ${c ? fullName(c) : 'Case not found'}` : 'CareBridge · Cases';
+  document.getElementById('status').textContent = c ? `Showing ${fullName(c)}` : fromHash ? 'Case not found' : '';
+  // The list is hidden on phones once a case opens, so move focus to the case title.
+  if (event && fromHash && c && isPhone()) document.getElementById('case-title').focus();
 }
 
 async function init() {
@@ -210,11 +228,13 @@ async function init() {
     cases = await res.json();
     if (!Array.isArray(cases)) throw new Error('cases.json is not a list');
   } catch (err) {
+    document.getElementById('layout').classList.add('has-selection');
     document.getElementById('detail').replaceChildren(h('div', { class: 'error' },
       h('strong', {}, 'Could not load cases. '), `${err.message}. Serve the repo root, for example `,
       h('code', {}, 'python3 -m http.server 8000'), ', then open ', h('code', {}, '/ui/'), '.'));
     return;
   }
+  buildList();
   window.addEventListener('hashchange', route);
   route();
 }
