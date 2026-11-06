@@ -1,19 +1,19 @@
-# Build brief
+# Build brief — CareBridge
 
-- User and problem:
-- Primary workflow:
-- Judging criteria and weights:
-- Three-minute demo outcome:
-- Must work live:
-- Allowed simulations (visibly labeled):
-- Non-goals:
-- Stack, data and credentials available:
-- Visual references and what to borrow:
-- Done criteria:
-- Product runtime (separate from coding agents), model and prompt versions:
-- Product-agent roles, connected demo path and which handoffs must run live:
-- Agent/tool budgets, review gates and evidence requirements:
-- Development/held-out cases and two prompt-revision checkpoints, if applicable:
-- Feature freeze, recording start, upload and submission deadlines:
+- User and problem: Caseworkers at a DC immigrant/refugee-support nonprofit (inspired by IRO Center's programs: immigration support, English/vocational education, community, food and clothing) have no in-house mental-health program. For women arriving from war zones or places with few women's rights, they spend hours outside direct casework finding accessible mental-health providers, then more time making care feasible: language, preference for women clinicians, telehealth vs in-person (does she have a phone/computer?), Medicaid/Alliance help (pregnant, under 18, low income), and getting her to the appointment.
+- Primary workflow: Caseworker opens a case → CareBridge runs specialist agents (intake review, provider match, assistance, transportation) → one consolidated case view with linked sources: relevant case facts, provider shortlist with reasons, assistance programs, transportation plan, and a drafted call script plus exact next steps for the caseworker. Future: an AI agent makes the call with verifiable information (shown as a labeled, disabled option).
+- Judging criteria and weights: TBD by event — assume impact on caseworker time, working live demo, and technical depth (agentic, grounded, safe).
+- Three-minute demo outcome: Pick synthetic case "Amina" (Dari/Farsi speaker, pregnant, no car, phone only) → run plan → see Farsi-capable trauma-informed telehealth-capable providers accepting Medicaid, DC Medicaid/Healthy Families pregnancy coverage, Medicaid non-emergency transport and Metro reduced fare, and a call script that asks about a woman clinician and interpreter. Every claim links to a provider record or program source.
+- Must work live: Case list, plan generation for at least one case with real Claude agents (if API key available), consolidated view, call script.
+- Allowed simulations (visibly labeled): Scripted "offline" agent mode when no API key; synthetic cases; AI phone call (button disabled, "future"); program rules are a curated summary with source links, marked "verify before relying".
+- Non-goals: Real client data, authentication, actually placing calls, real-time transit routing, full DC legal coverage, providers outside the DC 10-mile radius.
+- Stack, data and credentials available: Python 3.14 stdlib HTTP server + single-page HTML/JS; SQLite not required (JSON files). shreyah-harness guarded Messages API runtime (anthropic 1.17.0). Data: SAMHSA FindTreatment.gov export, 72 mental-health facilities within 10 mi of DC (`data/raw/samhsa_dc_mh.json`); curated DC assistance + transport programs; synthetic cases. Credentials: ANTHROPIC_API_KEY + CLAUDE_MODEL needed for live mode (not yet provided).
+- Visual references and what to borrow: Calm, case-management dashboard: left case list, right consolidated plan in cards; source links on every fact; clear "verify" badges.
+- Done criteria: `python3 app/server.py` starts; case list loads; plan renders for every synthetic case offline; live mode works for one case; unknowns are shown as "ask on call", never guessed.
+- Product runtime (separate from coding agents), model and prompt versions: shreyah_harness.runtime 0.4.0; model from CLAUDE_MODEL (claude-sonnet-5-5 suggested); prompts versioned `*-v1` in `app/agents.py`.
+- Product-agent roles, connected demo path and which handoffs must run live: intake-review → provider-match (consumes validated needs) → assistance → transportation (consumes chosen providers' locations + assistance eligibility) → coordinator writes call script from validated outputs only. Sequential, shared Budget, one correlation ID. Provider-match → transportation handoff must run live.
+- Agent/tool budgets, review gates and evidence requirements: Shared workflow budget ~24 requests / 20 tools; provider ids in outputs must exist in tool results; call-script phone/name must equal provider record (grounded_fields). Hackathon gate: one sh-verifier pass; no full review gate.
+- Development/held-out cases and two prompt-revision checkpoints, if applicable: 6 synthetic dev cases; skip held-out set.
+- Feature freeze, recording start, upload and submission deadlines: TBD — 120-minute sprint.
 
-Default sprint: 180 minutes; 20 planning/setup, 100 implementation/integration, 60 verification/polish/demo. Adjust to the event rules. These numbers are local starting assumptions.
+Sprint: 120 minutes; 15 setup/plan, 70 build/integrate, 25 verify/polish, 10 demo rehearsal.
