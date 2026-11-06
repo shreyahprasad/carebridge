@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CareBridge · Cases</title>
+  <meta name="color-scheme" content="light dark">
+  <script>try{var t=localStorage.getItem('carebridge.theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,7 +20,10 @@
       <span class="logo" aria-hidden="true">CB</span>
       <span class="brand-name">CareBridge</span>
     </div>
-    <span class="badge badge-muted" title="All cases are made up for the demo">Synthetic data</span>
+    <div class="top-actions">
+      <span class="badge badge-muted" title="All cases are made up for the demo">Synthetic data</span>
+      <button type="button" class="theme-btn" id="theme-toggle">Theme: Auto</button>
+    </div>
   </header>
 
   <main class="layout" id="layout">
