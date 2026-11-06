@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CareBridge · Cases</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="crisis" role="note">
+    <strong>Client in crisis?</strong>
+    DBH Access HelpLine <a href="tel:18887934357">1-888-793-4357</a> (24/7, can send a mobile team)
+    <span aria-hidden="true">·</span> Call or text <a href="tel:988">988</a>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">CB</span>
+      <span class="brand-name">CareBridge</span>
+    </div>
+    <span class="badge badge-muted" title="All cases are made up for the demo">Synthetic data</span>
+  </header>
+
+  <main class="layout" id="layout">
+    <aside class="case-list" aria-label="Cases">
+      <div class="list-head">
+        <h1>Cases</h1>
+        <span class="count" id="case-count"></span>
+      </div>
+      <ul id="cases" class="cases"></ul>
+    </aside>
+
+    <section class="detail" id="detail" aria-live="polite">
+      <p class="empty">Loading cases…</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
