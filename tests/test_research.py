@@ -92,5 +92,45 @@ class ResearchWorkflow(unittest.TestCase):
                 pipeline.run(topic, never, fixture_fetch, model='x', out_dir=self.out, log=lambda m: None)
 
 
+class Guardrails(unittest.TestCase):
+    def test_raw_ip_hosts_blocked_including_ipv6_and_hex(self):
+        from research.sources import link_policy
+        for url in ['https://[::1]/x', 'https://[2001:db8::1]/p', 'https://0x7f000001/', 'https://127.0.0.1/', 'https://2130706433/']:
+            self.assertEqual(link_policy(url), 'link_raw_ip', url)
+        self.assertIsNone(link_policy('https://dhcf.dc.gov/service/medicaid'))
+
+    def test_org_domains_are_not_institutional(self):
+        from research.sources import trust_tier
+        self.assertEqual(trust_tier('https://scam-clinic.org/a'), 'needs_review')
+        self.assertEqual(trust_tier('https://dbh.dc.gov/a'), 'institutional')
+
+    def test_excerpt_span_correct_after_case_changing_characters(self):
+        from research.sources import find_excerpt
+        text = 'Straße Klinik. Sessions are available in English and Spanish.'
+        self.assertEqual(find_excerpt(text, 'sessions are available in english'), 'Sessions are available in English')
+
+    def test_generic_street_names_allowed_but_addresses_refused(self):
+        pipeline.check_topic('top 5 clinics near Georgia Avenue for Dari speakers')
+        pipeline.check_topic('mental health programs at St Elizabeths campus')
+        for t in ['client lives at 1660 L Street, needs therapist', 'near 12 Main St NW for a client']:
+            with self.assertRaises(ValueError):
+                pipeline.check_topic(t)
+
+    def test_later_run_does_not_erase_verified_facts(self):
+        out = Path(tempfile.mkdtemp())
+        pipeline.run(TOPIC, scripted_model(), fixture_fetch, model='scripted-demo', out_dir=out, log=lambda m: None)
+        def down(url):
+            raise ValueError('source unavailable')
+        pipeline.run(TOPIC, scripted_model(), down, model='scripted-demo', out_dir=out, log=lambda m: None)
+        data = {r['organization']: r for r in json.loads((out / 'supplemental_resources.json').read_text())}
+        self.assertIn('cost', data['Example University']['fields'])
+
+    def test_resource_with_contradicted_claim_is_not_verified(self):
+        out = Path(tempfile.mkdtemp())
+        report = pipeline.run(TOPIC, scripted_model(), fixture_fetch, model='scripted-demo', out_dir=out, log=lambda m: None)
+        asylum = next(r for r in report['resources'] if r['organization'] == 'Example Asylum Network')
+        self.assertEqual(asylum['status'], 'needs_review')
+
+
 if __name__ == '__main__':
     unittest.main()

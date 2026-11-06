@@ -25,9 +25,10 @@ CLAIM_FIELDS = (
 )
 
 # Open search (owner decision 2026-11-06): any domain may be searched; trust is
-# earned by re-fetch + quote check + verifier. These suffixes are labeled
-# institutional; everything else is marked needs_review even when supported.
-INSTITUTIONAL_SUFFIXES = ('.gov', '.edu', '.org', '.mil')
+# earned by re-fetch + quote check + verifier. Only registration-restricted
+# suffixes are institutional; .org/.com etc. can be registered by anyone, so
+# their resources stay needs_review for a human even when every claim checks out.
+INSTITUTIONAL_SUFFIXES = ('.gov', '.edu', '.mil')
 
 # Shared workflow budget (one correlation id across every stage).
 BUDGET = dict(max_requests=40, max_tools=60, max_retries=2, seconds=900)

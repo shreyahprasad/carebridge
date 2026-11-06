@@ -1,6 +1,7 @@
 """Deterministic source checks: re-fetch a cited page, store a hashed snapshot,
 and confirm the cited excerpt really appears on it. No model involved."""
 from html.parser import HTMLParser
+import ipaddress
 import re
 import unicodedata
 from urllib.parse import urlsplit
@@ -51,8 +52,8 @@ def find_excerpt(text, excerpt):
     needle = normalize(excerpt)
     if len(needle) < 12:
         return None  # too short to prove anything
-    i = text.casefold().find(needle.casefold())
-    return text[i:i + len(needle)] if i >= 0 else None
+    match = re.search(re.escape(needle), text, re.IGNORECASE)
+    return match.group(0) if match else None
 
 
 # ---------- link policy (checked before any host fetch) ----------
@@ -81,8 +82,13 @@ def link_policy(url):
         return 'link_malformed'
     if any(host == b or host.endswith('.' + b) for b in BLOCKED_HOSTS):
         return 'link_blocked_host'
-    if re.fullmatch(r'[\d.]+|\[[0-9a-f:]+\]', host):
+    try:
+        ipaddress.ip_address(host)
         return 'link_raw_ip'
+    except ValueError:
+        pass
+    if re.fullmatch(r'(0x[0-9a-f]+|\d+)(\.(0x[0-9a-f]+|\d+))*', host):
+        return 'link_raw_ip'  # integer / hex / dotted-octal IPv4 forms
     return None
 
 

@@ -29,7 +29,8 @@ _CLIENT_DATA = [
     (r'\b\d{3}[-. )]*\d{3}[-. ]*\d{4}\b', 'phone number'),
     (r'\b\d{3}-\d{2}-\d{4}\b', 'SSN'),
     (r'\bA[- ]?\d{8,9}\b', 'A-number'),
-    (r'\b\d{1,5}\s+\w+(\s\w+)*\s(street|st|avenue|ave|road|rd|place|pl)\b', 'street address'),
+    (r'\b\d{3,5}\s+(\w+\s){0,3}(street|st|avenue|ave|road|rd|place|pl|drive|dr|boulevard|blvd)\b', 'street address'),
+    (r'\b\d{1,5}\s+(\w+\s){0,3}(street|st|avenue|ave|road|rd|place|pl|drive|dr)\.?\s+(nw|ne|sw|se)\b', 'street address'),
 ]
 
 
@@ -183,7 +184,9 @@ def _reason(c):
         return c['check']
     if c['verdict'] != 'supported':
         return f"verifier: {c['verdict'] or 'no verdict'}"
-    return 'injection_suspected: ' + ', '.join(c['source_flags'])
+    if c.get('source_flags'):
+        return 'injection_suspected: ' + ', '.join(c['source_flags'])
+    return 'not_accepted'
 
 
 def _finish(out_dir, topic, correlation_id, model, trace, claims, resources, budget, storage, log):
@@ -202,7 +205,8 @@ def _finish(out_dir, topic, correlation_id, model, trace, claims, resources, bud
                    'detail': c.get('check_detail') or c.get('verdict_reason'),
                    'source_flags': c.get('source_flags') or []} for c in mine if not c.get('acceptance_id')]
         trust = {trust_tier(c['source_url']) for c in accepted}
-        dataset.append({**res, 'status': 'verified' if accepted and trust == {'institutional'} else 'needs_review',
+        conflicting = any(c.get('verdict') == 'unsupported' for c in mine)
+        dataset.append({**res, 'status': _status(accepted, trust, conflicting),
                         'fields': fields, 'review': review,
                         'unknown_ask_on_call': ['woman clinician available', 'interpreter for client language', 'current waitlist']})
     report = {'topic': topic, 'correlation_id': correlation_id, 'model': model, 'date': today,
@@ -225,9 +229,23 @@ def _finish(out_dir, topic, correlation_id, model, trace, claims, resources, bud
     return report
 
 
+def _status(accepted, trust, conflicting):
+    # verified = something accepted, all from restricted domains, nothing contradicted.
+    return 'verified' if accepted and trust == {'institutional'} and not conflicting else 'needs_review'
+
+
 def _merge(path, dataset):
+    """Accumulate across runs. Accepted facts are never dropped by a later run
+    that failed to re-verify them; new accepted values for a field replace old ones."""
     current = {r['id']: r for r in json.loads(path.read_text())} if path.exists() else {}
     for r in dataset:
+        old = current.get(r['id'])
+        if old:
+            fields = {**old['fields'], **r['fields']}
+            review = r['review'] + [x for x in old['review'] if x['field'] not in fields and x not in r['review']]
+            trust = {v['trust'] for vals in fields.values() for v in vals}
+            conflicting = any(x['reason'] == 'verifier: unsupported' for x in review)
+            r = {**r, 'fields': fields, 'review': review, 'status': _status(bool(fields), trust, conflicting)}
         current[r['id']] = r
     path.write_text(json.dumps(sorted(current.values(), key=lambda r: r['id']), indent=2, ensure_ascii=False) + '\n')
     return len(current)

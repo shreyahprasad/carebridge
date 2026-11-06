@@ -7,6 +7,7 @@ Every derived flag keeps the original SAMHSA wording in `raw_services`, so the
 UI can show the source text. Fields SAMHSA does not publish (e.g. clinician
 gender) are left as null and must be confirmed by phone.
 """
+import collections
 import json
 import re
 import sys
@@ -111,11 +112,10 @@ def clean(row):
 def main():
     rows = json.loads(RAW.read_text())['rows']
     providers = [clean(r) for r in rows]
-    ids = [p['id'] for p in providers]
-    dupes = {i for i in ids if ids.count(i) > 1}
-    for p in providers:  # disambiguate same name+zip
-        if p['id'] in dupes:
-            p['id'] += '-' + slug(p['address'])[:12]
+    counts = collections.Counter(p['id'] for p in providers)
+    for p in providers:  # disambiguate same name+zip by full address (suites differ)
+        if counts[p['id']] > 1:
+            p['id'] += '-' + slug(p['address'])
     assert len({p['id'] for p in providers}) == len(providers), 'duplicate provider ids'
     OUT.write_text(json.dumps(providers, indent=2, ensure_ascii=False) + '\n')
     print(f'{len(providers)} providers -> {OUT.relative_to(ROOT)}', file=sys.stderr)

@@ -96,7 +96,8 @@ def _seen_urls(value, seen):
             if isinstance(url, str):
                 seen.add(url)
         elif kind == 'web_search_tool_result':
-            for item in block.get('content') or [] if isinstance(block.get('content'), list) else []:
+            content = block.get('content')
+            for item in content if isinstance(content, list) else []:
                 if isinstance(item, dict) and isinstance(item.get('url'), str):
                     seen.add(item['url'])
         elif kind == 'web_fetch_tool_result':
