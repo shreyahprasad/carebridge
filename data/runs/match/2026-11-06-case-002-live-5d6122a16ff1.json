@@ -1,0 +1,719 @@
+{
+  "version": "match-result-v1",
+  "correlation_id": "5d6122a16ff1",
+  "case_id": "case-002",
+  "synthetic": true,
+  "date": "2026-11-06",
+  "mode": "live",
+  "fallback_reason": null,
+  "model": "claude-sonnet-5-5",
+  "prompt_version": "provider-match-v2",
+  "rule_version": "match-rules-v1",
+  "data_version": "samhsa-9bdc06a4b071",
+  "needs": {
+    "case_id": "case-002",
+    "languages": [
+      "Spanish"
+    ],
+    "english_level": "none",
+    "age": 17,
+    "age_groups": [
+      "children_adolescents"
+    ],
+    "minor": true,
+    "coverage": "uninsured",
+    "care_mode": "in_person_preferred",
+    "needs_in_person": true,
+    "trauma_informed": true,
+    "provider_gender": "no preference",
+    "interpreter_ok": false,
+    "pregnant": false,
+    "childcare_needed": false,
+    "has_car": false,
+    "transportation": [
+      "walks",
+      "Metro",
+      "Metrobus"
+    ],
+    "concerns": "Depression and panic attacks after migrating alone from Honduras; struggling at school.",
+    "urgency": "soon"
+  },
+  "counts": {
+    "A": 5,
+    "B": 11,
+    "C": 0,
+    "excluded": 56
+  },
+  "picks": [
+    {
+      "rank": 1,
+      "provider_id": "samhsa-childrens-national-hospital-20010",
+      "name": "Childrens National Hospital — Department of Psychiatry",
+      "tier": "A",
+      "address": "111 Michigan Avenue NW, Washington, DC 20010",
+      "state": "DC",
+      "lat": 38.9271809,
+      "lng": -77.0146728,
+      "distance_mi": 1.0,
+      "phone": "202-476-5000",
+      "intake_phone": "202-729-3300",
+      "website": "https://childrensnational.org",
+      "languages": [
+        "English",
+        "Spanish"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists her language"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "serves_age_group",
+          "text": "Serves her age group"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "The closest option at 1.0 mile, so she can walk or take transit. It lists Spanish, a trauma program, a PTSD program and her age group.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "confirm_cost",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        }
+      ],
+      "extra_questions": [
+        "The card lists a separate inpatient psychiatric unit. Is outpatient counseling available for her?",
+        "Is a Spanish-speaking clinician available for depression and panic?"
+      ],
+      "decision": {
+        "record_id": "samhsa-childrens-national-hospital-20010",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-childrens-national-hospital-20010#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 2,
+      "provider_id": "samhsa-whitman-walker-health-20005",
+      "name": "Whitman Walker Health — Addiction Treatment Services",
+      "tier": "A",
+      "address": "1525 14th Street NW, 5th Floor R, Washington, DC 20005",
+      "state": "DC",
+      "lat": 38.9104721,
+      "lng": -77.0315736,
+      "distance_mi": 1.4,
+      "phone": "202-797-4453",
+      "intake_phone": null,
+      "website": "https://www.whitman-walker.org",
+      "languages": [
+        "English",
+        "Spanish"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists her language"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "serves_age_group",
+          "text": "Serves her age group"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "Located 1.4 miles away in DC, it lists Spanish, trauma and PTSD programs and her age group. That fits a short trip without a car.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "confirm_cost",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        }
+      ],
+      "extra_questions": [
+        "Does it offer Spanish-language therapy for teens with depression and panic?"
+      ],
+      "decision": {
+        "record_id": "samhsa-whitman-walker-health-20005",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20005#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 3,
+      "provider_id": "samhsa-gio-health-services-inc-20011",
+      "name": "Gio Health Services Inc",
+      "tier": "A",
+      "address": "6323 Georgia Avenue NW, Suite 360, Washington, DC 20011",
+      "state": "DC",
+      "lat": 38.9669177,
+      "lng": -77.0270752,
+      "distance_mi": 2.5,
+      "phone": "202-621-8494",
+      "intake_phone": null,
+      "website": "https://giohealthservices.com/",
+      "languages": [
+        "English",
+        "Spanish",
+        "Chinese",
+        "Arabic",
+        "Haitian Creole",
+        "Farsi",
+        "French",
+        "German",
+        "Greek",
+        "Hebrew",
+        "Hindi",
+        "Hmong",
+        "Italian",
+        "Japanese",
+        "Korean",
+        "Ojibwa",
+        "Polish",
+        "Portuguese",
+        "Russian",
+        "Tagalog",
+        "Vietnamese",
+        "Yupik"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists her language"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "domestic_violence_program",
+          "text": "Domestic violence program"
+        },
+        {
+          "code": "serves_age_group",
+          "text": "Serves her age group"
+        },
+        {
+          "code": "within_3_miles",
+          "text": "Within 3 miles of her"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "Located 2.5 miles away in DC, it lists Spanish, trauma and PTSD programs and her age group. It also has a domestic violence program and lists many languages.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "confirm_cost",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        }
+      ],
+      "extra_questions": [
+        "Is a Spanish-speaking clinician available for in-person visits?"
+      ],
+      "decision": {
+        "record_id": "samhsa-gio-health-services-inc-20011",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-gio-health-services-inc-20011#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 4,
+      "provider_id": "samhsa-new-hope-health-services-20032",
+      "name": "New Hope Health Services",
+      "tier": "A",
+      "address": "2759 Martin Luther King Avenue SE, Washington, DC 20032",
+      "state": "DC",
+      "lat": 38.8466426,
+      "lng": -76.9966451,
+      "distance_mi": 6.1,
+      "phone": "202-827-9961",
+      "intake_phone": null,
+      "website": "https://www.nhh-services.com",
+      "languages": [
+        "English",
+        "Spanish",
+        "French"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists her language"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "serves_age_group",
+          "text": "Serves her age group"
+        },
+        {
+          "code": "sliding_fee",
+          "text": "Sliding fee scale"
+        },
+        {
+          "code": "payment_assistance",
+          "text": "Payment assistance"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "It lists a sliding fee and payment assistance, which matters because she is uninsured. It is in DC and lists Spanish, trauma and PTSD programs, but it is 6.1 miles away, so the trip needs planning.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "confirm_cost",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        }
+      ],
+      "extra_questions": [
+        "Which Metro or bus route gets her there from her home?"
+      ],
+      "decision": {
+        "record_id": "samhsa-new-hope-health-services-20032",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-new-hope-health-services-20032#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-new-hope-health-services-20032#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-new-hope-health-services-20032#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-new-hope-health-services-20032#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-new-hope-health-services-20032#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    },
+    {
+      "rank": 5,
+      "provider_id": "samhsa-whitman-walker-health-20032",
+      "name": "Whitman Walker Health — Max Robinson Center",
+      "tier": "A",
+      "address": "1201 Sycamore Drive SE, 5th Floor, Washington, DC 20032",
+      "state": "DC",
+      "lat": 38.8447332,
+      "lng": -76.990136,
+      "distance_mi": 6.4,
+      "phone": "202-797-4453",
+      "intake_phone": null,
+      "website": "https://www.whitman-walker.org",
+      "languages": [
+        "English",
+        "Spanish"
+      ],
+      "telehealth": true,
+      "facts": [
+        {
+          "code": "speaks_client_language",
+          "text": "Lists her language"
+        },
+        {
+          "code": "in_dc",
+          "text": "Located in DC"
+        },
+        {
+          "code": "in_person",
+          "text": "In-person outpatient care"
+        },
+        {
+          "code": "trauma_program",
+          "text": "Trauma program"
+        },
+        {
+          "code": "ptsd_program",
+          "text": "PTSD program"
+        },
+        {
+          "code": "serves_age_group",
+          "text": "Serves her age group"
+        },
+        {
+          "code": "public_funds",
+          "text": "Accepts public funding"
+        }
+      ],
+      "tier_basis": {
+        "language_match": true,
+        "in_dc": true,
+        "coverage_match": true
+      },
+      "why": "It is in DC and lists Spanish, trauma and PTSD programs and her age group. At 6.4 miles it is farther, so it is a backup to the closer options.",
+      "questions": [
+        {
+          "code": "waitlist",
+          "text": "How long is the wait for a first appointment?"
+        },
+        {
+          "code": "confirm_cost",
+          "text": "She is uninsured. What would she pay per session, and is there a sliding fee, free option or payment help?"
+        },
+        {
+          "code": "minor_consent",
+          "text": "She is 17. Can she start care without a parent or legal guardian's signature?"
+        }
+      ],
+      "extra_questions": [],
+      "decision": {
+        "record_id": "samhsa-whitman-walker-health-20032",
+        "eligible": true,
+        "rule_version": "match-rules-v1",
+        "data_version": "samhsa-9bdc06a4b071",
+        "predicates": [
+          {
+            "name": "in_area",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20032#out_of_area"
+            ]
+          },
+          {
+            "name": "serves_age_group",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20032#ages"
+            ]
+          },
+          {
+            "name": "in_person",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20032#in_person_outpatient"
+            ]
+          },
+          {
+            "name": "location_known",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20032#location_unknown"
+            ]
+          },
+          {
+            "name": "trauma_program",
+            "passed": true,
+            "evidence_ids": [
+              "samhsa-whitman-walker-health-20032#programs.trauma"
+            ]
+          }
+        ],
+        "tier": "A"
+      },
+      "source": {
+        "name": "SAMHSA FindTreatment.gov locator export",
+        "url": "https://findtreatment.gov/",
+        "retrieved": "2026-11-06"
+      }
+    }
+  ],
+  "not_chosen_note": "All five tier A providers are included. The tier B providers are outside DC or need cost confirmed, and the tier A options already cover her needs for Spanish, travel and trauma-informed care.",
+  "unchecked_fields": [
+    "picks[].why",
+    "picks[].extra_questions",
+    "not_chosen_note"
+  ],
+  "stages": [
+    {
+      "stage": "provider-match",
+      "profile": "provider-match",
+      "run_id": "1ccf11c9ccf84f12bd3cc7d721a77d13",
+      "status": "complete",
+      "reason": null,
+      "requests": 1,
+      "tools": 0
+    }
+  ],
+  "budget_used": {
+    "requests": 1,
+    "tools": 0
+  }
+}
