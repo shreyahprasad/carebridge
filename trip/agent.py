@@ -2,7 +2,7 @@
 
 Input: trip-relevant needs (from the validated MatchResult, no concerns text),
 the validated picks with rule grades, and the benefits that apply to each pick.
-Output per pick: grade (must equal rules), benefit_ids (subset of that pick's),
+Output per pick: grade and benefit_ids (must equal rules),
 booking steps, a line for the client, and question codes (exactly the required set).
 steps, tell_client and extra_questions are unchecked model text.
 """
@@ -46,7 +46,7 @@ question that confirms it). You cannot change a grade or add a benefit.
 
 For every pick, exactly once, give:
 - provider_id and grade exactly as in the pick card
-- benefit_ids: only ids from that pick's benefits (an empty list is allowed)
+- benefit_ids: exactly the ids in that pick's benefits (an empty list when it has none)
 - steps: 1-6 short booking steps for the caseworker, in order (enroll, book the ride, lead time, what to bring)
 - tell_client: one or two plain sentences the caseworker can say to her (simple English, will be interpreted)
 - questions: exactly the codes in the pick's required_questions, no more and no fewer
@@ -80,8 +80,8 @@ def validator(stops):
             s = stops[p['provider_id']]
             if p['grade'] != s['grade']:
                 raise ValueError('grade does not match rules')
-            if not set(p['benefit_ids']) <= set(s['benefit_ids']):
-                raise ValueError('benefit not eligible for this pick')
+            if set(p['benefit_ids']) != set(s['benefit_ids']):
+                raise ValueError("benefit ids must be exactly the pick's benefits")
             if set(p['questions']) != set(s['required_questions']):
                 raise ValueError('question codes must be exactly the required set')
     return check

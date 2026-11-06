@@ -46,11 +46,19 @@ def check_handoff(match_result, case, providers, correlation_id=None):
         raise HandoffError('match result is for another case')
     if correlation_id and mr.correlation_id != correlation_id:
         raise HandoffError('match result belongs to another workflow run')
+    n = match_rules.needs(case)
+    if mr.needs.model_dump(mode='json') != match_rules.agent_view(n):
+        raise HandoffError('match needs differ from the case')
     by_id = {p['id']: p for p in providers}
     for pick in mr.picks:
         rec = by_id.get(pick.provider_id)
         if rec is None:
             raise HandoffError('pick is not a known provider')
+        ev = match_rules.evaluate(n, rec, mr.data_version)
+        if (not ev['decision']['eligible'] or ev['tier'] != pick.tier
+                or not {f.code.value for f in pick.facts} <= set(ev['facts'])
+                or {q.code.value for q in pick.questions} != set(ev['required_questions'])):
+            raise HandoffError('pick tier, facts or questions differ from the rules')
         for f in ('name', 'address', 'state', 'lat', 'lng'):
             if getattr(pick, f) != rec[f]:
                 raise HandoffError(f'pick {f} differs from the provider record')
@@ -63,13 +71,14 @@ def check_handoff(match_result, case, providers, correlation_id=None):
     return mr
 
 
-def _stops(mr, case, benefits):
-    n = mr.needs.model_dump(mode='json')
+def _stops(mr, case, benefits, providers):
+    n = mr.needs.model_dump(mode='json')  # checked equal to the case's needs in check_handoff
+    by_id = {p['id']: p for p in providers}
     out = []
     for pick in mr.picks:
         p = pick.model_dump(mode='json')
         g, basis = reach.grade(n, case, p)
-        uses = ben.pick_benefits(benefits, p, g.value)
+        uses = ben.pick_benefits(benefits, p, g.value, by_id[p['provider_id']]['payment']['medicaid'])
         qs = reach.required_questions(n, case, uses, g)
         out.append({'pick': p, 'grade': g.value, 'grade_basis': basis, 'uses': uses,
                     'benefit_ids': [u['program_id'] for u in uses], 'required_questions': qs})
@@ -92,12 +101,11 @@ def _card(s):
 
 def _stop(s, chosen, benefits):
     p = s['pick']
-    keep = set(chosen['benefit_ids']) if chosen else set(s['benefit_ids'])
     return {
         'match_rank': p['rank'], 'provider_id': p['provider_id'], 'name': p['name'], 'address': p['address'],
         'state': p['state'], 'tier': p['tier'], 'distance_mi': p['distance_mi'],
         'grade': s['grade'], 'grade_basis': s['grade_basis'], 'time_estimate': reach.MINUTES[reach.Grade(s['grade'])],
-        'benefits': [u for u in s['uses'] if u['program_id'] in keep],
+        'benefits': s['uses'],  # always the rules' list
         'steps': chosen['steps'] if chosen else None,
         'tell_client': chosen['tell_client'] if chosen else None,
         'questions': [{'code': q, 'text': reach.question_text(q, p, benefits)} for q in s['required_questions']],
@@ -118,7 +126,7 @@ def run_trip(case, match_result, create=None, *, model, live=False, runtime=None
     correlation_id = mr.correlation_id
     budget = budget or Budget(**STAGE_BUDGET)
     benefits = ben.case_benefits(case, programs, programs_version)
-    n, stops = _stops(mr, case, benefits)
+    n, stops = _stops(mr, case, benefits, providers)
     log(f'[{correlation_id}] trip rules: benefits {[b["program_id"] for b in benefits]}, '
         f'grades {[s["grade"] for s in stops]}')
     stage = {'stage': 'trip-plan', 'profile': None, 'run_id': None, 'status': 'skipped', 'reason': None,

@@ -56,7 +56,7 @@ def _predicates(case: Case, pid):
     if pid == Program.nemt_ffs:
         return [medicaid, Predicate('no_managed_care_plan', not plan, _ev(case, 'insurance.plan'))]
     if pid == Program.nemt_hscsn:
-        return [Predicate('hscsn_enrollee', 'hscsn' in plan, _ev(case, 'insurance.plan'))]
+        return [medicaid, Predicate('hscsn_enrollee', 'hscsn' in plan, _ev(case, 'insurance.plan'))]
     if pid == Program.metro_lift:
         return [Predicate('snap', case.snap, _ev(case, 'snap'))]
     if pid == Program.kids_ride_free:
@@ -83,16 +83,16 @@ def case_benefits(case, programs, programs_version):
     return out
 
 
-def pick_benefits(benefits, pick, grade):
-    """Which of her benefits apply to this pick. Returns [{program_id, use, question}]."""
+def pick_benefits(benefits, pick, grade, accepts_medicaid):
+    """Which of her benefits apply to this pick. Returns [{program_id, use, question}].
+    accepts_medicaid comes from the provider record, not from the facts the match agent chose."""
     out = []
-    facts = {f['code'] for f in pick['facts']}
     if grade in ('drive', 'unknown', 'not_realistic'):
         return out  # no car-free trip to pay for
     for b in benefits:
         pid = Program(b['program_id'])
         if pid in NEMT:
-            if pick['state'] == 'DC' and 'accepts_medicaid' in facts:
+            if pick['state'] == 'DC' and accepts_medicaid:
                 out.append({'program_id': pid.value, 'use': Use.likely.value, 'question': None})
             else:
                 out.append({'program_id': pid.value, 'use': Use.if_confirmed.value,

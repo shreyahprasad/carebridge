@@ -1,6 +1,6 @@
 """Scripted (offline) trip-plan agent, plus a combined create for the two-stage workflow.
 
-`tamper`: invent_benefit, change_grade, drop_pick, drop_question, not_json, raise
+`tamper`: invent_benefit, drop_benefits, change_grade, drop_pick, drop_question, not_json, raise
 """
 import json
 
@@ -29,6 +29,9 @@ def scripted_trip(tamper=None, calls=None):
         if tamper == 'invent_benefit':
             used = set(first['benefit_ids'])
             first['benefit_ids'].append(next(p for p in ('wmata-metroaccess', 'transport-dc') if p not in used))
+        elif tamper == 'drop_benefits':
+            for p in out['plans']:
+                p['benefit_ids'] = []
         elif tamper == 'change_grade':
             first['grade'] = 'walk' if first['grade'] != 'walk' else 'one_bus'
         elif tamper == 'drop_pick':
