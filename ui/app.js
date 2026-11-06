@@ -187,7 +187,6 @@ function header(c, tab) {
     ),
     full && h('div', { class: 'actions' },
       h('a', { class: 'btn btn-primary', href: caseHref(c, 'providers') }, 'Find providers'),
-      h('span', { class: 'hint' }, 'Shows the latest provider match for this case.'),
     ),
     tabs(c, tab),
   );
@@ -340,7 +339,7 @@ function benefitStrip(c, trip) {
     return h('section', { class: 'strip strip-empty' }, h('span', { class: 'label' }, 'Ride and fare help'), h('span', {}, 'No ride or fare program found for her.'));
   }
   return fold(`${c.id}|benefits`, 'strip',
-    [h('span', { class: 'label' }, 'Ride and fare help'), h('span', { class: 'strip-names' }, benefits.map(b => b.name).join(' · '))],
+    [h('span', { class: 'fold-title' }, 'Ride and fare help'), h('span', { class: 'strip-names' }, benefits.map(b => b.name).join(' · '))],
     h('div', { class: 'benefits' }, benefits.map(b => h('div', { class: 'benefit' },
       h('div', { class: 'benefit-name' }, b.name, h('span', { class: `conf conf-${b.confidence}` }, `${cap(b.confidence)} confidence`)),
       b.how_to_access && h('p', {}, b.how_to_access),
@@ -361,8 +360,9 @@ function rideSummary(stop) {
   return null;
 }
 
-function tripSection(c, pick, stop, benefitsById) {
+function tripSection(c, pick, stop, benefitsById, hasTrip) {
   if (!stop) {
+    if (!hasTrip) return null; // the ride strip already says no trip plan
     return h('div', { class: 'trip-empty' },
       h('span', { class: 'label' }, 'Getting there'),
       h('span', {}, 'Not planned yet'),
@@ -383,7 +383,7 @@ function tripSection(c, pick, stop, benefitsById) {
   const time = stop.time_estimate && (/estimate/i.test(stop.time_estimate) ? stop.time_estimate : `${stop.time_estimate} (estimate)`);
   const steps = stop.steps || [];
   return fold(`${c.id}|${pick.provider_id}|trip`, 'trip',
-    [h('span', { class: 'label' }, 'Getting there'), h('span', { class: 'fold-sum' }, [time, rideSummary(stop)].filter(Boolean).join(' · ') || stop.grade_basis || '')],
+    [h('span', { class: 'fold-title' }, 'Getting there'), h('span', { class: 'fold-sum' }, [time, rideSummary(stop)].filter(Boolean).join(' · ') || stop.grade_basis || '')],
     stop.grade_basis && h('p', { class: 'muted' }, stop.grade_basis),
     uses.length ? h('ul', { class: 'uses' }, uses) : h('p', { class: 'muted' }, 'No ride or fare program applies to this trip.'),
     asks && h('div', { class: 'sub' }, h('div', { class: 'label' }, 'Check for this trip'), asks),
@@ -399,7 +399,7 @@ function tripSection(c, pick, stop, benefitsById) {
 const FACTS_IN_CHECKS = new Set(['speaks_client_language', 'in_dc', 'accepts_medicaid', 'within_3_miles', 'in_person']);
 const GLANCE_FACTS = 3;
 
-function providerCard(c, pick, stop, benefitsById) {
+function providerCard(c, pick, stop, benefitsById, hasTrip) {
   const tier = TIER[pick.tier] || { label: `Tier ${pick.tier}`, hint: '' };
   const basis = pick.tier_basis || {};
   const check = (ok, yes, no) => h('span', { class: `check ${ok ? 'ok' : 'no'}` }, h('span', { 'aria-hidden': 'true' }, ok ? '✓' : '✗'), ` ${ok ? yes : no}`);
@@ -438,14 +438,14 @@ function providerCard(c, pick, stop, benefitsById) {
       site && h('a', { href: site, target: '_blank', rel: 'noopener noreferrer' }, 'Website'),
     ),
     fold(`${c.id}|${pick.provider_id}|ask`, 'ask',
-      [h('span', { class: 'label' }, 'Call checklist'), counter],
+      [h('span', { class: 'fold-title' }, 'Call checklist'), counter],
       asks,
       pick.address && h('p', { class: 'muted' }, pick.address),
       (pick.facts || []).length > 0 && h('div', { class: 'sub' }, h('div', { class: 'label' }, 'From the listing'),
         h('div', { class: 'chips' }, pick.facts.map(f => h('span', { class: 'chip chip-fact' }, f.text)))),
       aiNote(pick.why, 'Why this pick'),
     ),
-    tripSection(c, pick, stop, benefitsById),
+    tripSection(c, pick, stop, benefitsById, hasTrip),
   );
 }
 
@@ -494,7 +494,7 @@ function providersBody(c, entry) {
   // Sorted by reach, picks she can't realistically get to fold into one group at the end.
   const far = order === 'reach' ? picks.filter(p => (stops.get(p.provider_id) || {}).grade === 'not_realistic') : [];
   const near = picks.filter(p => !far.includes(p));
-  const cards = list => h('ol', { class: 'providers' }, list.map(p => providerCard(c, p, stops.get(p.provider_id), benefitsById)));
+  const cards = list => h('ol', { class: 'providers' }, list.map(p => providerCard(c, p, stops.get(p.provider_id), benefitsById, hasTrip)));
 
   const k = match.counts || {};
   const changed = changedSinceMatch(c, match.needs);
@@ -503,8 +503,8 @@ function providersBody(c, entry) {
       h('span', {}, `Matched ${match.date}`),
       h('span', { class: `mode mode-${match.mode}` }, MODE[match.mode] || match.mode),
       h('span', { class: 'muted' }, [
-        k.A != null && `${k.A} strong`, k.B != null && `${k.B} possible`,
-        k.C != null && `${k.C} need an interpreter`, k.excluded != null && `${k.excluded} ruled out`,
+        k.A > 0 && `${k.A} strong`, k.B > 0 && `${k.B} possible`,
+        k.C > 0 && `${k.C} need an interpreter`, k.excluded > 0 && `${k.excluded} ruled out`,
       ].filter(Boolean).join(' · ')),
     ),
     match.fallback_reason && h('p', { class: 'notice' }, `The AI step was skipped, so these picks come from the rules alone (${match.fallback_reason}).`),
@@ -518,10 +518,10 @@ function providersBody(c, entry) {
     ),
     picks.length ? (near.length ? cards(near) : null) : h('p', { class: 'empty' }, 'No provider met the matching rules for this case.'),
     far.length > 0 && fold(`${c.id}|far`, 'group',
-      [h('span', { class: 'label' }, `Not realistic to reach (${far.length})`), h('span', { class: 'fold-sum' }, far.map(p => p.name.split(' — ')[0]).join(' · '))],
+      [h('span', { class: 'fold-title' }, `Not realistic to reach (${far.length})`), h('span', { class: 'fold-sum' }, far.map(p => p.name.split(' — ')[0]).join(' · '))],
       cards(far)),
     match.not_chosen_note && fold(`${c.id}|others`, 'group',
-      [h('span', { class: 'label' }, 'Others considered'), h('span', { class: 'ai-tag' }, 'AI note, not checked')],
+      [h('span', { class: 'fold-title' }, 'Others considered'), h('span', { class: 'ai-tag' }, 'AI note, not checked')],
       h('p', { class: 'muted' }, match.not_chosen_note)),
     h('p', { class: 'run-meta' }, [
       `Rules ${match.rule_version}`, `data ${match.data_version}`,
