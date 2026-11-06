@@ -80,7 +80,7 @@ class Reach(unittest.TestCase):
     def test_order_is_grade_then_match_rank(self):
         t, _ = trip(AMINA)
         self.assertEqual([(s['grade'], s['match_rank']) for s in t['plans']],
-                         [('walk', 1), ('one_bus', 5), ('not_realistic', 2), ('not_realistic', 3), ('not_realistic', 4)])
+                         [('one_bus', 1), ('one_bus', 5), ('not_realistic', 2), ('not_realistic', 3), ('not_realistic', 4)])
         self.assertEqual(t['plans'][0]['name'], 'Gio Health Services Inc')
 
     def test_nemt_not_claimed_for_out_of_state_pick(self):
@@ -100,6 +100,13 @@ class Reach(unittest.TestCase):
         gio['facts'] = [f for f in gio['facts'] if f['code'] != 'accepts_medicaid']
         t, _ = trip(AMINA, m)
         self.assertEqual(by_name(t, 'Gio Health')[0]['benefits'][0]['use'], 'likely')
+
+    def test_walk_means_under_half_a_mile(self):
+        n = {'has_car': False, 'transportation': ['walks', 'Metrobus'], 'childcare_needed': False}
+        g = lambda d: reach.grade(n, LUCIA, {'distance_mi': d, 'state': 'DC'})[0]
+        self.assertEqual((g(0.4), g(0.5), g(0.7), g(1.0)), (Grade.walk, Grade.one_bus, Grade.one_bus, Grade.one_bus))
+        t, _ = trip(AMINA)
+        self.assertEqual(by_name(t, 'Gio Health')[0]['grade'], 'one_bus')
 
     def test_car_grades_drive(self):
         n = {'has_car': True, 'transportation': [], 'childcare_needed': False}
@@ -187,7 +194,7 @@ class Agent(unittest.TestCase):
                 self.assertTrue(all(s['steps'] is None and s['tell_client'] is None for s in t['plans']))
                 self.assertEqual(by_name(t, NVFS)[0]['grade'], 'not_realistic')
                 gio = by_name(t, 'Gio Health')[0]
-                self.assertEqual([u['program_id'] for u in gio['benefits']], ['nemt-amerihealth-caritas-dc'])
+                self.assertEqual([u['program_id'] for u in gio['benefits']], ['nemt-amerihealth-caritas-dc', 'wmata-metro-lift'])
 
     def test_fallback_false_returns_none(self):
         t, _ = trip(AMINA, tamper='change_grade', fallback=False)

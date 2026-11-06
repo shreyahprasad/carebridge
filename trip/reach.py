@@ -6,13 +6,13 @@ from the provider match. No live transit routing: any time is labeled an estimat
 from .models import NEMT, Grade, Program, TripQuestion
 
 THRESHOLDS = {
-    'walk_max_mi': 1.0,       # and she lists walking
+    'walk_under_mi': 0.5,     # strictly under, and she lists walking (owner 2026-11-06)
     'one_bus_max_mi': 4.0,    # and she lists Metro or Metrobus
     'hard_max_mi': 8.0,
     'drive_max_mi': 25.0,     # she has a car
     'young_child_under': 6,   # out of state + no car + a child this young -> not_realistic
 }
-MINUTES = {Grade.walk: '15-25 min walk (estimate)', Grade.one_bus: '20-45 min by bus or Metro (estimate)',
+MINUTES = {Grade.walk: '5-10 min walk (estimate)', Grade.one_bus: '20-45 min by bus or Metro (estimate)',
            Grade.hard: '45-90 min, likely a transfer (estimate)', Grade.drive: None, Grade.unknown: None,
            Grade.not_realistic: None}
 
@@ -37,7 +37,7 @@ def grade(n, case, pick):
         return Grade.not_realistic, f'{d:g} mi is over {THRESHOLDS["drive_max_mi"]:g} mi even by car.'
     if pick['state'] != 'DC' and young:
         return Grade.not_realistic, f'Out of DC ({pick["state"]}), no car, and a child under {THRESHOLDS["young_child_under"]}.'
-    if d <= THRESHOLDS['walk_max_mi'] and _walks(n):
+    if d < THRESHOLDS['walk_under_mi'] and _walks(n):
         return Grade.walk, f'{d:g} mi; she walks.'
     if d <= THRESHOLDS['one_bus_max_mi'] and _transit(n):
         return Grade.one_bus, f'{d:g} mi; she uses Metro or Metrobus.'
