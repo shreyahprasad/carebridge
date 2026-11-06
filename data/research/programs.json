@@ -1,0 +1,865 @@
+[
+  {
+    "id": "dc-medicaid-pregnancy",
+    "category": "assistance",
+    "name": "DC Medicaid for pregnant individuals",
+    "summary": "Full Medicaid for pregnant DC residents who are citizens or have an eligible immigration status; covers pregnancy and 12 months postpartum. Managed care.",
+    "eligibility": {
+      "ages": "No age limit",
+      "pregnant": "Must be pregnant; coverage through end of pregnancy + 12 months postpartum",
+      "income_limit": "319% FPL + 5% disregard (e.g. $5,712/month for a 2-person household)",
+      "immigration_status": "US citizen or eligible immigration status. Lawfully residing pregnant women continue to be eligible after the Oct 1, 2026 federal noncitizen changes without the 5-year wait. Refugees/asylees who are pregnant stay eligible under that exemption (per DHCF). Undocumented: not eligible -> use CHIP FCEP.",
+      "residency": "DC resident",
+      "other": "Report pregnancy and due date; no extra verification of pregnancy needed"
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Apply or report pregnancy via District Direct (districtdirect.dc.gov or app), phone, fax, mail, or in person at a DHS/ESA Service Center. Coverage begins the first month of application.",
+    "phone": "(202) 727-5355",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/u23/Pregnancy%20Eligibility%20Frequently%20Asked%20Questions.pdf",
+        "title": "DHCF Pregnancy FAQ v1.0 (PDF, Oct 2025)",
+        "excerpt": "Medicaid Program • Pregnant • DC Resident • US Citizen or eligible immigration status • Meet income requirements"
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/u23/Pregnancy%20Eligibility%20Frequently%20Asked%20Questions.pdf",
+        "title": "DHCF Pregnancy FAQ v1.0 (PDF, Oct 2025)",
+        "excerpt": "Post Partum Care (Period following childbirth): Twelve (12) months after the end of the pregnancy."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/u23/Pregnancy%20Eligibility%20Frequently%20Asked%20Questions.pdf",
+        "title": "DHCF Pregnancy FAQ v1.0 (PDF, Oct 2025)",
+        "excerpt": "Threshold in FPL 319% + 5% disregard ... 2-person household, monthly $5,712"
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Biweekly%20DHCF%20Eligibility%20Meeting%20052026.pdf",
+        "title": "DHCF Biweekly Eligibility Meeting slides (PDF, May 2026)",
+        "excerpt": "Children under age 21 and pregnant women who are lawfully residing in the U.S. without meeting the five-year waiting period will continue to be eligible."
+      },
+      {
+        "url": "https://dhcf.dc.gov/node/1837721",
+        "title": "DHCF: Adult Noncitizen Eligibility Changes",
+        "excerpt": "(paraphrased by fetch tool) Lawfully residing children and pregnant people stay eligible; in D.C., coverage for pregnant individuals continues for 12 months after the pregnancy ends."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "chip-fcep-unborn-child",
+    "category": "assistance",
+    "name": "CHIP From-Conception-to-End-of-Pregnancy (FCEP / 'CHIP Unborn Child')",
+    "summary": "Pregnancy coverage for DC residents regardless of immigration status who are not eligible for Medicaid. Covers pregnancy and delivery but only 2 months postpartum.",
+    "eligibility": {
+      "ages": "No age limit",
+      "pregnant": "Must be pregnant; through end of pregnancy + 2 months postpartum, then coverage ends",
+      "income_limit": "Same pregnancy threshold (319% + 5% disregard per DHCF Pregnancy FAQ; Alliance FAQ says 'under 324% FPL')",
+      "immigration_status": "Regardless of immigration status (undocumented and asylum applicants included)",
+      "residency": "DC resident",
+      "other": "Not enrolled in or eligible for Medicaid or Medicare. DHCF awaiting CMS guidance on whether OBBBA affects FCEP; 'does not expect impact' (May 2026)."
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Same application routes as Medicaid (District Direct, phone, fax, mail, in person); state you are pregnant and the due date. Delivered through managed care.",
+    "phone": "(202) 727-5355",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/u23/Pregnancy%20Eligibility%20Frequently%20Asked%20Questions.pdf",
+        "title": "DHCF Pregnancy FAQ v1.0 (PDF, Oct 2025)",
+        "excerpt": "CHIP From-Conception-to-End-of-Pregnancy (FCEP) • Pregnant • DC Resident • Regardless of immigration status • Meet income requirements • Not enrolled or eligible for Medicaid or Medicare"
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/u23/Pregnancy%20Eligibility%20Frequently%20Asked%20Questions.pdf",
+        "title": "DHCF Pregnancy FAQ v1.0 (PDF, Oct 2025)",
+        "excerpt": "Post Partum Care (Period following childbirth): Two (2) months after the end of pregnancy."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/u23/Pregnancy%20Eligibility%20Frequently%20Asked%20Questions.pdf",
+        "title": "DHCF Pregnancy FAQ v1.0 (PDF, Oct 2025)",
+        "excerpt": "Is CHIP From Conception to End of Pregnancy (FCEP) or Medicaid program in managed care of fee for service? Managed Care."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Biweekly%20DHCF%20Eligibility%20Meeting%20052026.pdf",
+        "title": "DHCF Biweekly Eligibility Meeting slides (PDF, May 2026)",
+        "excerpt": "Currently, District does not expect impact to the FCEP/Unborn Child eligibility category, but we are awaiting additional guidance from CMS on FCEP/Unborn impact of this OBBBA provision, if any"
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dc-healthcare-alliance-adults",
+    "category": "assistance",
+    "name": "DC Health Care Alliance — Adults (21+)",
+    "summary": "Locally funded, free coverage for DC residents not eligible for Medicaid or other insurance. Since Oct 1, 2025 it takes no new enrollees aged 26+, income limit 138% FPL, fee-for-service. Mental health services are provided via DBH.",
+    "eligibility": {
+      "ages": "21+ ; no NEW enrollees aged 26 or older since Oct 1, 2025 (adults 21–25 and pregnant women can still apply)",
+      "pregnant": "Pregnant women can still apply; pregnancy moves the person to Medicaid or CHIP FCEP",
+      "income_limit": "138% FPL (133% + 5% disregard); $1,836/month for 1 person (2026 FPL)",
+      "immigration_status": "Not stated explicitly on the pages read; program is for residents not eligible for Medicaid (i.e. used by people ineligible due to status). Applicants with a green card give A-number or SSN.",
+      "residency": "DC resident with proof of residency",
+      "other": "No other health insurance incl. Medicare; 12-month certification; 'Additional eligibility changes may impact coverage beginning 10/1/26'"
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Apply via District Direct (online or app), fax 202-671-4400, mail, or at a DHS/ESA Service Center. Eligibility decision takes 45 business days. Alliance does NOT provide free transportation.",
+    "phone": "(202) 727-5355",
+    "languages": "Free interpretation via Context Global (202) 800-8278; request in-person interpreter 5–7 days before appointment",
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Program%20Frequently%20Asked%20Questions%20%28English%29.pdf",
+        "title": "DHCF Health Care Alliance FAQ (PDF, Aug 2025)",
+        "excerpt": "No new enrollees 26 and older • Income limit decreases from 215% of the federal poverty level to 138% • Benefit/ Service Changes • No more Managed Care for Alliance."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Program%20Frequently%20Asked%20Questions%20%28English%29.pdf",
+        "title": "DHCF Health Care Alliance FAQ (PDF, Aug 2025)",
+        "excerpt": "Children (aged 0-20), Adults 21 to 25 years old, and pregnant women can still apply and be evaluated for benefits through the Health Care Alliance program or other health coverage."
+      },
+      {
+        "url": "https://dhcf.dc.gov/service/health-care-alliance",
+        "title": "DHCF Health Care Alliance page",
+        "excerpt": "(fetch tool quote) \"Have income at or below 138% of the federal poverty level\" ... \"Have no other health insurance, including Medicare.\""
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Health%20Care%20Handbook%20v%202-26-2026.pdf",
+        "title": "Health Care Alliance FFS Beneficiary Handbook (PDF, 2/26/2026)",
+        "excerpt": "Mental Health Services • Services provided by Department of Behavioral Health All beneficiaries"
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Health%20Care%20Handbook%20v%202-26-2026.pdf",
+        "title": "Health Care Alliance FFS Beneficiary Handbook (PDF, 2/26/2026)",
+        "excerpt": "Health Care Alliance does not provide free transportation to doctor's appointments if you need it."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dc-healthcare-alliance-children",
+    "category": "assistance",
+    "name": "DC Health Care Alliance — Children 0–20 (formerly Immigrant Children's Program)",
+    "summary": "Coverage for DC-resident children and youth under 21 who are not eligible for Medicaid (typically because of immigration status). Merged into the Alliance; children's income limits unchanged.",
+    "eligibility": {
+      "ages": "Under 21 (0–20)",
+      "pregnant": null,
+      "income_limit": "Ages 0–18: 319% FPL + 5% disregard ($4,228/month for 1 person, pre-2026 figure); ages 19–20: 216% + 5%",
+      "immigration_status": "For children not eligible for Medicaid (status-based ineligibility is the usual reason; status rules not spelled out on the page)",
+      "residency": "DC resident",
+      "other": "No other coverage; parent's income counted at renewal. Note: DHCF ICP page says merger was Oct 1, 2026 while the FAQ says Oct 1, 2025 (page inconsistency)."
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Apply via District Direct, fax, mail or ESA Service Center (same as adult Alliance).",
+    "phone": "(202) 727-5355",
+    "languages": "Context Global interpreters (202) 800-8278",
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Program%20Frequently%20Asked%20Questions%20%28English%29.pdf",
+        "title": "DHCF Health Care Alliance FAQ (PDF, Aug 2025)",
+        "excerpt": "Can children (0-20) still apply and enroll for Health Care Alliance benefits? Yes. There are no eligibility changes to Health Care Alliance for Children (formerly Immigrant Children's Program)."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Program%20Frequently%20Asked%20Questions%20%28English%29.pdf",
+        "title": "DHCF Health Care Alliance FAQ (PDF, Aug 2025)",
+        "excerpt": "Threshold in FPL 319% + 5% disregard [0-18] 216% +5% disregard [19 & 20]"
+      },
+      {
+        "url": "https://dhcf.dc.gov/service/immigrant-childrens-program",
+        "title": "DHCF Immigrant Children's Program page",
+        "excerpt": "(fetch tool quote) covers individuals \"under the age of twenty-one (21)\" ... \"Have income at or below 319% of the federal poverty level\""
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Health%20Care%20Handbook%20v%202-26-2026.pdf",
+        "title": "Health Care Alliance FFS Beneficiary Handbook (PDF, 2/26/2026)",
+        "excerpt": "Mental Health Services • Services provided by Department of Behavioral Health All beneficiaries"
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "emergency-medicaid",
+    "category": "assistance",
+    "name": "DC Emergency Medicaid",
+    "summary": "Pays for emergency medical conditions for DC residents who would qualify for Medicaid except for immigration status. Continues after the Oct 2026 federal changes.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": "Category-based; childless adult 215% FPL / parent 221% FPL as of Aug 2025 (changed Jan 1, 2026 — current figures not confirmed)",
+      "immigration_status": "Not a US citizen or eligible immigration status (undocumented, asylum applicants, refugees/asylees losing Medicaid after 10/1/26)",
+      "residency": "DC resident",
+      "other": "Must have an emergency condition"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Apply through DHCF/ESA; details at https://dhcf.dc.gov/service/emergency-medicaid (not read).",
+    "phone": null,
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Program%20Frequently%20Asked%20Questions%20%28English%29.pdf",
+        "title": "DHCF Health Care Alliance FAQ (PDF, Aug 2025)",
+        "excerpt": "In order to qualify for Emergency Medicaid, the applicant must: • Be a resident of DC • Have an emergency condition • Can not be a US Citizen or have an eligible immigration status for Medicaid • Meet income standards for the specific category."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Biweekly%20DHCF%20Eligibility%20Meeting%20052026.pdf",
+        "title": "DHCF Biweekly Eligibility Meeting slides (PDF, May 2026)",
+        "excerpt": "Emergency Medicaid: If you no longer qualify for Medicaid due to your immigration status after October 1, 2026, you can still get help for medical emergencies."
+      }
+    ],
+    "confidence": "medium",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "medicaid-noncitizen-changes-oct-2026",
+    "category": "assistance",
+    "name": "Medicaid eligibility by immigration status (federal OBBBA changes effective Oct 1, 2026)",
+    "summary": "From Oct 1, 2026, adult refugees and asylees (without a green card) lose full DC Medicaid; only citizens, LPRs, Cuban/Haitian entrants and COFA migrants qualify. Children under 21 and pregnant people who are lawfully residing are exempt.",
+    "eligibility": {
+      "ages": "Change applies to adults 21+; children under 21 exempt",
+      "pregnant": "Lawfully residing pregnant people exempt (stay eligible, 12 months postpartum)",
+      "income_limit": null,
+      "immigration_status": "Eligible adults: US citizens, LPRs (5-year bar; refugees/asylees who became LPRs are exempt from the bar), Cuban/Haitian entrants, COFA. Losing eligibility: refugees, asylees, parolees, trafficking victims, TPS/DED, withholding of removal. Asylum applicants (pending) and undocumented: not eligible for full Medicaid before or after (Emergency Medicaid / FCEP / Alliance instead).",
+      "residency": "DC resident",
+      "other": "Also from Jan 1, 2027 (per Mary's Center): 6-month recertification for some, work requirements 19–64 (pregnant exempt)"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Report any status change (EAD, green card, naturalization) on District Direct, by app, or at a Service Center.",
+    "phone": "(202) 727-5355",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Biweekly%20DHCF%20Eligibility%20Meeting%20052026.pdf",
+        "title": "DHCF Biweekly Eligibility Meeting slides (PDF, May 2026)",
+        "excerpt": "This means Medicaid eligibility ends for certain populations such as refugees, humanitarian parolees, asylum grantees, certain abused spouses and children, trafficking victims, people granted conditional entry prior to 1980, individuals granted withholding of Deportation, and Amerasian entrants"
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Biweekly%20DHCF%20Eligibility%20Meeting%20052026.pdf",
+        "title": "DHCF Biweekly Eligibility Meeting slides (PDF, May 2026)",
+        "excerpt": "Noncitizen Eligibility Changes Do Not Pertain to Children Under 21, Pregnant Women, and Emergency Medicaid"
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Biweekly%20DHCF%20Eligibility%20Meeting%20052026.pdf",
+        "title": "DHCF Biweekly Eligibility Meeting slides (PDF, May 2026)",
+        "excerpt": "LPRs here under 5 years who are also refugees or asylees may access Medicaid without waiting if you hold LPR status."
+      },
+      {
+        "url": "https://www.maryscenter.org/wp-content/uploads/2026/07/Medicaid-FAQs-July-2026.pdf",
+        "title": "Mary's Center: FAQs on Medicaid Changes in DC (July 2026)",
+        "excerpt": "Some immigrants granted official humanitarian protections, including refugees, asylees, and trafficking survivors (such as T Visa holders), will no longer be eligible for Medicaid starting October 1, 2026."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "healthy-dc-plan",
+    "category": "assistance",
+    "name": "Healthy DC Plan (Basic Health Program, DC Health Link)",
+    "summary": "New since Jan 1, 2026: no-premium, no-cost-sharing plan for adults 21–64 at 138–200% FPL, and for lawfully present residents up to 138% FPL who are ineligible for Medicaid due to status. Covers behavioral health.",
+    "eligibility": {
+      "ages": "21–64",
+      "pregnant": null,
+      "income_limit": "138%–200% FPL; lawfully present residents ineligible for Medicaid due to status: up to 138% FPL",
+      "immigration_status": "US citizens or lawfully present (not undocumented)",
+      "residency": "DC resident",
+      "other": "Not eligible for Medicaid or employer coverage"
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Through DC Health Link; carriers AmeriHealth Caritas DC, CareFirst BCBS, MedStar Family Choice.",
+    "phone": "833-432-7526",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://www.maryscenter.org/wp-content/uploads/2026/07/Medicaid-FAQs-July-2026.pdf",
+        "title": "Mary's Center: FAQs on Medicaid Changes in DC (July 2026)",
+        "excerpt": "Special eligibility for lawfully present residents with an annual income of up to 138% of FPL: If a lawfully present resident is not eligible for Medicaid due to their immigration status, the resident is eligible for the Healthy DC Plan."
+      },
+      {
+        "url": "https://www.maryscenter.org/wp-content/uploads/2026/07/Medicaid-FAQs-July-2026.pdf",
+        "title": "Mary's Center: FAQs on Medicaid Changes in DC (July 2026)",
+        "excerpt": "• Behavioral health • Substance use disorder treatment"
+      }
+    ],
+    "confidence": "low",
+    "relevant_to": [
+      "general",
+      "case1-pregnant-dari"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "refugee-medical-assistance",
+    "category": "assistance",
+    "name": "Refugee Medical Assistance (ORR)",
+    "summary": "Federal time-limited medical assistance for refugees and asylees not eligible for Medicaid. Could not read the official ORR page (acf.gov returned 403/202); DC administration details unverified.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": "Refugees; asylees from date asylum is granted (secondary sources). Asylum applicants: not confirmed.",
+      "residency": null,
+      "other": "Duration historically up to 8 months (secondary, dated sources); current length and post-Oct-2026 interaction with Medicaid not verified"
+    },
+    "covers_mental_health": null,
+    "how_to_access": null,
+    "phone": null,
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://acf.gov/orr/programs/refugees/cma",
+        "title": "ORR Cash & Medical Assistance (not readable: HTTP 403)",
+        "excerpt": ""
+      }
+    ],
+    "confidence": "low",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dc-medicaid-behavioral-health",
+    "category": "assistance",
+    "name": "DC Medicaid behavioral health services (fee-for-service)",
+    "summary": "DC Medicaid covers confidential mental health and substance use services. For non-urgent care, talk to the PCP, use the DHCF provider search, or call the DBH Access HelpLine.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "Any DC Medicaid FFS beneficiary; MCO members use their plan"
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Provider search: https://www.dc-medicaid.com/dcwebportal/nonsecure/searchprov ; or DBH Access HelpLine 1-888-793-4357 (24/7).",
+    "phone": "1-888-793-4357",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/FFS%20Handbook%20vs%202025%20(2).pdf",
+        "title": "DC Medicaid Fee-for-Service Beneficiary Handbook (PDF, 2025)",
+        "excerpt": "All mental health and substance use services are confidential."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/FFS%20Handbook%20vs%202025%20(2).pdf",
+        "title": "DC Medicaid Fee-for-Service Beneficiary Handbook (PDF, 2025)",
+        "excerpt": "You may also call the DC Department of Behavioral Health Access Helpline at 1 (888) 793-4357, 24 hours a day, 7 days a week."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dbh-access-helpline",
+    "category": "crisis",
+    "name": "DC Department of Behavioral Health Access HelpLine",
+    "summary": "24/7 phone line that connects DC residents to DBH services: referrals to urgent or ongoing care, problem-solving, and dispatch of mobile crisis teams for adults and children.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": "DC (DBH services)",
+      "other": "Whether it serves uninsured/undocumented callers is not stated on the page"
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Call 1-888-793-4357 (1-888-7WE-HELP); TTY 711.",
+    "phone": "1-888-793-4357",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dbh.dc.gov/service/access-helpline",
+        "title": "DBH Access HelpLine",
+        "excerpt": "(fetch tool quote) \"24-hour, seven-day-a-week telephone line\" ... \"the easiest way to get connected to services provided by the Department of Behavioral Health.\""
+      },
+      {
+        "url": "https://dbh.dc.gov/service/access-helpline",
+        "title": "DBH Access HelpLine",
+        "excerpt": "(fetch tool quote) can activate mobile crisis teams for adults and children \"experiencing a psychiatric or emotional crisis\""
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "988-lifeline",
+    "category": "crisis",
+    "name": "988 Suicide & Crisis Lifeline",
+    "summary": "Call, text or chat 988, free and confidential, 24/7. Text and chat are available in Spanish.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": null
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Call or text 988; chat at chat.988lifeline.org.",
+    "phone": "988",
+    "languages": "Spanish text and chat available; other-language phone interpretation not confirmed",
+    "sources": [
+      {
+        "url": "https://988lifeline.org/",
+        "title": "988 Lifeline home",
+        "excerpt": "(fetch tool quote) \"The 988 Lifeline is available 24/7/365.\" \"Your conversations are free and confidential.\" \"¡Los servicios de texto y chat de 988 Lifeline ya están disponibles en Español!\""
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/FFS%20Handbook%20vs%202025%20(2).pdf",
+        "title": "DC Medicaid Fee-for-Service Beneficiary Handbook (PDF, 2025)",
+        "excerpt": "Call 9-8-8, the national crisis line that is equivalent to 9-1-1 for Behavioral Health."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dc-community-response-team",
+    "category": "crisis",
+    "name": "DC Community Response Team (behavioral health crisis)",
+    "summary": "Listed in DHCF handbooks as a number to call for urgent/emergent mental health care.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": null
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Call (202) 673-6495.",
+    "phone": "(202) 673-6495",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/FFS%20Handbook%20vs%202025%20(2).pdf",
+        "title": "DC Medicaid Fee-for-Service Beneficiary Handbook (PDF, 2025)",
+        "excerpt": "Call the Community Response Team at (202) 673-6495."
+      }
+    ],
+    "confidence": "medium",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dc-minor-consent-outpatient-mh",
+    "category": "rights",
+    "name": "DC law: minors consenting to outpatient mental health care (D.C. Code § 7-1231.14)",
+    "summary": "A provider may give a minor of any age outpatient mental health services (not medication) without parental consent if the minor is knowingly and voluntarily seeking it and it is clinically indicated, for up to 90 days, renewable by new determination. Psychotropic medication: 16+ only in listed circumstances.",
+    "eligibility": {
+      "ages": "Any minor (no age floor in (b)); medication consent 16+ under (c)(2)",
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "Parents notified only with the minor's consent (b)(2)(C)"
+    },
+    "covers_mental_health": true,
+    "how_to_access": "Provider documents determinations; can do an initial interview without parental involvement.",
+    "phone": null,
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://code.dccouncil.gov/us/dc/council/code/sections/7-1231.14",
+        "title": "D.C. Code § 7-1231.14",
+        "excerpt": "(fetch tool quote) \"A provider may deliver outpatient mental health services and mental health supports other than medication\" \"to a minor who is voluntarily seeking such services without parental or guardian consent if the provider determines that:\""
+      },
+      {
+        "url": "https://code.dccouncil.gov/us/dc/council/code/sections/7-1231.14",
+        "title": "D.C. Code § 7-1231.14",
+        "excerpt": "(fetch tool quote) \"limited to a period of 90 days\"; (c)(2) \"a minor who is 16 years of age or older may consent to the administration of psychotropic medications\" only in listed circumstances"
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dc-language-access-act",
+    "category": "rights",
+    "name": "DC Language Access Act of 2004",
+    "summary": "DC agencies and their public-facing grantees/contractors must provide free oral interpretation (telephonic, in-person or bilingual staff) and translated vital documents to LEP/NEP people. Minors, friends or family should never be used as interpreters.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "Applies to DC government covered entities and DC-funded grantees/contractors"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Ask for an interpreter at any DC agency; complaints go to the DC Office of Human Rights (complaint contact not confirmed).",
+    "phone": null,
+    "languages": "Interpretation in any language; vital-document translation for some languages",
+    "sources": [
+      {
+        "url": "https://ohr.dc.gov/sites/default/files/dc/sites/ohr/publication/attachments/DC%20Grantee_Contractor%20Language%20Access%20Implementation%20Guide%20-%20FINAL_0.pdf",
+        "title": "OHR Grantee/Contractor Language Access Implementation Guide (July 2022)",
+        "excerpt": "The Act requires that all DC government agencies ensure that the Limited English Proficient and Non-English Proficient (LEP/NEP) population has equal access to the full range of government services by receiving translation and interpretation services."
+      },
+      {
+        "url": "https://ohr.dc.gov/sites/default/files/dc/sites/ohr/publication/attachments/DC%20Grantee_Contractor%20Language%20Access%20Implementation%20Guide%20-%20FINAL_0.pdf",
+        "title": "OHR Grantee/Contractor Language Access Implementation Guide (July 2022)",
+        "excerpt": "Covered entities and their grantees/contractors are required to always use professional interpreters or bilingual staff and should never rely on minors, friends, family members, or other customers to serve as an interpreter."
+      }
+    ],
+    "confidence": "medium",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "medicaid-interpreter-services",
+    "category": "rights",
+    "name": "DC Medicaid / Alliance free interpreter services (Context Global)",
+    "summary": "Free interpretation for Medicaid FFS and Alliance beneficiaries at doctor's offices, clinics and hospitals; by phone or in person.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "DC Medicaid FFS and Alliance beneficiaries; MCO members use their plan's service"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "In-person interpreter: contact Context Global at least 3 days ahead (Medicaid FFS) or 5–7 days ahead (Alliance). Mon–Fri 9–5; interpreterinfo@contextglobal.com.",
+    "phone": "(202) 800-8278",
+    "languages": "Any language (Dari not specifically confirmed)",
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/FFS%20Handbook%20vs%202025%20(2).pdf",
+        "title": "DC Medicaid Fee-for-Service Beneficiary Handbook (PDF, 2025)",
+        "excerpt": "If you need an interpreter to be with you at your doctor's appointment, you must contact Context Global at (202) 800-8278 at least 3 days prior to your appointment."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Health%20Care%20Handbook%20v%202-26-2026.pdf",
+        "title": "Health Care Alliance FFS Beneficiary Handbook (PDF, 2/26/2026)",
+        "excerpt": "you must contact Context Global at (202) 800-8278 at least 5-7 days prior to your appointment."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "nemt-medicaid-ffs",
+    "category": "transportation",
+    "name": "DC Medicaid non-emergency medical transportation — fee-for-service (MTM broker)",
+    "summary": "Free rides to appointments with DC Medicaid-enrolled providers for FFS ('straight Medicaid') beneficiaries who have no other way to get there. Bus, Metro, Lyft/Uber, taxi, vans, ambulance by need.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": "Live in DC",
+      "other": "DC Medicaid FFS; no other way to get to appointment; provider must be enrolled in DC Medicaid. Alliance does NOT include this."
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Call the broker (MTM) at least 3 business days ahead (day before for urgent visits). Give Medicaid ID, phone, pickup address, and provider name/address/phone. Handbook lists line as 24/7; 2017 APIA flyer said 8–5.",
+    "phone": "1-866-796-0601",
+    "languages": "APIA flyer: ask for an interpreter when requesting a ride",
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/FFS%20Handbook%20vs%202025%20(2).pdf",
+        "title": "DC Medicaid Fee-for-Service Beneficiary Handbook (PDF, 2025)",
+        "excerpt": "Call the Transportation Broker at 1 (866) 796-0601 and tell them what time and what day you need to be picked up. • You must call at least 3 days (not including Saturday and Sunday) before your appointment"
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/FFS%20Handbook%20vs%202025%20(2).pdf",
+        "title": "DC Medicaid Fee-for-Service Beneficiary Handbook (PDF, 2025)",
+        "excerpt": "The types of transportation available include buses, metro, Lyft, Uber, taxi, transportation vans, wheelchair vans, and ambulances."
+      },
+      {
+        "url": "https://apia.dc.gov/sites/default/files/dc/sites/apia/page_content/attachments/FREE%20TRANSPORTATION%20OPTIONS%20TO%20DC%20MEDICAID%20%26%20SENIORS_English.pdf",
+        "title": "APIA flyer: Free Transportation Options for Medicaid Recipients and Seniors in DC (2017)",
+        "excerpt": "You must live within the District of Columbia, have DC Medicaid, and have no other way of getting to your health care appointment."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "nemt-amerihealth-caritas-dc",
+    "category": "transportation",
+    "name": "AmeriHealth Caritas DC rides (Medicaid managed care)",
+    "summary": "AmeriHealth Caritas DC members get no-cost rides (Metrobus/SmarTrip, van, wheelchair van, stretcher van) to health appointments; Bright Start pregnancy program helps schedule them. Former Wellpoint DC members were moved to AmeriHealth on Aug 1, 2026.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "AmeriHealth Caritas DC Medicaid enrollees (incl. former Wellpoint DC members, who can switch to MedStar until Jan 31, 2027)"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Call 1-800-315-3485 at least 48 hours ahead for routine visits (excl. weekends/holidays); for a loaded SmarTrip card, 3–5 business days ahead. No rides on Sundays/holidays (Bright Start booklet). Same-day rides to urgent care.",
+    "phone": "1-800-315-3485",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://www.amerihealthcaritasdc.com/member/eng/transportation/index.aspx",
+        "title": "AmeriHealth Caritas DC Transportation benefits",
+        "excerpt": "(fetch tool quote) \"please call at least 48 hours in advance (not including Saturday, Sunday, and holidays)\"; \"Our team can help arrange for Metrobus, van, wheelchair van, and stretcher van transportation.\""
+      },
+      {
+        "url": "https://www.amerihealthcaritasdc.com/content/dam/amerihealth-caritas/acdc/pdf/member/member-bright-start-booklet.pdf.coredownload.inline.pdf",
+        "title": "AmeriHealth Caritas DC Bright Start Welcome Booklet for Moms (July 2026)",
+        "excerpt": "AmeriHealth Caritas DC enrollees can get rides at no cost to healthcare appointments and other medical visits. Call 1-800-315-3485 to schedule your ride as soon as you know you need it. Rides are not given on Sundays and holidays."
+      },
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Transmittal%2026-19%20-%20Managed%20Care%20Plan%20Transition.pdf",
+        "title": "DHCF Transmittal 26-19 Managed Care Plan Transition (July 2, 2026)",
+        "excerpt": "effective August 1, 2026, enrollees in the District of Columbia Medicaid Managed Care Program who are currently enrolled with Wellpoint DC (formerly Amerigroup DC) will be automatically assigned to AmeriHealth Caritas DC (AmeriHealth)."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "nemt-medstar-family-choice-dc",
+    "category": "transportation",
+    "name": "MedStar Family Choice DC rides (Medicaid managed care)",
+    "summary": "MedStar Family Choice DC enrollees get transportation to routine and urgent health services and to community resources (e.g., new-parent support, support groups, benefits renewal).",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "MedStar Family Choice DC Healthy Families enrollees"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Call 866-201-9974, 24/7. Days-in-advance rule not stated on current page.",
+    "phone": "866-201-9974",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://www.medstarfamilychoicedc.com/enrollees/dc-healthy-families-benefits/dc-healthy-families-benefits-faqs",
+        "title": "MedStar Family Choice DC Healthy Families Benefits FAQs",
+        "excerpt": "(fetch tool quote) \"Enrollees are eligible for transportation to routine and urgent health services.\" \"If you need to schedule transportation, please call 866-201-9974 24 hours a day/7 days a week.\""
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "nemt-hscsn",
+    "category": "transportation",
+    "name": "Health Services for Children with Special Needs (HSCSN) rides",
+    "summary": "HSCSN (for children/young adults with special health care needs, e.g. CASSIP) members request transportation through their plan.",
+    "eligibility": {
+      "ages": "0–26 (CASSIP, per Alliance handbook)",
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "HSCSN enrollees"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Call HSCSN transport line (2017 flyer).",
+    "phone": "1-866-991-5433",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://apia.dc.gov/sites/default/files/dc/sites/apia/page_content/attachments/FREE%20TRANSPORTATION%20OPTIONS%20TO%20DC%20MEDICAID%20%26%20SENIORS_English.pdf",
+        "title": "APIA flyer (2017)",
+        "excerpt": "Health Services for Children with Special Needs (HSCSN): 1-866-991-5433"
+      }
+    ],
+    "confidence": "medium",
+    "relevant_to": [
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "wmata-metro-lift",
+    "category": "transportation",
+    "name": "WMATA Metro Lift (50% off for SNAP recipients)",
+    "summary": "Half-price Metrobus and Metrorail fares for people enrolled in SNAP in DC, MD or VA. Not valid on passes or MetroAccess. Lasts one year, renewable.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "Currently enrolled in SNAP in DC, MD or VA (household members on the SNAP case can enroll too)"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Enroll online at wmata.com/metrolift or in person (L'Enfant Metro Transit Accessibility Center, Silver Spring TRiPs, Rosslyn Commuter Store). Bring SmarTrip card for each person, active SNAP EBT card, SNAP benefits summary (for household), government photo ID, phone number.",
+    "phone": "888-762-7874",
+    "languages": "Metro language assistance 202-637-7000 (TTY 202-638-3780)",
+    "sources": [
+      {
+        "url": "https://www.wmata.com/pay/fare-programs/metrolift.html",
+        "title": "WMATA Metro Lift",
+        "excerpt": "(fetch tool quote) \"To be eligible, customers must currently be enrolled in SNAP in Washington, D.C., Maryland, or Virginia.\" \"Metro Lift provides 50% off all Metro Bus and Metro Rail trips.\""
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case1-pregnant-dari",
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "dc-kids-ride-free",
+    "category": "transportation",
+    "name": "DC Kids Ride Free",
+    "summary": "Free Metrobus and Metrorail within DC for DC-resident students ages 5–21 enrolled in a DC school, for travel to school and school-related activities.",
+    "eligibility": {
+      "ages": "5 through 21",
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": "DC resident",
+      "other": "Enrolled in a DC public, charter, private or parochial elementary/secondary school, or youth in DC's care. New SmarTrip card for SY 2026-27 (old cards valid through Sept 30, 2026). Immigration status not a stated criterion."
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Request the Kids Ride Free SmarTrip card through the school (school ID administrator). Purpose stated is school travel; use for medical trips not addressed.",
+    "phone": null,
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://ddot.dc.gov/page/kids-ride-free-program",
+        "title": "DDOT Kids Ride Free Program",
+        "excerpt": "To be eligible for participation in the KRF program, each student must be: A resident of the District of Columbia, and Ages 5 through 21, and Enrolled in an elementary or secondary public, charter, private, or parochial school located within the District, or a youth in the care of the District."
+      },
+      {
+        "url": "https://ddot.dc.gov/page/kids-ride-free-program",
+        "title": "DDOT Kids Ride Free Program",
+        "excerpt": "The Kids Ride Free (KRF) program allows students to ride for free on Metrobus or Metrorail while traveling within the District."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "case2-minor-spanish"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "wmata-metroaccess",
+    "category": "transportation",
+    "name": "WMATA MetroAccess (paratransit)",
+    "summary": "Door-to-door shared-ride paratransit for people with disabilities who can't use bus/rail; requires application and in-person interview.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": null,
+      "other": "Disability-based eligibility (criteria on separate WMATA page, not read)"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Submit written application + in-person interview (Metro provides a ride to the interview). Book online at metroaccess.wmata.com or by phone. Fare = 2x equivalent transit fare, max $4.50.",
+    "phone": null,
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://www.wmata.com/service/accessibility/metro-access/",
+        "title": "WMATA MetroAccess",
+        "excerpt": "(fetch tool quote) \"you must meet the eligibility criteria, submit a written application, and complete an in-person interview.\" \"The fare for a Metro Access trip is twice the fare of the equivalent transit trip, up to $4.50.\""
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  },
+  {
+    "id": "transport-dc",
+    "category": "transportation",
+    "name": "Transport DC ($5 taxi rides for MetroAccess-eligible DC residents)",
+    "summary": "$5 taxicab rides in DC for eligible MetroAccess customers; after the 15th of the month, only for work and medical trips.",
+    "eligibility": {
+      "ages": null,
+      "pregnant": null,
+      "income_limit": null,
+      "immigration_status": null,
+      "residency": "DC resident",
+      "other": "Eligible MetroAccess customer"
+    },
+    "covers_mental_health": null,
+    "how_to_access": "Email transport.dc@dc.gov or call (202) 645-7300.",
+    "phone": "(202) 645-7300",
+    "languages": null,
+    "sources": [
+      {
+        "url": "https://dhcf.dc.gov/sites/default/files/dc/sites/dhcf/page_content/attachments/Alliance%20Health%20Care%20Handbook%20v%202-26-2026.pdf",
+        "title": "Health Care Alliance FFS Beneficiary Handbook (PDF, 2/26/2026)",
+        "excerpt": "Transport DC provides $5 taxicab rides to and from any location in DC — without location restrictions — from the 1st of month through the 15th. For the remainder of the month, transportation is restricted to employment and medical treatment locations only."
+      }
+    ],
+    "confidence": "high",
+    "relevant_to": [
+      "general"
+    ],
+    "last_checked": "2026-11-06"
+  }
+]
