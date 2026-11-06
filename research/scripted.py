@@ -81,8 +81,10 @@ def scripted_model():
         system, messages = kwargs['system'], kwargs['messages']
         task = json.loads(messages[0]['content'])
         if system.startswith('You coordinate'):
-            return _response(_text({'tasks': [{'resource_type': t, 'focus': f'{t} serving immigrant women in DC'}
-                                              for t in task['allowed_types'] if t in FINDINGS]}))
+            assert kwargs.get('thinking') == {'type': 'adaptive'}, 'profiles must declare thinking'
+            plan = _text({'tasks': [{'resource_type': t, 'focus': f'{t} serving immigrant women in DC'}
+                                    for t in task['allowed_types'] if t in FINDINGS]})
+            return {**_response(plan), 'content': [{'type': 'thinking', 'thinking': '', 'signature': 'sig'}, plan]}
         if system.startswith('You are a CareBridge research specialist'):
             # Like a live turn: server search results, then the final JSON.
             seen = list(FIXTURE_PAGES) + [UNREACHABLE, 'http://asylum-network.example.org/evaluations', 'https://bit.ly/3xYzAbc']

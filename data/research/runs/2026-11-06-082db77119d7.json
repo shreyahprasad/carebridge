@@ -1,0 +1,50 @@
+{
+  "topic": "university training clinics and psychiatry residency clinics in DC offering low-cost or sliding-scale therapy to immigrant and refugee women",
+  "correlation_id": "082db77119d7",
+  "model": "claude-sonnet-5-5",
+  "date": "2026-11-06",
+  "acceptance_policy": "quote-found+verifier-supported-v1",
+  "stages": [
+    {
+      "stage": "plan",
+      "profile": "research-coordinator",
+      "run_id": "52fee76515a849aab2f6ade5e63516a1",
+      "status": "partial",
+      "reason": "unsupported_content",
+      "requests": 2,
+      "tools": 0
+    }
+  ],
+  "budget_used": {
+    "requests": 2,
+    "tools": 0
+  },
+  "usage": {
+    "runs": 1,
+    "tokens": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 1222,
+      "output_tokens": 1076
+    },
+    "usage_complete": true,
+    "estimated_token_cost": 0.0,
+    "pricing_version": null,
+    "unpriced": [
+      "claude-sonnet-5-5:input_tokens",
+      "claude-sonnet-5-5:output_tokens"
+    ],
+    "includes_service_charges": false
+  },
+  "counts": {
+    "resources": 0,
+    "claims": 0,
+    "accepted": 0,
+    "quote_not_found": 0,
+    "source_unreachable": 0,
+    "link_policy": 0,
+    "url_not_seen": 0,
+    "injection_flagged": 0
+  },
+  "resources": []
+}

@@ -85,7 +85,7 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
                 raise ValueError('plan must use each allowed type at most once')
         log(f'[{correlation_id}] coordinator: planning "{topic}"')
         plan = agents.coordinator(model).run(runtime, create, task={'topic': topic, 'allowed_types': allowed},
-                                             budget=budget, validate_output=valid_plan, output_retries=1)
+                                             budget=budget, validate_output=valid_plan, output_retries=1, max_tokens=4000)
         if not _stage(trace, 'plan', plan):
             return _finish(out_dir, topic, correlation_id, model, trace, [], {}, budget, storage, log)
 
@@ -97,7 +97,7 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
             seen = set()
             result = agents.specialist(model, seen).run(
                 runtime, create, task={'resource_type': kind, 'type_description': RESOURCE_TYPES[kind], 'focus': task['focus']},
-                budget=budget, max_tokens=8000, output_retries=1)
+                budget=budget, max_tokens=16000, output_retries=1)
             if _stage(trace, f'specialist:{kind}', result):
                 seen_canon = {canonical_url(u) for u in seen}
                 for res in result['output']['resources']:
@@ -147,7 +147,7 @@ def run(topic, create, fetch, *, model, types=None, db_path=None, out_dir=None, 
                     raise ValueError('exactly one verdict per claim required')
             log(f'[{correlation_id}] verifier: {len(batch)} claims')
             result = agents.verifier(model, snapshots).run(
-                runtime, create, budget=budget, max_tokens=4000, output_retries=1, validate_output=valid_verdicts,
+                runtime, create, budget=budget, max_tokens=12000, output_retries=1, validate_output=valid_verdicts,
                 task={'claims': [{**{k: c[k] for k in ('claim_id', 'organization', 'field', 'value', 'excerpt', 'source_id')},
                                   **({'source_flags': c['source_flags']} if c['source_flags'] else {})}
                                  for c in batch]})
