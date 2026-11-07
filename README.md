@@ -6,23 +6,21 @@ CareBridge helps caseworkers turn a provider search into a practical plan: who t
 
 ## Why I built this
 
-This project started with a conversation with my friend’s mom, who runs IROC, a nonprofit that supports refugee and immigrant families in the DC area.
+This project started with a conversation with the executive director of [IROC](https://www.irocenter.org/), a nonprofit that supports refugee and immigrant families in the DC area.
 
 IROC helps with immigration, English classes, food and clothing. But she told me there’s one critical need they don’t have resources for: mental health care. Many of the women they serve are coming from war, or from countries where women have very few rights.
 
-Today, their two case workers spend hours of their own free time searching for providers, reaching out, and asking the same questions every time: Does the provider speak her language? Is there a female provider? Can she get there without a car? Is it telehealth or in person? Do they accept Medicaid or other assistance programs?
+Today, IROC's team spends hours of their own free time searching for providers, reaching out, and asking the same questions every time: Does the provider offer multilingual services? Is there a female provider? Can she get there without a car? Is it telehealth or in person? Do they accept Medicaid or other assistance programs?
 
 The problem isn’t just finding care. It’s making care reachable.
 
 So I built a tool that does that legwork for them.
 
-## Demo
+## Screenshots
 
-[![Watch the CareBridge walkthrough](docs/media/provider-shortlist.png)](https://github.com/shreyahprasad/carebridge/blob/main/docs/media/carebridge-demo.mp4)
+![Provider shortlist for a synthetic client case](docs/media/provider-shortlist.png)
 
-**[Watch the three-minute walkthrough](https://github.com/shreyahprasad/carebridge/blob/main/docs/media/carebridge-demo.mp4)** · MP4, silent · [Download video](https://github.com/shreyahprasad/carebridge/raw/refs/heads/main/docs/media/carebridge-demo.mp4)
-
-The walkthrough uses synthetic cases and saved, validated results from live Claude runs. The browser reads these saved results; clicking **Find providers** opens the results view rather than making a new API request.
+Screenshots use synthetic cases and saved, validated results from live Claude runs.
 
 ## What was built
 
@@ -69,7 +67,7 @@ This is a prototype with researched program data, not independently verified eli
 | Research tools | Claude `web_search` and `web_fetch` for finding resources and retrieving source pages |
 | AI controls | Adaptive thinking, structured output validation, bounded requests and retries, and shared workflow budgets; match and trip agents have no web or other tools |
 | Development | Claude Code, with project-defined roles for architecture, implementation, code review, verification and rendered UI review; synthetic fixtures support offline checks |
-| Demo capture | Playwright with Chromium for the walkthrough; FFmpeg for video encoding and README screenshots |
+| Demo capture | Playwright with Chromium and FFmpeg for README screenshots |
 
 ## Run the browser demo
 
@@ -94,4 +92,4 @@ Open **http://127.0.0.1:8000/ui/**, select a synthetic case, then choose **Find 
 | `research/` | Resource research and source checking |
 | `data/` | Synthetic cases, provider records, programs and saved results |
 | `tests/` | Offline checks for matching, transport and call scripts |
-| `docs/media/` | Demo video and screenshots |
+| `docs/media/` | Screenshots |
